@@ -636,8 +636,8 @@ def render_frame(c, st, tl, t, surf=None, fi=0, post=None):
             d = -1 if kind == "whip_left" else 1
             bp = skia.Paint(); bp.setImageFilter(skia.ImageFilters.Blur(90 * speed + 0.01, 2 * speed + 0.01))
             c.saveLayer(None, bp)
-            c.save(); c.translate(d * W * q, 0); scene_at(st, tl, c, a, t); c.restore()
-            c.save(); c.translate(-d * W * (1 - q), 0); wd = scene_at(st, tl, c, b, t); c.restore()
+            c.save(); c.translate(d * W * q, 0); c.clipRect(rect(0, 0, W, H)); scene_at(st, tl, c, a, t); c.restore()
+            c.save(); c.translate(-d * W * (1 - q), 0); c.clipRect(rect(0, 0, W, H)); wd = scene_at(st, tl, c, b, t); c.restore()
             c.restore()
         elif kind == "push":
             bp = skia.Paint(); bp.setImageFilter(skia.ImageFilters.Blur(14 * speed + 0.01, 14 * speed + 0.01))
