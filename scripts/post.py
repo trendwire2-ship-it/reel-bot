@@ -20,9 +20,9 @@ def due_slot(log):
     n = now_local()
     for h in sorted(slots, reverse=True):
         start = n.replace(hour=h, minute=0, second=0, microsecond=0)
-        if n < start - dt.timedelta(minutes=25):
+        if n < start - dt.timedelta(minutes=50):
             continue
-        if start - dt.timedelta(minutes=25) <= n < start + dt.timedelta(hours=3):  # early start for render time; tolerate late cron
+        if start - dt.timedelta(minutes=50) <= n < start + dt.timedelta(hours=3):  # early start for render time; tolerate late cron
             key = f"{start:%Y-%m-%d}@{h}"
             return None if any(e.get("slot") == key for e in log) else key
     return None
