@@ -52,6 +52,14 @@ def ordinal(n):
     last = ORD.get(last, last[:-1] + "ieth" if last.endswith("y") else last + "th")
     return (head + sep if head else "") + last
 
+# How abbreviations are spoken (captions keep the written form). Add more as needed.
+SPOKEN = [("U.S.A.", "USA"), ("U.S.", "US"), ("U.K.", "UK"), ("D.B.", "DB"), ("J.F.K.", "JFK"), ("F.B.I.", "FBI")]
+
+def spoken(t):
+    for a, b in SPOKEN:
+        t = t.replace(a, b)
+    return t
+
 def normalize(text):
     t = re.sub(r"\$(\d[\d,]*)", lambda m: n2w(m.group(1).replace(",", "")) + " dollars", text)
     t = re.sub(r"\b(\d{1,2}):(\d{2})\s*([AaPp])\.?[Mm]\b\.?", lambda m: n2w(m.group(1)) + " " + ("o'clock" if int(m.group(2)) == 0 else n2w(m.group(2)) if int(m.group(2)) >= 10 else "oh " + ONES[int(m.group(2))]) + " " + m.group(3).upper() + " M", t)
@@ -59,8 +67,7 @@ def normalize(text):
     t = re.sub(r"\b(1[1-9]\d\d|20\d\d)s\b", lambda m: year2w(m.group(1)).rsplit(" ", 1)[0] + " " + (year2w(m.group(1)).rsplit(" ", 1)[1].replace("y", "ie") + "s"), t)
     t = re.sub(r"\b(1[1-9]\d\d|20\d\d)\b", lambda m: year2w(m.group(1)), t)
     t = re.sub(r"\b\d[\d,]*\b", lambda m: n2w(m.group(0).replace(",", "")), t)
-    t = t.replace("D.B.", "D. B.").replace("U.S.", "U. S.")
-    return t
+    return spoken(t)
 
 # ------------------------------------------------------------------ voice
 async def _edge(text, rate):
@@ -87,7 +94,7 @@ def tts_scenes(texts, tmp, speed=1.0):
         rate = f"{int(round((speed - 1) * 100)):+d}%"
         out = []
         for tx in texts:
-            mp3, b = asyncio.run(_edge(tx, rate))
+            mp3, b = asyncio.run(_edge(spoken(tx), rate))
             a = decode(mp3, tmp)
             end = int((b[-1][1] + 0.12) * SR) if b else len(a)
             out.append((a[:end], b))
