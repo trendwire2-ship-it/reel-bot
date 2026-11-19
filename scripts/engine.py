@@ -571,14 +571,34 @@ def prop(c, kind, x, y, s, t, opts=None):
         draw_text_c(c, "$", 0, 40, font(FONT_BIG, 80), "#4d3a1a")
     elif kind == "parachute":
         r = 260
-        canopy = skia.Path(); canopy.addArc(rect(-r, -r * 0.7, 2 * r, r * 1.4), 180, 180); canopy.close()
-        c.drawPath(canopy, stroke(OUT, 8))
-        c.drawPath(canopy, fill(o.get("color", "#e8e2d4")))
-        for i in range(6):
-            xx = -r + i * r / 3
-            c.drawLine(xx + r / 6, 0, xx + r / 6, -r * 0.55 * math.sin(math.acos(clamp(abs(xx + r / 6) / r))), stroke("#bdb4a0", 4))
-        for xx in (-r * 0.95, -r * 0.45, r * 0.45, r * 0.95):
-            c.drawLine(xx, 0, 0, r * 1.15, stroke("#cfc7b4", 3))
+        col = o.get("color", "#e8e2d4")
+        br = 1 + 0.025 * math.sin(t * 1.7)
+        n = 8
+        xs = [(-r + 2 * r * i / n) * br for i in range(n + 1)]
+        bottom = [(x, 18 * math.sin(t * 2.3 + i * 1.1) * (0.4 + 0.6 * math.sin(math.pi * i / n))) for i, x in enumerate(xs)]
+        canopy = skia.Path()
+        canopy.moveTo(*bottom[0])
+        canopy.cubicTo(-r * br, -r * 0.62, r * br, -r * 0.62, *bottom[-1])
+        for i in range(n, 0, -1):
+            (x1, y1), (x0, y0) = bottom[i], bottom[i - 1]
+            canopy.quadTo((x0 + x1) / 2, (y0 + y1) / 2 - 26 - 6 * math.sin(t * 2 + i), x0, y0)
+        canopy.close()
+        g = skia.Paint(AntiAlias=True)
+        g.setShader(skia.GradientShader.MakeLinear([skia.Point(-r, -r * 0.5), skia.Point(r, 0)],
+                                                   [hexcol(shade(col, 1.05)), hexcol(col), hexcol(shade(col, 0.55))], [0, 0.45, 1]))
+        c.drawPath(canopy, g)
+        c.save(); c.clipPath(canopy, doAntiAlias=True)
+        for i in range(1, n):
+            x = xs[i]
+            seam = skia.Path(); seam.moveTo(x, bottom[i][1]); seam.quadTo(x * 0.75, -r * 0.3, x * 0.35, -r * 0.47)
+            c.drawPath(seam, stroke(shade(col, 0.7), 3, 160))
+        c.drawRect(rect(-r * 1.2, -12, r * 2.4, 40), fill("#000000", 60))
+        c.restore()
+        c.drawPath(canopy, stroke(shade(col, 0.45), 3))
+        hx = o.get("hands", 18)
+        for i in (0, 1, 2, 3, 5, 6, 7, 8):
+            x, y = bottom[i]
+            c.drawLine(x, y, -hx if x < 0 else hx, r * 1.18, stroke("#cfc8b8", 2.2, 200))
     elif kind == "shovel":
         c.rotate(o.get("angle", 0))
         c.drawLine(0, -150, 0, 60, stroke("#7a5230", 12))

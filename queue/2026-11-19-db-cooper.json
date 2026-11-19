@@ -14,22 +14,10 @@
    "hair_style": "side_part",
    "eyes": "#3b2414",
    "glasses": "sunglasses",
-   "outfit": "raincoat",
-   "outfit_color": "#25252a",
-   "tie_color": "#0b0b0b",
-   "shirt_color": "#f4f1ea",
-   "age": 45,
-   "build": "slim",
-   "height": 1.06
-  },
-  "cooper_suit": {
-   "skin": "#c29470",
-   "hair": "black",
-   "hair_style": "side_part",
-   "glasses": "sunglasses",
    "outfit": "suit",
-   "outfit_color": "#25252a",
-   "tie_color": "#0b0b0b",
+   "outfit_color": "#16171c",
+   "tie_color": "#08080a",
+   "shirt_color": "#f1eee7",
    "age": 45,
    "build": "slim",
    "height": 1.06
@@ -88,7 +76,7 @@
      6.8
     ]
    },
-   "camera": "pull_out",
+   "camera": "crane_down",
    "transition": "zoom",
    "cast": [
     {
@@ -98,10 +86,10 @@
       0.46
      ],
      "y": [
-      0.66,
-      0.9
+      0.76,
+      0.93
      ],
-     "scale": 0.95,
+     "scale": 0.85,
      "action": "hang",
      "chute": true,
      "sway": 6,
@@ -115,7 +103,10 @@
      "y": 0.45,
      "scale": 1.3,
      "motion": "none",
-     "z": 2
+     "z": 2,
+     "opts": {
+      "n": 7
+     }
     }
    ]
   },
@@ -129,7 +120,7 @@
      "FLT 220  SPOKANE   3:40"
     ]
    },
-   "camera": "pan_right",
+   "camera": "track_right",
    "text": {
     "big": "NOV 24, 1971",
     "sub": "PORTLAND, OREGON",
@@ -158,7 +149,8 @@
      "hold_opts": {},
      "expr": "serious"
     }
-   ]
+   ],
+   "transition": "fog"
   },
   {
    "say": "He pays cash. The name he gives? Dan Cooper.",
@@ -172,7 +164,7 @@
     ]
    },
    "camera": "push_in",
-   "transition": "zoom",
+   "transition": "push",
    "cast": [
     {
      "id": "cooper",
@@ -182,7 +174,13 @@
      "action": "stand",
      "expr": "serious"
     }
-   ]
+   ],
+   "label": {
+    "name": "DAN COOPER",
+    "role": "NAME GIVEN AT THE TICKET COUNTER",
+    "y": 0.6,
+    "at": 1.0
+   }
   },
   {
    "say": "On board, he orders a bourbon and soda, then hands the flight attendant a note. She doesn't read it.",
@@ -192,7 +190,7 @@
     {
      "id": "cooper",
      "x": 0.3,
-     "y": 0.92,
+     "y": 1.0,
      "scale": 1.15,
      "action": "give",
      "expr": "serious",
@@ -228,14 +226,15 @@
      "motion": "pop",
      "z": 3
     }
-   ]
+   ],
+   "transition": "whip_left"
   },
   {
    "say": "So he leans in: Miss, you'd better look at that note. I have a bomb.",
    "hook": "THEN HE SAID THIS...",
    "bg": "cabin",
    "camera": "push_in",
-   "transition": "zoom",
+   "transition": "push",
    "cast": [
     {
      "id": "cooper",
@@ -285,13 +284,14 @@
      "appear": 0.6,
      "enter": "right"
     }
-   ]
+   ],
+   "transition": "flash"
   },
   {
    "say": "His demands: two hundred thousand dollars in cash, and four parachutes.",
    "bg": "office",
    "camera": "drift",
-   "transition": "push_right",
+   "transition": "whip_right",
    "text": {
     "big": "$200,000",
     "sub": "+ 4 PARACHUTES",
@@ -335,7 +335,7 @@
    "bg_opts": {
     "rain": false
    },
-   "camera": "pan_left",
+   "camera": "track_left",
    "props": [
     {
      "kind": "plane_side",
@@ -354,7 +354,8 @@
      ],
      "motion": "none"
     }
-   ]
+   ],
+   "transition": "dissolve"
   },
   {
    "say": "In Seattle, he swaps the passengers for the money. Then he orders the crew back into the sky. Low, slow, with the rear stairs down.",
@@ -365,7 +366,7 @@
     ]
    },
    "camera": "pan_right",
-   "transition": "push_left",
+   "transition": "whip_left",
    "props": [
     {
      "kind": "plane_side",
@@ -443,16 +444,24 @@
       0,
       25
      ],
-     "appear": 2.0,
+     "appear": 2.5,
      "enter": "fade"
     }
+   ],
+   "transition": "fog",
+   "shake": [
+    [
+     2.4,
+     1.4,
+     26
+    ]
    ]
   },
   {
    "say": "When the jet lands in Reno, the cabin is empty. Cooper, and the money, are gone.",
    "bg": "cabin",
    "camera": "pull_out",
-   "transition": "zoom",
+   "transition": "push",
    "props": [
     {
      "kind": "stamp",
@@ -472,7 +481,7 @@
    "hook": "9 YEARS LATER...",
    "bg": "river",
    "camera": "push_in",
-   "transition": "push_right",
+   "transition": "whip_right",
    "text": {
     "big": "$5,800",
     "sub": "FOUND IN 1980",
@@ -515,7 +524,7 @@
    "cast": [
     {
      "id": "agent",
-     "x": 0.2,
+     "x": 0.25,
      "y": 0.95,
      "scale": 1.2,
      "action": "point",
@@ -526,7 +535,7 @@
    "props": [
     {
      "kind": "poster",
-     "x": 0.62,
+     "x": 0.7,
      "y": 0.5,
      "scale": 1.0,
      "opts": {
@@ -538,7 +547,7 @@
     },
     {
      "kind": "stamp",
-     "x": 0.62,
+     "x": 0.7,
      "y": 0.58,
      "scale": 0.9,
      "opts": {
@@ -548,14 +557,24 @@
      "appear": 3.0,
      "z": 3
     }
-   ]
+   ],
+   "transition": "flash",
+   "bg_opts": {
+    "labels": [
+     "FLIGHT 305",
+     "$200,000",
+     "SEATTLE",
+     "RENO",
+     "NORJAK"
+    ]
+   }
   },
   {
    "say": "So did D.B. Cooper die in the jump, or did he get away with it? Tell me in the comments.",
    "hook": "YOUR THEORY?",
    "bg": "forest_night",
    "camera": "pull_out",
-   "transition": "zoom",
+   "transition": "fog",
    "cast": [
     {
      "id": "cooper",

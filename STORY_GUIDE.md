@@ -44,8 +44,11 @@ Cast spec keys: `skin`(hex) `hair`(black|brown|dark_brown|blonde|red|auburn|grey
 
 ## Scenes
 ```
-{"say": "...", "hook": "OPTIONAL BANNER", "bg": "...", "bg_opts": {...}, "camera": "push_in|pull_out|pan_left|pan_right|drift|rise",
- "transition": "zoom|push_left|push_right", "text": {"big": "NOV 24, 1971", "sub": "PORTLAND, OREGON", "y": 0.27, "color": "#ffd60a", "size": 150},
+{"say": "...", "hook": "OPTIONAL BANNER", "bg": "...", "bg_opts": {...},
+ "camera": "push_in|pull_out|pan_left|pan_right|track_left|track_right|drift|rise|crane_down",
+ "transition": "whip_left|whip_right|push|fog|flash|dissolve", "shake": [[start_s, duration_s, strength_px]],
+ "text": {"big": "NOV 24, 1971", "sub": "PORTLAND, OREGON", "y": 0.27, "color": "#ffd60a", "size": 150},
+ "label": {"name": "DAN COOPER", "role": "NAME GIVEN AT THE TICKET COUNTER", "y": 0.6, "at": 1.0},
  "cast": [{"id": "cooper", "x": [0.1, 0.5], "y": 0.88, "scale": 1.0, "action": "walk", "face": 1, "expr": "serious",
            "talk": false, "enter": "fade|left|right|drop|rise", "appear": 0.0, "hold": "briefcase", "chute": false, "sway": 0, "rot": 0, "z": 1}],
  "props": [{"kind": "money", "x": 0.5, "y": 0.6, "scale": 1.0, "motion": "pop|drop|float|slam|none", "appear": 0.5, "opts": {}, "z": 0}]}
@@ -54,8 +57,14 @@ Cast spec keys: `skin`(hex) `hair`(black|brown|dark_brown|blonde|red|auburn|grey
 - `x` is 0–1 across, `y` is 0–1 down (for people, `y` is where the feet are; 0.86–0.92 = standing on the floor;
   `y` 1.2–1.3 with `scale` 2–2.2 = chest-up close-up).
 - Keep important things between y 0.18 and 0.68: captions sit at ~0.72, Facebook's buttons cover the bottom and right edge.
-- Backgrounds: airport, cabin, sky (night clouds; opts rain, lightning:[seconds]), forest_night, river, office,
-  map, street (opts rain), battlefield (opts blasts:[seconds]), palace, courtroom, room (opts wall, floor), black.
+- Backgrounds (multiplane, lit, with fog/rain/parallax): forest_night (opts lightning:[s]), sky (night flight; opts rain,
+  lightning), airport (opts board:[3 rows], counter, sign), cabin, office/evidence (evidence board with animated red strings;
+  opts labels:[short facts already in the script]), river (overcast day). Simpler: map, street (opts rain),
+  battlefield (opts blasts:[s]), palace, courtroom, room (opts wall, floor), black.
+- Visual style: premium noir documentary. One transition per scene, vary them (whip for time/place jumps, push for
+  zooming into a detail, fog for mysterious jumps, flash for shocks, dissolve for calm moments). Use "shake" only for
+  real physical action (a jolt, a blast), 15–30 px. A dollar amount in text.big counts up automatically.
+- Evidence-board labels and any on-screen text must only repeat facts that are in the narration.
 - Actions: stand, walk, run, talk, point, hold, give, carry, shock, lean, fall, hang (use with chute), dig, salute, fight, kneel, sit.
 - Expressions: neutral, serious, smile, sad, angry, shock.
 - Props: briefcase(opts open), note, money(opts stacks), moneybag, parachute, shovel, newspaper(opts headline "LINE1|LINE2", paper),

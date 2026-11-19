@@ -10,6 +10,8 @@ import soundfile as sf
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from engine import *  # noqa
+from rig import Character, UPPER, FORE  # noqa: F811  (cinematic rig replaces the old one)
+from worlds import WORLDS
 
 FPS = int(os.environ.get("REEL_FPS", "60"))
 SR = 24000
@@ -261,50 +263,85 @@ def val(v, p, default=0.0):
     return lerp(float(v[i]), float(v[i + 1]), ease_io(seg - i))
 
 CAM_PRESETS = {
-    "push_in": {"zoom": [1.04, 1.16], "pan": [0, 0]},
-    "pull_out": {"zoom": [1.18, 1.04], "pan": [0, 0]},
-    "pan_left": {"zoom": [1.12, 1.12], "pan": [60, -60]},
-    "pan_right": {"zoom": [1.12, 1.12], "pan": [-60, 60]},
-    "drift": {"zoom": [1.06, 1.1], "pan": [-20, 20]},
-    "rise": {"zoom": [1.1, 1.1], "pany": [60, -60]},
+    "push_in": {"zoom": [1.04, 1.17], "pan": [0, 0]},
+    "pull_out": {"zoom": [1.2, 1.04], "pan": [0, 0]},
+    "pan_left": {"zoom": [1.1, 1.12], "pan": [80, -80]},
+    "pan_right": {"zoom": [1.1, 1.12], "pan": [-80, 80]},
+    "drift": {"zoom": [1.06, 1.11], "pan": [-30, 30]},
+    "rise": {"zoom": [1.1, 1.12], "pany": [90, -90]},
+    "track_left": {"zoom": [1.08, 1.08], "pan": [140, -140]},
+    "track_right": {"zoom": [1.08, 1.08], "pan": [-140, 140]},
+    "crane_down": {"zoom": [1.14, 1.06], "pany": [-120, 60]},
 }
+LEGACY_TRANS = {"zoom": "push", "push_left": "whip_left", "push_right": "whip_right"}
+TRANS_CYCLE = ["whip_left", "push", "fog", "whip_right", "flash", "dissolve"]
+
+def smooth_shake(t, seed=0.0):
+    return (math.sin(t * 23.0 + seed) * 0.6 + math.sin(t * 37.0 + seed * 2) * 0.3 + math.sin(t * 11.0 + seed * 3) * 0.4,
+            math.sin(t * 29.0 + seed * 5) * 0.6 + math.sin(t * 17.0 + seed) * 0.4)
 
 class Stage:
     def __init__(self, story):
         self.story = story
         self.cast = {k: Character(dict(v, name=k)) for k, v in story.get("cast", {}).items()}
+        self.worlds = {}
+        self.first = False
 
-    def draw_scene(self, c, sc, lt, dur):
-        self.first = sc is self.story["scenes"][0]
+    def world(self, idx, sc):
+        if idx not in self.worlds:
+            self.worlds[idx] = WORLDS.get(sc.get("bg", "black"), WORLDS["black"])(sc.get("bg_opts", {}))
+        return self.worlds[idx]
+
+    def cam_apply(self, c, zoom, panx, pany, depth):
+        z = 1 + (zoom - 1) * depth
+        c.translate(W / 2, H / 2); c.scale(z, z); c.translate(-W / 2 - panx * depth, -H / 2 - pany * depth)
+
+    def draw_scene(self, c, idx, lt, dur):
+        sc = self.story["scenes"][idx]
+        self.first = idx == 0
+        wd = self.world(idx, sc)
         p = clamp(lt / max(dur, 0.1))
         cam = sc.get("camera", "drift")
         if isinstance(cam, str):
             cam = CAM_PRESETS.get(cam, CAM_PRESETS["drift"])
-        zoom = val(cam.get("zoom"), p, 1.08)
+        zoom = max(1.0, val(cam.get("zoom"), p, 1.08))
         panx = val(cam.get("pan"), p, 0.0)
         pany = val(cam.get("pany"), p, 0.0)
-        zoom = max(zoom, 1.0 + (abs(panx) + abs(pany)) / (W / 2) + 0.02)
-        c.save()
-        c.translate(W / 2, H / 2); c.scale(zoom, zoom); c.translate(-W / 2 - panx, -H / 2 - pany)
-        BACKGROUNDS.get(sc.get("bg", "black"), bg_black)(c, lt, panx * 3 + lt * 6, sc.get("bg_opts", {}))
-        items = []
-        for pr in sc.get("props", []):
-            items.append((pr.get("z", 0), "prop", pr))
-        for ca in sc.get("cast", []):
-            items.append((ca.get("z", 1), "char", ca))
+        # gentle handheld float + scripted shakes
+        fx, fy = math.sin(lt * 0.31 + idx) * 6, math.sin(lt * 0.23 + idx * 2) * 5
+        for t0, d, amp in sc.get("shake", []):
+            e = clamp((lt - t0) / max(d, 0.05))
+            if 0 < e < 1:
+                env = math.sin(e * math.pi) ** 0.7 * (1 - e) ** 0.5
+                sx, sy = smooth_shake(lt, idx)
+                fx += sx * amp * env; fy += sy * amp * env
+        c.save(); c.translate(fx, fy)
+        for depth, fn, fg in wd["layers"]:
+            if fg:
+                continue
+            c.save(); self.cam_apply(c, zoom, panx, pany, depth); fn(c, lt, sc.get("bg_opts", {})); c.restore()
+        c.save(); self.cam_apply(c, zoom, panx, pany, 1.0)
+        items = [(pr.get("z", 0), "prop", pr) for pr in sc.get("props", [])] + [(ca.get("z", 1), "char", ca) for ca in sc.get("cast", [])]
         for _, kind, it in sorted(items, key=lambda x: x[0]):
-            (self.draw_prop if kind == "prop" else self.draw_char)(c, it, lt, p, dur)
+            (self.draw_prop if kind == "prop" else self.draw_char)(c, it, lt, p, dur, wd)
+        c.restore()
+        for depth, fn, fg in wd["layers"]:
+            if fg:
+                c.save(); self.cam_apply(c, zoom, panx, pany, depth); fn(c, lt, sc.get("bg_opts", {})); c.restore()
         c.restore()
         if sc.get("text"):
-            self.draw_overlay_text(c, sc["text"], lt)
+            draw_title(c, sc["text"], lt)
+        if sc.get("label"):
+            draw_label(c, sc["label"], lt)
+        return wd
 
     def appear(self, it, lt):
         a0 = float(it.get("appear", 0.0))
         if self.first and a0 <= 0:
             a0 = -1.0
-        return ease_out((lt - a0) / 0.5), lt - a0
+        return ease_out((lt - a0) / 0.55), lt - a0
 
-    def draw_char(self, c, ca, lt, p, dur):
+    def draw_char(self, c, ca, lt, p, dur, wd):
         ch = self.cast.get(ca["id"])
         if not ch:
             return
@@ -325,29 +362,33 @@ class Stage:
             y += (1 - a) * 500
         rot = val(ca.get("rot"), p, 0.0)
         if ca.get("sway"):
-            rot += ca["sway"] * math.sin(lt * 1.3)
-            x += 25 * math.sin(lt * 0.9)
-        if ca.get("chute"):
-            hs = ch.hscale
-            c.save(); c.translate(x, y); c.rotate(rot); c.translate(0, -735 * 0.62 * s * hs)
-            prop(c, "parachute", 0, -239 * s, 0.8 * s, lt, {"color": ca.get("chute_color", "#e8e2d4")})
-            c.restore()
+            rot += ca["sway"] * math.sin(lt * 1.1 + 0.4)
+            x += 22 * math.sin(lt * 0.8)
+        face = val(ca.get("face"), p, 1.0)
+        sc_ = 0.62 * s * ch.hscale
         alpha = int(255 * a) if enter == "fade" else 255
         if alpha < 255:
             c.saveLayerAlpha(None, alpha)
-        hand = ch.draw(c, x, y, 0.62 * s, lt + h01(ca["id"]) * 10, ca.get("action", "stand"),
-                       ca.get("face", 1), ca.get("expr", "neutral"), talk=ca.get("talk", False), rot=rot)
+        if ca.get("chute"):
+            c.save(); c.translate(x, y); c.rotate(rot)
+            cs = 0.82 * s
+            hands = (80 * ch.bw + math.sin(math.radians(163)) * (UPPER + FORE)) * sc_ / cs
+            prop(c, "parachute", 0, -(1118 * sc_ + 260 * 1.18 * cs), cs, lt, {"color": ca.get("chute_color", "#e8e2d4"), "hands": hands})
+            c.restore()
+        res = ch.draw(c, x, y, 0.62 * s, lt + h01(ca["id"]) * 10, ca.get("action", "stand"), face, ca.get("expr", "neutral"),
+                      talk=ca.get("talk", False), rot=rot, light=wd["light"], at=lt2)
         if ca.get("hold"):
-            # hand position in world coords: approximate with character transform
-            hx, hy = hand["hand"]
-            sc_ = 0.62 * s * ch.hscale
-            wx = x + hx * sc_ * ca.get("face", 1)
-            wy = y + hy * sc_
-            prop(c, ca["hold"], wx, wy + 30 * sc_, 0.7 * s, lt, ca.get("hold_opts", {}))
+            hx, hy = res["hand"]
+            fs = 1 if face >= 0 else -1
+            r = math.radians(rot)
+            wx_, wy_ = hx * res["sc"] * fs, hy * res["sc"]
+            wx = x + wx_ * math.cos(r) - wy_ * math.sin(r)
+            wy = y + wx_ * math.sin(r) + wy_ * math.cos(r)
+            prop(c, ca["hold"], wx, wy + 36 * res["sc"], 0.62 * s, lt, ca.get("hold_opts", {}))
         if alpha < 255:
             c.restore()
 
-    def draw_prop(self, c, pr, lt, p, dur):
+    def draw_prop(self, c, pr, lt, p, dur, wd):
         a, lt2 = self.appear(pr, lt)
         if a <= 0:
             return
@@ -369,37 +410,79 @@ class Stage:
             opts["char"] = self.cast[opts["char"]]
         if pr["kind"] == "plane_side" and "stairs" in opts:
             opts["stairs"] = val(opts["stairs"], p, 0)
-        c.save()
-        c.translate(x, y); c.rotate(rot)
-        c.saveLayerAlpha(None, int(255 * a)) if a < 1 else None
-        prop(c, pr["kind"], 0, 0, s, lt, opts)
+        c.save(); c.translate(x, y); c.rotate(rot)
+        if a < 1:
+            c.saveLayerAlpha(None, int(255 * a))
+        if pr["kind"] not in ("stamp", "bills"):
+            sh = skia.Paint(AntiAlias=True); sh.setImageFilter(skia.ImageFilters.DropShadow(14, 22, 18, 18, hexcol("#000000", 110), None))
+            ext = 520 * s if pr["kind"] != "plane_side" else 560 * s
+            c.saveLayer(rect(-ext, -ext, 2 * ext, 2 * ext), sh); prop(c, pr["kind"], 0, 0, s, lt, opts); c.restore()
+        else:
+            prop(c, pr["kind"], 0, 0, s, lt, opts)
         if a < 1:
             c.restore()
         c.restore()
 
-    def draw_overlay_text(self, c, tx, lt):
-        y = tx.get("y", 0.26) * H
-        big = tx.get("big", "")
-        if big:
-            f = fit(big, FONT_BIG, W - 140, tx.get("size", 150))
-            total = text_w(big, f)
-            x = W / 2 - total / 2
-            for i, ch in enumerate(big):
-                a = ease_out((lt - 0.15 - i * 0.045) / 0.35)
-                if a <= 0:
-                    break
-                yy = y + (1 - a) * 40
-                c.drawString(ch, x, yy, f, stroke("#000000", 10, int(200 * a)))
-                c.drawString(ch, x, yy, f, fill(tx.get("color", "#f5f2ec"), int(255 * a)))
-                x += text_w(ch, f)
-        if tx.get("sub"):
-            a = ease_out((lt - 0.5) / 0.5)
-            f = font(FONT_TYPE, 52)
-            wsub = text_w(tx["sub"], f)
-            c.drawRect(rect(W / 2 - wsub / 2 - 20, y + 30, (wsub + 40) * a, 70), fill("#c0392b", int(230 * a)))
-            draw_text_c(c, tx["sub"], W / 2, y + 82, f, "#ffffff", int(255 * a))
+# ------------------------------------------------------------------ documentary typography
+def count_up(txt, k):
+    m = re.match(r"^(\$)?([\d,]+)(.*)$", txt)
+    if not m:
+        return txt
+    n = int(m.group(2).replace(",", ""))
+    v = int(round(n * k))
+    return (m.group(1) or "") + (f"{v:,}" if "," in m.group(2) else str(v)) + m.group(3)
 
-# ------------------------------------------------------------------ overlays
+def draw_title(c, tx, lt):
+    y = tx.get("y", 0.26) * H
+    big = tx.get("big", "")
+    if big:
+        k = ease_out(clamp((lt - 0.1) / 0.9))
+        shown = count_up(big, k) if re.match(r"^\$?[\d,]+", big) else big
+        f = fit(big, FONT_BIG, W - 160, tx.get("size", 150))
+        spacing = lerp(18, 4, ease_out(clamp(lt / 0.8)))
+        widths = [text_w(ch, f) for ch in shown]
+        total = sum(widths) + spacing * (len(shown) - 1)
+        x = W / 2 - total / 2
+        c.save()
+        c.clipRect(rect(0, y - f.getSize() * 1.1, W, f.getSize() * 1.25))
+        for i, ch in enumerate(shown):
+            a = ease_out((lt - 0.08 - i * 0.035) / 0.4)
+            if a <= 0:
+                break
+            yy = y + (1 - a) * f.getSize()
+            sh = skia.Paint(AntiAlias=True, Color=hexcol("#000000", int(150 * a)))
+            sh.setMaskFilter(skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 10))
+            c.drawString(ch, x + 4, yy + 8, f, sh)
+            c.drawString(ch, x, yy, f, fill(tx.get("color", "#f3efe6"), int(255 * a)))
+            x += widths[i] + spacing
+        c.restore()
+    if tx.get("sub"):
+        f = font(FONT_TYPE, 46)
+        full = tx["sub"]
+        n = int(clamp((lt - 0.55) / 0.9) * len(full) + 0.999)
+        wsub = text_w(full, f)
+        ux = ease_io((lt - 0.45) / 0.5)
+        c.drawRect(rect(W / 2 - wsub / 2 - 16, y + 34, (wsub + 32) * ux, 6), fill("#c0302a"))
+        if n > 0:
+            c.drawString(full[:n], W / 2 - wsub / 2, y + 96, f, fill("#000000", 160))
+            c.drawString(full[:n], W / 2 - wsub / 2 - 2, y + 93, f, fill("#efe8da"))
+
+def draw_label(c, lb, lt):
+    """Lower-third style name label (kept clear of the caption zone)."""
+    y = lb.get("y", 0.62) * H
+    a = ease_out((lt - lb.get("at", 0.4)) / 0.5)
+    if a <= 0:
+        return
+    fN, fR = font(FONT_BIG, 64), font(FONT_TYPE, 34)
+    w = max(text_w(lb["name"], fN), text_w(lb.get("role", ""), fR)) + 60
+    x = 70
+    c.save(); c.clipRect(rect(x, y - 80, w * a + 20, 160))
+    c.drawRect(rect(x, y - 70, w, 130), fill("#0b0b0d", 200))
+    c.drawRect(rect(x, y - 70, 8, 130), fill("#c0302a"))
+    c.drawString(lb["name"], x + 30, y + 2, fN, fill("#f3efe6"))
+    c.drawString(lb.get("role", ""), x + 30, y + 44, fR, fill("#c9c2b2"))
+    c.restore()
+
 def caption_groups(words, max_words=3, max_chars=15):
     groups, cur = [], []
     for w in words:
@@ -418,7 +501,7 @@ def caption_groups(words, max_words=3, max_chars=15):
     return groups
 
 def draw_captions(c, groups, t):
-    f0 = font(FONT_BIG, 100)
+    f0 = font(FONT_BIG, 98)
     for g in groups:
         s, e = g[0]["s"] - 0.03, g[0]["g_end"] - 0.03
         if not (s <= t < e):
@@ -427,115 +510,168 @@ def draw_captions(c, groups, t):
         a_out = 1 - ease_io((t - (e - 0.06)) / 0.06)
         a = clamp(min(a_in, a_out))
         toks = [re.sub(r"[\"“”]", "", x["w"]).upper() for x in g]
-        sp = 26
+        sp = 24
         f = f0
         ws = [text_w(tk, f) for tk in toks]
         tot = sum(ws) + sp * (len(toks) - 1)
-        if tot > W - 120:
-            f = font(FONT_BIG, 100 * (W - 120) / tot)
+        if tot > W - 140:
+            f = font(FONT_BIG, 98 * (W - 140) / tot)
             ws = [text_w(tk, f) for tk in toks]; tot = sum(ws) + sp * (len(toks) - 1)
-        y = 1380 + (1 - a_in) * 30
+        y = 1470 + (1 - a_in) * 26
         x = W / 2 - tot / 2
         for tk, wd, w in zip(toks, ws, g):
-            k = clamp(min((t - w["s"] + 0.04) / 0.08, (w["e"] + 0.1 - t) / 0.12))
-            k = ease_io(k)
-            col = tuple(int(lerp(a_, b_, k)) for a_, b_ in zip((255, 255, 255), (255, 214, 10)))
-            scl = 1 + 0.1 * k
+            k = ease_io(clamp(min((t - w["s"] + 0.04) / 0.08, (w["e"] + 0.1 - t) / 0.12)))
+            col = tuple(int(lerp(a_, b_, k)) for a_, b_ in zip((246, 242, 234), (255, 206, 46)))
+            scl = 1 + 0.08 * k
             c.save(); c.translate(x + wd / 2, y); c.scale(scl, scl)
-            c.drawString(tk, -wd / 2, 0, f, stroke("#000000", 14, int(255 * a)))
+            sh = skia.Paint(AntiAlias=True, Color=hexcol("#000000", int(170 * a)))
+            sh.setMaskFilter(skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 9))
+            c.drawString(tk, -wd / 2 + 3, 7, f, sh)
+            c.drawString(tk, -wd / 2, 0, f, stroke("#0a0a0a", 11, int(255 * a)))
             c.drawString(tk, -wd / 2, 0, f, fill(col + (int(255 * a),)))
             c.restore()
             x += wd + sp
 
-def draw_banner(c, text, t0, t, dur=2.4, y=330, color="#c0392b"):
+def draw_banner(c, text, t0, t, dur=2.4, y=330, color="#c0302a"):
     d = t - t0
     if not text or d < 0 or d > dur:
         return
-    a = ease_out(d / 0.35) * (1 - ease_io((d - (dur - 0.35)) / 0.35))
-    f = fit(text, FONT_BIG, W - 180, 88)
-    w = text_w(text, f)
-    x = W / 2 + (1 - ease_out(d / 0.35)) * -300 + ease_io((d - (dur - 0.35)) / 0.35) * 300
-    c.save(); c.translate(x, y); c.rotate(-2)
-    c.drawRoundRect(rect(-w / 2 - 34, -70, w + 68, 104), 14, 14, fill(color, int(240 * a)))
-    draw_text_c(c, text, 0, 4, f, "#ffffff", int(255 * a))
+    a_in = ease_out(d / 0.4)
+    a_out = ease_io((d - (dur - 0.35)) / 0.35)
+    f = fit(text, FONT_BIG, W - 220, 84)
+    w = text_w(text, f) + 80
+    x0 = W / 2 - w / 2
+    c.save()
+    c.clipRect(rect(x0 + w * a_out, y - 80, w * (a_in - a_out) + 1, 130))
+    c.drawRect(rect(x0, y - 70, w, 108), fill("#0b0b0d", 225))
+    c.drawRect(rect(x0, y - 70, 10, 108), fill(color))
+    c.drawRect(rect(x0, y + 34, w * a_in, 4), fill(color))
+    c.drawString(text, x0 + 42, y + 10, f, fill("#f3efe6"))
     c.restore()
-
-def draw_particles(c, t):
-    for i in range(26):
-        x = (h01(i) * W + 40 * math.sin(t * 0.3 + i)) % W
-        y = (h01(i + 50) * H - t * (10 + 20 * h01(i + 9))) % H
-        c.drawCircle(x, y, 2 + 2 * h01(i + 3), fill("#fff5dc", int(40 + 40 * math.sin(t + i))))
 
 def vignette_paint():
     p = skia.Paint(AntiAlias=True)
-    p.setShader(skia.GradientShader.MakeRadial(skia.Point(W / 2, H / 2), H * 0.72,
-                                               [hexcol("#000000", 0), hexcol("#000000", 0), hexcol("#000000", 200)], [0, 0.55, 1.0]))
+    p.setShader(skia.GradientShader.MakeRadial(skia.Point(W / 2, H / 2), H * 0.7,
+                                               [hexcol("#000000", 0), hexcol("#000000", 0), hexcol("#000000", 185)], [0, 0.52, 1.0]))
     return p
 
-# ------------------------------------------------------------------ frame rendering
-TRANS = 0.32  # half-length of a transition (s)
+# ------------------------------------------------------------------ post-processing (bloom, grade, grain)
+class Post:
+    def __init__(self):
+        self.small = skia.Surface(W // 4, H // 4)
+        th = 0.58
+        k = 1 / (1 - th)
+        self.thresh = skia.ColorFilters.Matrix([k, 0, 0, 0, -th * k,
+                                                0, k, 0, 0, -th * k,
+                                                0, 0, k, 0, -th * k,
+                                                0, 0, 0, 1, 0])
+        self.vig = vignette_paint()
 
-def render_frame(c, st, tl, t):
+    def apply(self, surf, c, fi, bloom, grade):
+        samp = skia.SamplingOptions(skia.FilterMode.kLinear)
+        if bloom > 0:
+            img = surf.makeImageSnapshot()
+            sc = self.small.getCanvas(); sc.clear(skia.ColorBLACK)
+            p = skia.Paint(); p.setColorFilter(self.thresh)
+            sc.drawImageRect(img, skia.Rect.MakeWH(W // 4, H // 4), samp, p)
+            bl = self.small.makeImageSnapshot()
+            sc.clear(skia.ColorBLACK)
+            pb = skia.Paint(); pb.setImageFilter(skia.ImageFilters.Blur(9, 9))
+            sc.drawImage(bl, 0, 0, samp, pb)
+            glow = self.small.makeImageSnapshot()
+            pg = skia.Paint(); pg.setBlendMode(skia.BlendMode.kScreen); pg.setAlphaf(min(1.0, bloom * 1.6))
+            c.drawImageRect(glow, skia.Rect.MakeWH(W, H), samp, pg)
+        if grade and grade[1] > 0:
+            pg = skia.Paint(Color=hexcol(grade[0])); pg.setBlendMode(skia.BlendMode.kSoftLight); pg.setAlphaf(min(1.0, grade[1] * 2.2))
+            c.drawRect(rect(0, 0, W, H), pg)
+        # gentle S-curve contrast via overlay of mid-grey is neutral; lift blacks slightly for a filmic look
+        c.drawRect(rect(0, 0, W, H), fill("#14161c", 18))
+        # vignette + film grain are applied by ffmpeg at encode time (much faster)
+
+# ------------------------------------------------------------------ frame rendering
+TRANS = 0.36  # half-length of a transition (s)
+
+def scene_at(st, tl, c, idx, t):
+    s = tl["scenes"][idx]
+    return st.draw_scene(c, idx, t - s["s"], s["e"] - s["s"])
+
+def render_frame(c, st, tl, t, surf=None, fi=0, post=None):
     story, scenes, groups, total = st.story, tl["scenes"], tl["groups"], tl["total"]
     c.clear(hexcol("#000000"))
-    # which scene(s)
     idx = 0
     for i, s in enumerate(scenes):
         if t >= s["s"]:
             idx = i
     cur = scenes[idx]
-    nxt_i = idx + 1 if idx + 1 < len(scenes) and t > scenes[idx + 1]["s"] - TRANS else None
-    prv_i = idx - 1 if idx > 0 and t < cur["s"] + TRANS else None
     pair = None
-    if nxt_i is not None:
-        pair = (idx, nxt_i, scenes[nxt_i]["s"])
-    elif prv_i is not None:
-        pair = (prv_i, idx, cur["s"])
+    if idx + 1 < len(scenes) and t > scenes[idx + 1]["s"] - TRANS:
+        pair = (idx, idx + 1, scenes[idx + 1]["s"])
+    elif idx > 0 and t < cur["s"] + TRANS:
+        pair = (idx - 1, idx, cur["s"])
+    wd = None
     if pair:
         a, b, B = pair
         q = ease_io((t - (B - TRANS)) / (2 * TRANS))
-        kind = story["scenes"][b].get("transition", ["push_left", "zoom", "push_right", "zoom"][b % 4])
-        sa, sb = scenes[a], scenes[b]
-        if kind.startswith("push"):
-            d = -1 if kind == "push_left" else 1
-            c.save(); c.translate(d * W * q, 0)
-            st.draw_scene(c, story["scenes"][a], t - sa["s"], sa["e"] - sa["s"]); c.restore()
-            c.save(); c.translate(-d * W * (1 - q), 0)
-            st.draw_scene(c, story["scenes"][b], t - sb["s"], sb["e"] - sb["s"]); c.restore()
-        else:  # zoom through: A zooms in & fades, B settles from slightly larger
-            c.save(); z = 1 + 0.35 * q; c.translate(W / 2, H / 2); c.scale(z, z); c.translate(-W / 2, -H / 2)
-            st.draw_scene(c, story["scenes"][a], t - sa["s"], sa["e"] - sa["s"]); c.restore()
-            c.saveLayerAlpha(None, int(255 * q))
-            z = 1.25 - 0.25 * q; c.translate(W / 2, H / 2); c.scale(z, z); c.translate(-W / 2, -H / 2)
-            st.draw_scene(c, story["scenes"][b], t - sb["s"], sb["e"] - sb["s"]); c.restore()
+        speed = math.sin(math.pi * clamp((t - (B - TRANS)) / (2 * TRANS)))
+        kind = story["scenes"][b].get("transition", TRANS_CYCLE[(b - 1) % len(TRANS_CYCLE)])
+        kind = LEGACY_TRANS.get(kind, kind)
+        if kind.startswith("whip"):
+            d = -1 if kind == "whip_left" else 1
+            bp = skia.Paint(); bp.setImageFilter(skia.ImageFilters.Blur(90 * speed + 0.01, 2 * speed + 0.01))
+            c.saveLayer(None, bp)
+            c.save(); c.translate(d * W * q, 0); scene_at(st, tl, c, a, t); c.restore()
+            c.save(); c.translate(-d * W * (1 - q), 0); wd = scene_at(st, tl, c, b, t); c.restore()
+            c.restore()
+        elif kind == "push":
+            bp = skia.Paint(); bp.setImageFilter(skia.ImageFilters.Blur(14 * speed + 0.01, 14 * speed + 0.01))
+            c.saveLayer(None, bp)
+            c.save(); z = 1 + 0.6 * q; c.translate(W / 2, H / 2); c.scale(z, z); c.translate(-W / 2, -H / 2)
+            scene_at(st, tl, c, a, t); c.restore()
+            c.saveLayerAlpha(None, int(255 * clamp(q * 1.6 - 0.3)))
+            z = 0.88 + 0.12 * q; c.translate(W / 2, H / 2); c.scale(z, z); c.translate(-W / 2, -H / 2)
+            wd = scene_at(st, tl, c, b, t); c.restore()
+            c.restore()
+        elif kind in ("fog", "flash", "dissolve"):
+            mixk = clamp((q - 0.35) / 0.3) if kind != "dissolve" else q
+            scene_at(st, tl, c, a, t)
+            c.saveLayerAlpha(None, int(255 * mixk)); wd = scene_at(st, tl, c, b, t); c.restore()
+            if kind == "fog":
+                from worlds import draw_fog
+                for k in range(3):
+                    draw_fog(c, t, -200 + k * 700, 1100, "#c9cfdc", int(235 * speed), 900 * (k + 1), 5.0, k + 10)
+                c.drawRect(rect(0, 0, W, H), fill("#b8c0d0", int(150 * speed ** 2)))
+            elif kind == "flash":
+                c.drawRect(rect(0, 0, W, H), fill("#fff3dc", int(235 * speed ** 3)))
+        else:
+            scene_at(st, tl, c, a if q < 0.5 else b, t)
     else:
-        st.draw_scene(c, story["scenes"][idx], t - cur["s"], cur["e"] - cur["s"])
-    draw_particles(c, t)
-    c.drawRect(rect(0, 0, W, H), tl["vig"])
-    # opening hook + per-scene re-hooks
+        wd = scene_at(st, tl, c, idx, t)
+    wd = wd or st.world(idx, story["scenes"][idx])
+    if post is not None and surf is not None:
+        post.apply(surf, c, fi, wd.get("bloom", 0.3), wd.get("grade"))
+    # UI overlays (crisp, above grain)
     draw_banner(c, story.get("hook"), 0.0, t, dur=3.2, y=330)
     for i, s in enumerate(scenes):
         if story["scenes"][i].get("hook"):
-            draw_banner(c, story["scenes"][i]["hook"], s["s"], t, dur=2.6, y=330, color="#c0392b" if i % 2 else "#d4a017")
+            draw_banner(c, story["scenes"][i]["hook"], s["s"], t, dur=2.6, y=330, color="#c0302a" if i % 2 else "#d4a017")
     draw_captions(c, groups, t)
-    # fade in/out of whole video (first frame still has content, just slightly dimmed)
     if t > total - 0.6:
         c.drawRect(rect(0, 0, W, H), fill("#000000", int(255 * ease_io((t - (total - 0.6)) / 0.6))))
 
 def worker(args):
     story, tl, f0, f1, out = args
-    tl = dict(tl)
-    tl["vig"] = vignette_paint()
     st = Stage(story)
+    post = Post()
     info = skia.ImageInfo.Make(W, H, skia.kBGRA_8888_ColorType, skia.kPremul_AlphaType)
     surf = skia.Surface.MakeRaster(info)
     c = surf.getCanvas()
     ff = subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "bgra", "-s", f"{W}x{H}",
                            "-r", str(FPS), "-i", "-", "-c:v", "libx264", "-preset", os.environ.get("X264_PRESET", "veryfast"),
-                           "-crf", "19", "-pix_fmt", "yuv420p", "-g", str(FPS * 2), out], stdin=subprocess.PIPE)
+                           "-crf", "18", "-pix_fmt", "yuv420p", "-g", str(FPS * 2),
+                           "-vf", "vignette=angle=0.5:mode=forward,noise=c0s=6:c0f=t+u", out], stdin=subprocess.PIPE)
     buf = np.empty((H, W, 4), np.uint8)
     for fi in range(f0, f1):
-        render_frame(c, st, tl, fi / FPS)
+        render_frame(c, st, tl, fi / FPS, surf, fi, post)
         surf.readPixels(info, buf, W * 4)
         ff.stdin.write(buf.tobytes())
     ff.stdin.close(); ff.wait()
