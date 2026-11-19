@@ -113,24 +113,116 @@ def sentence_timed(tx, synth, speed):
     return np.concatenate(pieces), words
 
 _clone = {}
+def chunk_text(tx, limit=280):
+    sents = [x for x in re.split(r"(?<=[.!?…])\s+", tx.strip()) if x]
+    out, cur = [], ""
+    for snt in sents:
+        if cur and len(cur) + len(snt) + 1 > limit:
+            out.append(cur); cur = snt
+        else:
+            cur = (cur + " " + snt).strip()
+    if cur:
+        out.append(cur)
+    return out
+
+def align_words(text, a):
+    """Word timings for one continuous take: split at punctuation phrases, match phrase breaks to the
+    longest pauses actually present in the audio, spread words by spoken length inside each phrase."""
+    words = text.split()
+    phrases, cur = [], []
+    for w in words:
+        cur.append(w)
+        if re.search(r"[,.;:!?…]$", w):
+            phrases.append(cur); cur = []
+    if cur:
+        phrases.append(cur)
+    hop = int(0.01 * SR)
+    env = np.array([np.sqrt(np.mean(a[i:i + hop] ** 2)) for i in range(0, max(1, len(a) - hop), hop)])
+    thr = max(1e-4, np.percentile(env, 30) * 0.6)
+    quiet = env < thr
+    gaps, i = [], 0
+    while i < len(quiet):
+        if quiet[i]:
+            j = i
+            while j < len(quiet) and quiet[j]:
+                j += 1
+            if j - i >= 8 and i > 5 and j < len(quiet) - 5:
+                gaps.append((i * 0.01, j * 0.01))
+            i = j
+        else:
+            i += 1
+    nz = np.where(env > thr)[0]
+    t0, t1 = (nz[0] * 0.01, nz[-1] * 0.01 + 0.01) if len(nz) else (0.0, len(a) / SR)
+    need = len(phrases) - 1
+    spans = []
+    lens = [sum(len(normalize(w)) + 2 for w in ph) for ph in phrases]
+    if need > 0 and len(gaps) >= need:
+        best = sorted(sorted(gaps, key=lambda g: g[1] - g[0], reverse=True)[:need])
+        starts = [t0] + [g[1] for g in best]
+        ends = [g[0] for g in best] + [t1]
+        spans = list(zip(starts, ends))
+        speech = sum(e_ - s_ for s_, e_ in spans)
+        for (s_, e_), ln in zip(spans, lens):  # sanity: a phrase can't be far shorter/longer than its text
+            exp = speech * ln / sum(lens)
+            if not (0.45 * exp <= e_ - s_ <= 2.2 * exp):
+                spans = []
+                break
+    if not spans:
+        tot = sum(sum(len(normalize(w)) + 2 for w in ph) for ph in phrases)
+        acc = t0
+        for ph in phrases:
+            d = (t1 - t0) * sum(len(normalize(w)) + 2 for w in ph) / max(tot, 1)
+            spans.append((acc, acc + d)); acc += d
+    out = []
+    for ph, (s_, e_) in zip(phrases, spans):
+        wts = [len(normalize(w)) + 2 for w in ph]
+        acc = s_
+        for w, wt in zip(ph, wts):
+            d = (e_ - s_) * wt / sum(wts)
+            out.append((acc, acc + d * 0.95, w)); acc += d
+    return out
+
 def clone_scenes(texts, speed):
-    """User's own cloned voice (Chatterbox, MIT licence) from assets/voice_ref.wav."""
+    """User's own cloned voice (Chatterbox, MIT licence) from assets/voice_ref.wav.
+    Each scene is voiced as one continuous take (smooth, natural intonation), level-matched, with soft joins."""
     import torch, torchaudio
     from chatterbox.tts import ChatterboxTTS
     if "m" not in _clone:
         torch.set_num_threads(os.cpu_count() or 2)
+        torch.manual_seed(7)
         _clone["m"] = ChatterboxTTS.from_pretrained(device="cpu")
     m = _clone["m"]
     def synth(text):
-        wav = m.generate(text, audio_prompt_path=REF, exaggeration=float(os.environ.get("VOICE_EXAGGERATION", "0.55")),
-                         cfg_weight=float(os.environ.get("VOICE_CFG", "0.45")))
+        wav = m.generate(text, audio_prompt_path=REF,
+                         exaggeration=float(os.environ.get("VOICE_EXAGGERATION", "0.45")),
+                         cfg_weight=float(os.environ.get("VOICE_CFG", "0.5")),
+                         temperature=float(os.environ.get("VOICE_TEMP", "0.7")))
         if m.sr != SR:
             wav = torchaudio.functional.resample(wav, m.sr, SR)
         a = wav.squeeze().cpu().numpy().astype(np.float32)
-        if abs(speed - 1.0) > 0.01:  # tempo change without pitch shift
-            a = atempo(a, speed)
-        return a
-    return [sentence_timed(tx, synth, speed) for tx in texts]
+        nz = np.where(np.abs(a) > 0.008)[0]
+        if len(nz):
+            a = a[max(0, nz[0] - 240): nz[-1] + 2400]
+        f = min(len(a) // 4, int(0.015 * SR))
+        if f > 0:
+            a[:f] *= np.linspace(0, 1, f); a[-f:] *= np.linspace(1, 0, f)
+        rms = np.sqrt(np.mean(a[np.abs(a) > 0.01] ** 2)) if np.any(np.abs(a) > 0.01) else 0.1
+        return a * (0.1 / max(rms, 1e-4))
+    out = []
+    for tx in texts:
+        pieces, words, t = [], [], 0.0
+        for ch in chunk_text(tx):
+            a = synth(normalize(ch))
+            for s_, e_, w in align_words(ch, a):
+                words.append((t + s_, t + e_, w))
+            pieces += [a, np.zeros(int(0.16 * SR), np.float32)]
+            t += len(a) / SR + 0.16
+        audio = np.concatenate(pieces[:-1]) if pieces else np.zeros(1, np.float32)
+        if abs(speed - 1.0) > 0.01:
+            audio = atempo(audio, speed)
+            words = [(s_ / speed, e_ / speed, w) for s_, e_, w in words]
+        out.append((audio, words))
+    return out
 
 def atempo(a, speed):
     with tempfile.TemporaryDirectory() as d:
@@ -717,7 +809,7 @@ def render(story_path, out_path, preview=None):
     subprocess.run([
         "ffmpeg", "-y", "-loglevel", "error", "-i", silent, "-i", voice, "-i", music,
         "-filter_complex",
-        "[2:a]volume=0.15[m];[1:a][m]amix=inputs=2:duration=first:normalize=0,loudnorm=I=-14:TP=-1.5:LRA=11[a]",
+        "[1:a]highpass=f=70,acompressor=threshold=-21dB:ratio=2.5:attack=12:release=220:makeup=2,equalizer=f=6500:t=q:w=1.2:g=-3[v];[2:a]volume=0.15[m];[v][m]amix=inputs=2:duration=first:normalize=0,loudnorm=I=-14:TP=-1.5:LRA=9[a]",
         "-map", "0:v", "-map", "[a]", "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-ar", "48000",
         "-movflags", "+faststart", "-t", f"{end_t:.3f}", out_path,
     ], check=True)
