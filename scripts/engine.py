@@ -721,7 +721,7 @@ def _lightning(c, t, times):
     for lt in times:
         d = t - lt
         if 0 <= d < 0.6:
-            a = int(160 * math.exp(-d * 7) * (1 + 0.5 * math.sin(d * 60)))
+            a = int(95 * clamp(d / 0.06) * math.exp(-max(0.0, d - 0.06) * 5))
             c.drawRect(rect(0, 0, W, H), fill("#dfe8ff", clamp(a, 0, 255)))
 
 def bg_sky_night(c, t, cam, o):
