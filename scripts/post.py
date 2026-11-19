@@ -63,7 +63,24 @@ def publish_reel(video_path, description, title):
         time.sleep(10)
     return vid
 
+def check_facebook():
+    page, token = os.environ.get("FB_PAGE_ID", ""), os.environ.get("FB_PAGE_TOKEN", "")
+    if not page or not token:
+        raise SystemExit("FB_PAGE_ID or FB_PAGE_TOKEN secret is missing.")
+    q = urllib.parse.quote(token)
+    info = api("GET", f"{GRAPH}/{page}?fields=id,name,link&access_token={q}")
+    print(f"OK: token works for Page '{info.get('name')}' (id {info.get('id')})")
+    reels = api("GET", f"{GRAPH}/{page}/video_reels?limit=1&access_token={q}")
+    print(f"OK: can access the Page's Reels ({len(reels.get('data', []))} found).")
+    dbg = api("GET", f"{GRAPH}/me?fields=id,name&access_token={q}")
+    if str(dbg.get("id")) != str(page):
+        print("WARNING: this looks like a user token, not the Page token. Use the access_token from me/accounts.")
+    print("Facebook connection looks good.")
+
 def main():
+    if os.environ.get("CHECK_FB") == "1":
+        check_facebook()
+        return
     log = json.load(open(LOG)) if os.path.exists(LOG) else []
     slot = "manual" if os.environ.get("FORCE") == "1" else due_slot(log)
     if not slot:

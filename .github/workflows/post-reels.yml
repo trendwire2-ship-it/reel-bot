@@ -14,6 +14,10 @@ on:
         description: "Render only, don't post (preview)"
         type: boolean
         default: false
+      check_facebook:
+        description: "Only check the Facebook connection (no render, no post)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -75,6 +79,7 @@ jobs:
           FB_PAGE_TOKEN: ${{ secrets.FB_PAGE_TOKEN }}
           FORCE: ${{ inputs.force && '1' || '0' }}
           DRY_RUN: ${{ inputs.dry_run && '1' || '0' }}
+          CHECK_FB: ${{ inputs.check_facebook && '1' || '0' }}
           SLOTS: "9,13,19"
           TZ_NAME: "America/New_York"
         run: python scripts/post.py
