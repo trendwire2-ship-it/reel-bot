@@ -10,7 +10,7 @@ import soundfile as sf
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from engine import *  # noqa
-from rig import Character, UPPER, FORE  # noqa: F811  (cinematic rig replaces the old one)
+from rig import Character, UPPER, FORE, THIGH  # noqa: F811  (cinematic rig replaces the old one)
 from worlds import WORLDS
 
 FPS = int(os.environ.get("REEL_FPS", "60"))
@@ -375,8 +375,25 @@ class Stage:
             hands = (80 * ch.bw + math.sin(math.radians(163)) * (UPPER + FORE)) * sc_ / cs
             prop(c, "parachute", 0, -(1118 * sc_ + 260 * 1.18 * cs), cs, lt, {"color": ca.get("chute_color", "#e8e2d4"), "hands": hands})
             c.restore()
-        res = ch.draw(c, x, y, 0.62 * s, lt + h01(ca["id"]) * 10, ca.get("action", "stand"), face, ca.get("expr", "neutral"),
-                      talk=ca.get("talk", False), rot=rot, light=wd["light"], at=lt2)
+        phase = None
+        act = ca.get("action", "stand")
+        if act in ("walk", "run") and isinstance(ca.get("x"), list):
+            # drive the step cycle from distance actually travelled so feet plant instead of sliding
+            amp = 1.0 if act == "walk" else 1.55
+            stride = 4 * THIGH * math.sin(math.radians(27 * amp)) * sc_  # px per full cycle (two steps)
+            x0 = val(ca.get("x"), 0.0, 0.5) * W
+            travelled = abs(x - x0)
+            phase = travelled / max(stride, 1) * 2 * math.pi + h01(ca["id"]) * 6
+            dp = 0.02
+            vx = (val(ca.get("x"), min(1.0, p + dp), 0.5) - val(ca.get("x"), max(0.0, p - dp), 0.5)) * W / (2 * dp * max(dur, 0.1))
+            if abs(vx) > 5 and "face" not in ca:
+                face = 1.0 if vx > 0 else -1.0
+            elif abs(vx) > 5 and (vx > 0) != (face > 0):
+                face = -face  # never walk backwards
+            if abs(vx) < 25:
+                act = "stand"
+        res = ch.draw(c, x, y, 0.62 * s, lt + h01(ca["id"]) * 10, act, face, ca.get("expr", "neutral"),
+                      talk=ca.get("talk", False), rot=rot, light=wd["light"], at=lt2, phase=phase)
         if ca.get("hold"):
             hx, hy = res["hand"]
             fs = 1 if face >= 0 else -1

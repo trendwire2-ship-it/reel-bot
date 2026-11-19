@@ -84,7 +84,7 @@ class Character:
         return (ex, ey), (hx, hy)
 
     # ------------------------------------------------------------ pose solver
-    def pose(self, action, t, at):
+    def pose(self, action, t, at, phase=None):
         """Returns dict of angles/offsets. at = time since the action started (for anticipation/settle)."""
         ph = t * 2 * math.pi
         sd = self.seed * 6.28
@@ -102,7 +102,7 @@ class Character:
         anti = math.sin(clamp(at / 0.18) * math.pi) * (1 - clamp(at / 0.18))
         if action in ("walk", "run"):
             sp = 1.55 if action == "walk" else 2.6
-            p = t * sp * 2 * math.pi + sd
+            p = phase if phase is not None else t * sp * 2 * math.pi + sd
             amp = 1.0 if action == "walk" else 1.55
             for side, off in (("L", 0.0), ("R", math.pi)):
                 q = p + off
@@ -116,7 +116,7 @@ class Character:
             P["hipx"] = 0
             P["tilt"] = -1.5 * math.sin(2 * p - 0.4)
         elif action == "sit":
-            P.update(legL=86, kneeL=-86, legR=82, kneeR=-82, seated=True, armL=24, elbL=40, armR=28, elbR=44, hipx=0)
+            P.update(legL=86, kneeL=86, legR=82, kneeR=82, seated=True, armL=24, elbL=40, armR=28, elbR=44, hipx=0)
         elif action == "talk":
             P["armR"] = lerp(6, 28, g) + 9 * math.sin(t * 2.1); P["elbR"] = lerp(-8, 62, g) + 14 * math.sin(t * 2.7 + 1)
             P["armL"] = -6 + 4 * math.sin(t * 1.3)
@@ -155,18 +155,18 @@ class Character:
             d = math.sin(t * 4.4)
             P.update(armR=82 + 26 * d, elbR=30, armL=62 - 20 * d, elbL=82, legL=-16, legR=22)
         elif action == "kneel":
-            P.update(legL=86, kneeL=-86, legR=-6, kneeR=92, kneel=True, hipx=0)
+            P.update(legL=86, kneeL=86, legR=-6, kneeR=96, kneel=True, hipx=0)
         elif action == "turn":
             pass
         return P
 
     # ------------------------------------------------------------ draw
     def draw(self, c, x, y, scale, t, action="stand", face=1.0, expr="neutral", props=None, talk=False, rot=0.0,
-             light=None, at=None):
+             light=None, at=None, phase=None):
         self.L = light or DEFAULT_LIGHT
         sc = scale * self.hscale
         at = t if at is None else at
-        P = self.pose(action, t, at)
+        P = self.pose(action, t, at, phase)
         expr = P["expr"] or expr
         fsign = 1 if face >= 0 else -1
         self.ldx = self.L["dx"] * fsign  # light direction in local (flipped) space
@@ -243,7 +243,7 @@ class Character:
         skin_leg = self.outfit in ("stewardess", "dress")
         for side, la, ka in ((-1, P["legL"], P["kneeL"]), (1, P["legR"], P["kneeR"])):
             x = side * 36 * bw
-            (kx, ky), (fx, fy) = self.joint(x, hip_y, la, THIGH, ka, SHIN)
+            (kx, ky), (fx, fy) = self.joint(x, hip_y, la, THIGH, -ka, SHIN)
             col = self.skin if skin_leg else (self.pants if self.outfit != "kid" else self.skin)
             w = 54 * bw
             if self.outfit == "kid":
