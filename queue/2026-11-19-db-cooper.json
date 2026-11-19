@@ -158,7 +158,7 @@
    "bg_opts": {
     "counter": false,
     "board": [
-     "NAME: DAN COOPER",
+     "FLT 305  SEATTLE   2:50",
      "ONE WAY  -  $20",
      "SEAT 18"
     ]
@@ -178,7 +178,7 @@
    "label": {
     "name": "DAN COOPER",
     "role": "NAME GIVEN AT THE TICKET COUNTER",
-    "y": 0.6,
+    "y": 0.22,
     "at": 1.0
    }
   },
