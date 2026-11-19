@@ -88,8 +88,64 @@ def decode(mp3, tmp):
                          capture_output=True, check=True).stdout
     return np.frombuffer(raw, dtype=np.float32).copy()
 
+REF = os.environ.get("VOICE_REF", os.path.join(ROOT, "assets/voice_ref.wav"))
+
+def sentence_timed(tx, synth, speed):
+    """Synthesize sentence by sentence; spread word timings by spoken length within each sentence."""
+    pieces, words, t = [], [], 0.0
+    for sent in [s for s in re.split(r"(?<=[.!?…])\s+", tx.strip()) if s]:
+        a = synth(normalize(sent))
+        nz = np.where(np.abs(a) > 0.01)[0]
+        if len(nz):
+            a = a[max(0, nz[0] - 500): nz[-1] + 1500]
+        dur = len(a) / SR
+        ws = sent.split()
+        wts = [len(normalize(w)) + 2 + (4 if re.search(r"[,.;:!?…]$", w) else 0) for w in ws]
+        acc = t
+        for w, wt in zip(ws, wts):
+            d = dur * wt / sum(wts)
+            words.append((acc, acc + d * 0.92, w))
+            acc += d
+        pieces += [a, np.zeros(int(0.1 * SR), np.float32)]
+        t += dur + 0.1
+    return np.concatenate(pieces), words
+
+_clone = {}
+def clone_scenes(texts, speed):
+    """User's own cloned voice (Chatterbox, MIT licence) from assets/voice_ref.wav."""
+    import torch, torchaudio
+    from chatterbox.tts import ChatterboxTTS
+    if "m" not in _clone:
+        torch.set_num_threads(os.cpu_count() or 2)
+        _clone["m"] = ChatterboxTTS.from_pretrained(device="cpu")
+    m = _clone["m"]
+    def synth(text):
+        wav = m.generate(text, audio_prompt_path=REF, exaggeration=float(os.environ.get("VOICE_EXAGGERATION", "0.55")),
+                         cfg_weight=float(os.environ.get("VOICE_CFG", "0.45")))
+        if m.sr != SR:
+            wav = torchaudio.functional.resample(wav, m.sr, SR)
+        a = wav.squeeze().cpu().numpy().astype(np.float32)
+        if abs(speed - 1.0) > 0.01:  # tempo change without pitch shift
+            a = atempo(a, speed)
+        return a
+    return [sentence_timed(tx, synth, speed) for tx in texts]
+
+def atempo(a, speed):
+    with tempfile.TemporaryDirectory() as d:
+        i, o = os.path.join(d, "i.wav"), os.path.join(d, "o.wav")
+        sf.write(i, a, SR)
+        subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-i", i, "-filter:a", f"atempo={speed:.3f}", o], check=True)
+        return sf.read(o, dtype="float32")[0]
+
 def tts_scenes(texts, tmp, speed=1.0):
-    """Returns list of (audio, [(start,end,word)]) per scene, and engine name."""
+    """Returns list of (audio, [(start,end,word)]) per scene, and engine name.
+    Order: cloned voice (if assets/voice_ref.wav exists) -> Edge Andrew -> offline Kokoro."""
+    mode = os.environ.get("VOICE_MODE", "auto")
+    if mode in ("auto", "clone") and os.path.exists(REF):
+        try:
+            return clone_scenes(texts, speed), "clone"
+        except Exception as e:
+            print("Cloned voice failed, falling back to Andrew:", type(e).__name__, str(e)[:200])
     try:
         rate = f"{int(round((speed - 1) * 100)):+d}%"
         out = []
@@ -103,40 +159,29 @@ def tts_scenes(texts, tmp, speed=1.0):
         print("Edge voice unavailable, using offline Kokoro voice:", type(e).__name__, str(e)[:120])
     from kokoro_onnx import Kokoro
     k = Kokoro(MODEL, VOICES)
-    out = []
-    for tx in texts:
-        pieces, words, t = [], [], 0.0
-        for sent in [s for s in re.split(r"(?<=[.!?…])\s+", tx.strip()) if s]:
-            a, sr = k.create(normalize(sent), voice=os.environ.get("KOKORO_VOICE", "am_michael"), speed=speed, lang="en-us")
-            a = a.astype(np.float32)
-            nz = np.where(np.abs(a) > 0.01)[0]
-            if len(nz):
-                a = a[max(0, nz[0] - 500): nz[-1] + 1500]
-            dur = len(a) / SR
-            ws = sent.split()
-            wts = [len(normalize(w)) + 2 + (4 if re.search(r"[,.;:!?…]$", w) else 0) for w in ws]
-            acc = t
-            for w, wt in zip(ws, wts):
-                d = dur * wt / sum(wts)
-                words.append((acc, acc + d * 0.92, w))
-                acc += d
-            pieces += [a, np.zeros(int(0.1 * SR), np.float32)]
-            t += dur + 0.1
-        out.append((np.concatenate(pieces), words))
+    def synth(text):
+        a, sr = k.create(text, voice=os.environ.get("KOKORO_VOICE", "am_michael"), speed=speed, lang="en-us")
+        return a.astype(np.float32)
+    out = [sentence_timed(tx, synth, 1.0) for tx in texts]
     return out, "kokoro"
 
 def build_audio(story, tmp):
     texts = [s["say"] for s in story["scenes"]]
     speed = float(story.get("speed", 1.0))
-    for attempt in range(4):
-        res, eng = tts_scenes(texts, tmp, speed)
-        lead, gap, tail = 0.15, 0.22, 1.0
-        total = lead + sum(len(a) / SR for a, _ in res) + gap * (len(res) - 1) + tail
+    lead, gap, tail = 0.15, 0.22, 1.0
+    fixed = lead + gap * (len(texts) - 1) + tail
+    res, eng = tts_scenes(texts, tmp, speed)
+    for attempt in range(3):
+        total = fixed + sum(len(a) / SR for a, _ in res)
         if total <= MAX_LEN:
             break
-        fixed = lead + gap * (len(res) - 1) + tail
-        speed *= (total - fixed) / (MAX_LEN - 0.8 - fixed)
-        print(f"Too long ({total:.1f}s); re-voicing at speed {speed:.2f}")
+        factor = (total - fixed) / (MAX_LEN - 0.6 - fixed)
+        print(f"Too long ({total:.1f}s); speeding voice up x{factor:.3f}")
+        if eng == "edge":
+            speed *= factor
+            res, eng = tts_scenes(texts, tmp, speed)
+        else:  # time-stretch the audio we already have (no pitch change), scale word timings
+            res = [(atempo(a, factor), [(s_ / factor, e_ / factor, w) for s_, e_, w in b]) for a, b in res]
     t = lead
     chunks = [np.zeros(int(lead * SR), np.float32)]
     words, scenes = [], []

@@ -25,7 +25,7 @@ concurrency:
 jobs:
   post:
     runs-on: ubuntu-latest
-    timeout-minutes: 50
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4
 
@@ -33,10 +33,29 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Cache Python packages and voice-clone model
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/pip
+            ~/.cache/huggingface
+          key: deps-v2-${{ hashFiles('.github/workflows/post-reels.yml') }}
+
       - name: Install tools
         run: |
           sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg libegl1 libgl1 fonts-dejavu-core
-          pip install -q kokoro-onnx soundfile pillow numpy edge-tts skia-python
+          pip install -q torch==2.6.0 torchaudio==2.6.0 --index-url https://download.pytorch.org/whl/cpu
+          pip install -q chatterbox-tts==0.1.7 kokoro-onnx soundfile pillow numpy edge-tts skia-python
+
+      - name: Unlock your voice sample
+        env:
+          VOICE_KEY: ${{ secrets.VOICE_KEY }}
+        run: |
+          if [ -n "$VOICE_KEY" ]; then
+            openssl enc -d -aes-256-cbc -pbkdf2 -in assets/voice_ref.wav.enc -out assets/voice_ref.wav -pass env:VOICE_KEY
+          else
+            echo "No VOICE_KEY secret: using the Andrew voice"
+          fi
 
       - name: Cache voice model
         uses: actions/cache@v4
@@ -59,6 +78,10 @@ jobs:
           SLOTS: "9,13,19"
           TZ_NAME: "America/New_York"
         run: python scripts/post.py
+
+      - name: Remove unlocked voice sample
+        if: always()
+        run: rm -f assets/voice_ref.wav
 
       - name: Keep the video (download from this run's page)
         if: always()
