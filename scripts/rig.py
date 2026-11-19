@@ -39,6 +39,7 @@ class Character:
         self.child = float(s.get("age", 35)) < 13
         self.seed = h01(s.get("name", "x"))
         self.L = DEFAULT_LIGHT
+        self.ldx = 1.0
 
     # ------------------------------------------------------------ shading primitives
     def part(self, c, path, base, outline=True, rim=True, shadow=True):
