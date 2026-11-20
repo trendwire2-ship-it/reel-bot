@@ -59,17 +59,20 @@ Cast spec keys: `skin`(hex) `hair`(black|brown|dark_brown|blonde|red|auburn|grey
 - Keep important things between y 0.18 and 0.68: captions sit at ~0.72, Facebook's buttons cover the bottom and right edge.
 - Backgrounds (multiplane, lit, with fog/rain/parallax): forest_night (opts lightning:[s]), sky (night flight; opts rain,
   lightning), airport (opts board:[3 rows], counter, sign), cabin, office/evidence (evidence board with animated red strings;
-  opts labels:[short facts already in the script]), river (overcast day). Simpler: map, street (opts rain),
+  opts labels:[short facts already in the script]), river (overcast day), prison (cellblock; opts bars: view from inside a cell, guard: patrolling guard),
+  sea_night (moonlit sea; opts city: skyline lights, island + island_x: island with lighthouse, moon: [x,y], rain). Simpler: map, street (opts rain),
   battlefield (opts blasts:[s]), palace, courtroom, room (opts wall, floor), black.
 - Visual style: premium noir documentary. One transition per scene, vary them (whip for time/place jumps, push for
   zooming into a detail, fog for mysterious jumps, flash for shocks, dissolve for calm moments). Use "shake" only for
   real physical action (a jolt, a blast), 15–30 px. A dollar amount in text.big counts up automatically.
-- Evidence-board labels and any on-screen text must only repeat facts that are in the narration.
+- Evidence-board labels and any on-screen text must only repeat facts that are in the narration. Always set
+  bg_opts.labels for office/evidence scenes (otherwise the clippings are blank).
 - Actions: stand, walk, run, talk, point, hold, give, carry, shock, lean, fall, hang (use with chute), dig, salute, fight, kneel, sit.
 - Expressions: neutral, serious, smile, sad, angry, shock.
 - Props: briefcase(opts open), note, money(opts stacks), moneybag, parachute, shovel, newspaper(opts headline "LINE1|LINE2", paper),
   poster(opts title, char=<cast id>, sub), plane_side(opts stairs 0–1, tail colour), bills, stamp(opts text), file(opts title),
-  gun, sword, fire, phone_booth.
+  gun, sword, fire, phone_booth, raft (bobbing, with paddles; seat people on it with action sit and a lower z),
+  submarine (surfaced, bobbing), dummy_head(opts hair).
 - Use `close-ups` (big scale) on the key person 2–3 times; vary backgrounds and cameras every scene.
 
 ## Caption (Facebook description)
