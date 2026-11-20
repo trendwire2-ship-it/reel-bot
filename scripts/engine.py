@@ -666,6 +666,32 @@ def prop(c, kind, x, y, s, t, opts=None):
             p = skia.Path(); p.moveTo(xx - 30, 0); p.quadTo(xx - 20, -hh * 0.6, xx + 8 * math.sin(ph * 1.3), -hh)
             p.quadTo(xx + 20, -hh * 0.6, xx + 30, 0); p.close()
             c.drawPath(p, fill("#e67e22" if i % 2 else "#f1c40f", 220))
+    elif kind == "raft":
+        bob = 8 * math.sin(t * 1.6); c.rotate(3 * math.sin(t * 1.1))
+        p = skia.Path(); p.addRoundRect(rect(-330, -60 + bob, 660, 120), 60, 60)
+        g = skia.Paint(AntiAlias=True)
+        g.setShader(skia.GradientShader.MakeLinear([skia.Point(0, -60), skia.Point(0, 60)], [hexcol("#8a8460"), hexcol("#3a3626")]))
+        c.drawPath(p, g); c.drawPath(p, stroke("#1e1c12", 4))
+        for i in range(-4, 5):
+            c.drawLine(i * 70, -50 + bob, i * 70 + 10, 50 + bob, stroke("#2e2b1c", 3, 140))
+        for s_ in (-1, 1):
+            c.save(); c.translate(s_ * 250, -40 + bob); c.rotate(s_ * (30 + 15 * math.sin(t * 1.8)))
+            c.drawRect(rect(-6, -10, 12, 220), fill("#6a4a2a")); c.drawOval(rect(-22, 190, 44, 80), fill("#6a4a2a")); c.restore()
+    elif kind == "submarine":
+        bob = 6 * math.sin(t * 1.2)
+        hull = skia.Path(); hull.moveTo(-480, 20 + bob); hull.cubicTo(-440, -50 + bob, 400, -50 + bob, 480, 10 + bob)
+        hull.cubicTo(400, 60 + bob, -420, 60 + bob, -480, 20 + bob); hull.close()
+        c.drawPath(hull, fill("#2a2e34")); c.drawPath(hull, stroke("#0e1012", 4))
+        c.drawPath(poly([(-60, -36 + bob), (90, -36 + bob), (70, -150 + bob), (-40, -150 + bob)]), fill("#33383f"))
+        c.drawLine(10, -150 + bob, 10, -230 + bob, stroke("#33383f", 8))
+        c.drawRect(rect(-500, 30 + bob, 1000, 30), fill("#0a0f1a", 150))
+    elif kind == "dummy_head":
+        c.drawOval(rect(-70, -90, 140, 170), fill("#d8b08a")); c.drawOval(rect(-70, -90, 140, 170), stroke("#5a3a22", 4))
+        p = skia.Path(); p.moveTo(-72, -10); p.cubicTo(-80, -110, 80, -110, 72, -10); p.cubicTo(40, -60, -40, -60, -72, -10); p.close()
+        c.drawPath(p, fill(o.get("hair", "#3a2618")))
+        c.drawLine(-36, 0, -14, 2, stroke("#3a2618", 4)); c.drawLine(14, 2, 36, 0, stroke("#3a2618", 4))
+        c.drawLine(-12, 40, 14, 40, stroke("#8a4a3a", 4))
+        c.drawRect(rect(-150, 80, 300, 70), fill("#d9d4c6")); c.drawRect(rect(-150, 80, 300, 70), stroke("#8a8476", 3))
     elif kind == "phone_booth":
         c.drawRect(rect(-80, -400, 160, 400), fill("#b03a2e"))
         c.drawRect(rect(-60, -360, 120, 300), fill("#9fc3d9", 120))
@@ -960,8 +986,10 @@ def bg_battlefield(c, t, cam, o):
     for lt in o.get("blasts", []):
         d = t - lt
         if 0 <= d < 1.2:
-            r = 80 + 500 * ease_out(d / 1.2)
-            c.drawCircle(700, 1150, r, fill("#ffb347", int(200 * (1 - d / 1.2))))
+            r = 60 + 340 * ease_out(d / 1.2)
+            g = skia.Paint(AntiAlias=True)
+            g.setShader(skia.GradientShader.MakeRadial(skia.Point(720, 1200), r, [hexcol("#fff0c0", int(200 * (1 - d / 1.2))), hexcol("#ff9a3a", int(120 * (1 - d / 1.2))), hexcol("#ff9a3a", 0)], [0, 0.4, 1]))
+            c.drawCircle(720, 1200, r, g)
 
 def bg_palace(c, t, cam, o):
     c.drawRect(rect(0, 0, W, H), fill("#3b1d1d"))

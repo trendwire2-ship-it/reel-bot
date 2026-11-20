@@ -10,7 +10,7 @@ import skia, numpy as np
 ACTIONS = {"stand", "walk", "run", "talk", "point", "hold", "give", "carry", "shock", "lean", "fall", "hang", "dig",
            "salute", "fight", "kneel", "sit", "turn"}
 PROPS = {"briefcase", "note", "money", "moneybag", "parachute", "shovel", "newspaper", "poster", "plane_side", "bills",
-         "stamp", "file", "gun", "sword", "fire", "phone_booth"}
+         "stamp", "file", "gun", "sword", "fire", "phone_booth", "raft", "submarine", "dummy_head"}
 TRANS = {"whip_left", "whip_right", "push", "fog", "flash", "dissolve", "zoom", "push_left", "push_right"}
 
 def check(path, sheet=None):

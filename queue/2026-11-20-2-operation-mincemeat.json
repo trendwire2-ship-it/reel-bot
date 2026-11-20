@@ -1,0 +1,407 @@
+{
+ "id": "2026-11-20-2-operation-mincemeat",
+ "title": "The Man Who Never Was",
+ "caption": "In 1943, British spies used a dead man with a fake identity and a briefcase full of lies to fool Hitler. Greatest trick of the war, or lucky timing? 👇 #history #ww2 #spies #operationmincemeat #war #truestory",
+ "hook": "HE FOOLED HITLER",
+ "sources": [
+  "https://www.nationalww2museum.org/war/articles/secret-agents-secret-armies-operation-mincemeat",
+  "https://en.wikipedia.org/wiki/Operation_Mincemeat",
+  "https://www.history.co.uk/article/operation-mincemeat"
+ ],
+ "cast": {
+  "montagu": {
+   "skin": "#e6c4a4",
+   "hair": "dark_brown",
+   "hair_style": "side_part",
+   "outfit": "uniform",
+   "outfit_color": "#1c2436",
+   "hat": "military",
+   "hat_color": "#1c2436",
+   "age": 42
+  },
+  "cholmondeley": {
+   "skin": "#ecc9aa",
+   "hair": "brown",
+   "hair_style": "short",
+   "facial_hair": "mustache",
+   "outfit": "uniform",
+   "outfit_color": "#4a5a72",
+   "hat": "military",
+   "hat_color": "#4a5a72",
+   "age": 26,
+   "height": 1.08,
+   "build": "slim"
+  },
+  "martin": {
+   "skin": "#d9b896",
+   "hair": "dark_brown",
+   "hair_style": "short",
+   "outfit": "uniform",
+   "outfit_color": "#5e5a3c",
+   "age": 34
+  },
+  "fisherman": {
+   "skin": "#c99a72",
+   "hair": "grey",
+   "hair_style": "short",
+   "facial_hair": "beard",
+   "outfit": "tshirt",
+   "shirt_color": "#3a4a5a",
+   "pants_color": "#2a2a30",
+   "hat": "beret",
+   "hat_color": "#1e2430",
+   "age": 55
+  }
+ },
+ "scenes": [
+  {
+   "say": "In 1943, British spies took a dead man, gave him a fake name, a fake life, and a briefcase full of lies. Then they used him to fool Hitler.",
+   "bg": "sea_night",
+   "bg_opts": {
+    "city": false,
+    "moon": [
+     780,
+     340
+    ]
+   },
+   "camera": "crane_down",
+   "props": [
+    {
+     "kind": "submarine",
+     "x": [
+      0.3,
+      0.55
+     ],
+     "y": 0.64,
+     "scale": 0.9,
+     "motion": "none"
+    },
+    {
+     "kind": "briefcase",
+     "x": 0.5,
+     "y": 0.42,
+     "scale": 1.4,
+     "motion": "float",
+     "appear": 3.0,
+     "z": 3
+    }
+   ]
+  },
+  {
+   "say": "The Allies wanted to invade Sicily. But it was the obvious target.",
+   "bg": "map",
+   "camera": "push_in",
+   "transition": "fog",
+   "text": {
+    "big": "SICILY",
+    "sub": "THE OBVIOUS TARGET",
+    "y": 0.24
+   }
+  },
+  {
+   "say": "Two British intelligence officers, Ewen Montagu and Charles Cholmondeley, came up with a plan called Operation Mincemeat.",
+   "bg": "office",
+   "bg_opts": {
+    "labels": [
+     "OPERATION MINCEMEAT",
+     "SICILY",
+     "1943"
+    ]
+   },
+   "camera": "pan_right",
+   "transition": "whip_left",
+   "label": {
+    "name": "OPERATION MINCEMEAT",
+    "role": "MONTAGU & CHOLMONDELEY",
+    "y": 0.2,
+    "at": 1.4
+   },
+   "cast": [
+    {
+     "id": "montagu",
+     "x": 0.3,
+     "y": 0.92,
+     "scale": 1.05,
+     "action": "talk",
+     "expr": "serious"
+    },
+    {
+     "id": "cholmondeley",
+     "x": 0.72,
+     "y": 0.92,
+     "scale": 1.05,
+     "action": "point",
+     "face": -1,
+     "expr": "serious"
+    }
+   ]
+  },
+  {
+   "say": "They found the body of a homeless Welshman named Glyndwr Michael.",
+   "bg": "room",
+   "bg_opts": {
+    "wall": "#24282c",
+    "floor": "#16181a"
+   },
+   "camera": "push_in",
+   "transition": "dissolve",
+   "label": {
+    "name": "GLYNDWR MICHAEL",
+    "role": "A HOMELESS WELSHMAN",
+    "y": 0.22,
+    "at": 0.6
+   },
+   "props": [
+    {
+     "kind": "file",
+     "x": 0.5,
+     "y": 0.58,
+     "scale": 0.9,
+     "opts": {
+      "title": "GLYNDWR MICHAEL"
+     },
+     "motion": "pop"
+    }
+   ]
+  },
+  {
+   "say": "And they turned him into Major William Martin of the Royal Marines. A courier, supposedly killed in a plane crash.",
+   "hook": "A NEW IDENTITY",
+   "bg": "office",
+   "bg_opts": {
+    "labels": [
+     "WILLIAM MARTIN",
+     "ROYAL MARINES",
+     "COURIER"
+    ]
+   },
+   "camera": "push_in",
+   "transition": "push",
+   "props": [
+    {
+     "kind": "poster",
+     "x": 0.6,
+     "y": 0.52,
+     "scale": 0.95,
+     "opts": {
+      "title": "ID CARD",
+      "char": "martin",
+      "sub": "MAJOR W. MARTIN, RM"
+     },
+     "motion": "float"
+    }
+   ],
+   "cast": [
+    {
+     "id": "montagu",
+     "x": 0.2,
+     "y": 0.95,
+     "scale": 1.1,
+     "action": "point",
+     "expr": "serious"
+    }
+   ]
+  },
+  {
+   "say": "They filled his pockets with a life: letters from his father and fiancée, theatre ticket stubs, and a receipt for an engagement ring.",
+   "hook": "THE DETAILS",
+   "bg": "office",
+   "camera": "drift",
+   "transition": "whip_right",
+   "props": [
+    {
+     "kind": "note",
+     "x": 0.3,
+     "y": 0.55,
+     "scale": 1.4,
+     "motion": "drop",
+     "appear": 0.6
+    },
+    {
+     "kind": "note",
+     "x": 0.6,
+     "y": 0.5,
+     "scale": 1.2,
+     "motion": "drop",
+     "appear": 1.6
+    },
+    {
+     "kind": "note",
+     "x": 0.45,
+     "y": 0.66,
+     "scale": 1.0,
+     "motion": "drop",
+     "appear": 2.8
+    }
+   ]
+  },
+  {
+   "say": "Chained to his wrist, a briefcase with fake letters between top British commanders, saying the real targets were Greece and Sardinia.",
+   "hook": "THE LIE",
+   "bg": "office",
+   "camera": "push_in",
+   "transition": "push",
+   "props": [
+    {
+     "kind": "briefcase",
+     "x": 0.5,
+     "y": 0.62,
+     "scale": 2.0,
+     "motion": "pop"
+    },
+    {
+     "kind": "stamp",
+     "x": 0.5,
+     "y": 0.4,
+     "scale": 0.8,
+     "opts": {
+      "text": "GREECE"
+     },
+     "motion": "slam",
+     "appear": 4.0,
+     "z": 3
+    }
+   ]
+  },
+  {
+   "say": "In April 1943, the submarine HMS Seraph slipped him into the sea off the coast of Spain.",
+   "bg": "sea_night",
+   "bg_opts": {
+    "city": false,
+    "moon": [
+     300,
+     360
+    ]
+   },
+   "camera": "track_left",
+   "transition": "fog",
+   "text": {
+    "big": "HMS SERAPH",
+    "sub": "APRIL 1943",
+    "y": 0.22
+   },
+   "props": [
+    {
+     "kind": "submarine",
+     "x": [
+      0.7,
+      0.4
+     ],
+     "y": 0.64,
+     "scale": 0.95,
+     "motion": "none"
+    }
+   ]
+  },
+  {
+   "say": "On April 30th, a Spanish fisherman found the body near Huelva.",
+   "hook": "APRIL 30, 1943",
+   "bg": "river",
+   "camera": "pan_right",
+   "transition": "flash",
+   "cast": [
+    {
+     "id": "fisherman",
+     "x": 0.4,
+     "y": 0.88,
+     "scale": 1.05,
+     "action": "shock",
+     "expr": "shock",
+     "appear": 0.4
+    }
+   ]
+  },
+  {
+   "say": "Spain was neutral, but Germany got copies of the letters.",
+   "bg": "office",
+   "bg_opts": {
+    "labels": [
+     "GREECE",
+     "SARDINIA",
+     "SICILY"
+    ]
+   },
+   "camera": "pan_left",
+   "transition": "whip_left",
+   "props": [
+    {
+     "kind": "file",
+     "x": 0.6,
+     "y": 0.56,
+     "scale": 0.85,
+     "opts": {
+      "title": "COPIES"
+     },
+     "motion": "pop"
+    }
+   ]
+  },
+  {
+   "say": "And Hitler believed them. He sent extra divisions to Greece and Sardinia, including a Panzer division from France.",
+   "hook": "HE BOUGHT IT",
+   "bg": "map",
+   "camera": "push_in",
+   "transition": "push",
+   "text": {
+    "big": "GREECE",
+    "sub": "PANZER DIVISION FROM FRANCE",
+    "y": 0.26
+   }
+  },
+  {
+   "say": "In July 1943, the Allies landed on Sicily.",
+   "bg": "battlefield",
+   "bg_opts": {
+    "blasts": [
+     0.6,
+     1.8
+    ]
+   },
+   "camera": "track_right",
+   "transition": "whip_right",
+   "shake": [
+    [
+     0.5,
+     1.6,
+     18
+    ]
+   ],
+   "text": {
+    "big": "JULY 1943",
+    "sub": "SICILY",
+    "y": 0.24
+   }
+  },
+  {
+   "say": "Major Martin was buried in Spain with military honors. In 1998, his real name was finally added to his grave: Glyndwr Michael.",
+   "bg": "forest_night",
+   "camera": "pull_out",
+   "transition": "dissolve",
+   "label": {
+    "name": "GLYNDWR MICHAEL",
+    "role": "SERVED AS MAJOR WILLIAM MARTIN, RM",
+    "y": 0.22,
+    "at": 3.0
+   }
+  },
+  {
+   "say": "So was this the greatest trick of the war, or just lucky timing? Tell me in the comments.",
+   "hook": "YOUR VERDICT?",
+   "bg": "sea_night",
+   "bg_opts": {
+    "city": false
+   },
+   "camera": "pull_out",
+   "transition": "fog",
+   "props": [
+    {
+     "kind": "briefcase",
+     "x": 0.5,
+     "y": 0.5,
+     "scale": 1.5,
+     "motion": "float"
+    }
+   ]
+  }
+ ]
+}

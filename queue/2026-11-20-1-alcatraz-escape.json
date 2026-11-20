@@ -1,0 +1,573 @@
+{
+ "id": "2026-11-20-1-alcatraz-escape",
+ "title": "The Escape From Alcatraz",
+ "caption": "In 1962, three men vanished from Alcatraz on a raft made of raincoats. Did they drown in the bay, or pull off the perfect escape? 👇 #truecrime #alcatraz #history #mystery #unsolved #prisonbreak",
+ "hook": "NEVER SEEN AGAIN",
+ "sources": [
+  "https://www.fbi.gov/history/famous-cases/alcatraz-escape",
+  "https://www.britannica.com/event/Alcatraz-escape-of-June-1962",
+  "https://www.pbs.org/wnet/secrets/alcatraz-escape-june-1962-alcatraz-escape/"
+ ],
+ "cast": {
+  "morris": {
+   "outfit": "tshirt",
+   "shirt_color": "#9aa8b8",
+   "pants_color": "#3a4660",
+   "build": "slim",
+   "skin": "#e4bf9c",
+   "hair": "dark_brown",
+   "hair_style": "pompadour",
+   "eyes": "#4a3a2a",
+   "age": 35
+  },
+  "john": {
+   "outfit": "tshirt",
+   "shirt_color": "#a3afbd",
+   "pants_color": "#3a4660",
+   "build": "slim",
+   "skin": "#e8c4a0",
+   "hair": "dark_brown",
+   "hair_style": "short",
+   "eyes": "#3a5a7a",
+   "age": 32
+  },
+  "clarence": {
+   "outfit": "tshirt",
+   "shirt_color": "#95a3b3",
+   "pants_color": "#3a4660",
+   "build": "average",
+   "skin": "#e2bd98",
+   "hair": "black",
+   "hair_style": "side_part",
+   "eyes": "#3a4a5a",
+   "age": 31
+  },
+  "west": {
+   "outfit": "tshirt",
+   "shirt_color": "#9aa8b8",
+   "pants_color": "#3a4660",
+   "build": "slim",
+   "skin": "#e6c2a0",
+   "hair": "brown",
+   "hair_style": "short",
+   "age": 33
+  },
+  "guard": {
+   "skin": "#e0b894",
+   "hair": "grey",
+   "hair_style": "short",
+   "outfit": "uniform",
+   "outfit_color": "#2c3440",
+   "hat": "military",
+   "hat_color": "#2c3440",
+   "facial_hair": "mustache",
+   "age": 48
+  },
+  "agent": {
+   "skin": "#e8c4a4",
+   "hair": "grey",
+   "hair_style": "receding",
+   "outfit": "suit",
+   "outfit_color": "#3e4048",
+   "tie_color": "#6a1f1f",
+   "age": 52,
+   "hat": "fedora",
+   "hat_color": "#3a3530"
+  }
+ },
+ "scenes": [
+  {
+   "say": "In 1962, three men broke out of America's most secure prison on a raft made of raincoats. They were never seen again.",
+   "bg": "sea_night",
+   "bg_opts": {
+    "island": true,
+    "island_x": 820,
+    "moon": [
+     260,
+     360
+    ]
+   },
+   "camera": "crane_down",
+   "props": [
+    {
+     "kind": "raft",
+     "x": [
+      0.38,
+      0.5
+     ],
+     "y": 0.74,
+     "scale": 0.95,
+     "motion": "none",
+     "z": 3
+    }
+   ],
+   "cast": [
+    {
+     "id": "morris",
+     "x": [
+      0.27,
+      0.39
+     ],
+     "y": 0.74,
+     "scale": 0.62,
+     "action": "sit",
+     "expr": "serious",
+     "z": 2
+    },
+    {
+     "id": "john",
+     "x": [
+      0.4,
+      0.52
+     ],
+     "y": 0.74,
+     "scale": 0.6,
+     "action": "sit",
+     "expr": "serious",
+     "z": 2
+    },
+    {
+     "id": "clarence",
+     "x": [
+      0.52,
+      0.64
+     ],
+     "y": 0.74,
+     "scale": 0.62,
+     "action": "sit",
+     "expr": "shock",
+     "z": 2
+    }
+   ]
+  },
+  {
+   "say": "Alcatraz. An island prison in San Francisco Bay, built to be escape-proof.",
+   "bg": "prison",
+   "camera": "push_in",
+   "transition": "fog",
+   "text": {
+    "big": "ALCATRAZ",
+    "sub": "SAN FRANCISCO BAY",
+    "y": 0.24
+   },
+   "cast": [
+    {
+     "id": "guard",
+     "x": [
+      0.3,
+      0.62
+     ],
+     "y": 0.9,
+     "scale": 1.0,
+     "action": "walk",
+     "expr": "serious"
+    }
+   ]
+  },
+  {
+   "say": "Frank Morris arrived in 1960. A bank robber with a history of escaping other prisons, and a sharp mind.",
+   "bg": "prison",
+   "bg_opts": {
+    "bars": true,
+    "guard": false
+   },
+   "camera": "push_in",
+   "transition": "push",
+   "label": {
+    "name": "FRANK MORRIS",
+    "role": "ARRIVED ON ALCATRAZ IN 1960",
+    "y": 0.22,
+    "at": 0.8
+   },
+   "cast": [
+    {
+     "id": "morris",
+     "x": 0.5,
+     "y": 1.24,
+     "scale": 2.1,
+     "action": "stand",
+     "expr": "serious",
+     "z": 0
+    }
+   ]
+  },
+  {
+   "say": "His neighbors were two brothers, John and Clarence Anglin. Together, they made a plan.",
+   "bg": "prison",
+   "camera": "track_right",
+   "transition": "whip_left",
+   "cast": [
+    {
+     "id": "morris",
+     "x": 0.25,
+     "y": 0.9,
+     "scale": 1.0,
+     "action": "talk",
+     "expr": "serious",
+     "face": 1
+    },
+    {
+     "id": "john",
+     "x": [
+      0.95,
+      0.58
+     ],
+     "y": 0.9,
+     "scale": 0.98,
+     "action": "walk",
+     "enter": "right"
+    },
+    {
+     "id": "clarence",
+     "x": [
+      1.1,
+      0.78
+     ],
+     "y": 0.91,
+     "scale": 1.0,
+     "action": "walk",
+     "enter": "right"
+    }
+   ]
+  },
+  {
+   "say": "Using old saw blades and a drill made from a vacuum cleaner motor, they slowly widened the air vents behind their cells.",
+   "hook": "THE PLAN",
+   "bg": "prison",
+   "bg_opts": {
+    "bars": true,
+    "guard": false
+   },
+   "camera": "drift",
+   "transition": "dissolve",
+   "cast": [
+    {
+     "id": "morris",
+     "x": 0.42,
+     "y": 0.92,
+     "scale": 1.15,
+     "action": "dig",
+     "expr": "serious"
+    }
+   ]
+  },
+  {
+   "say": "Above the cell block, in a hidden workshop, they turned more than fifty raincoats into life vests and a raft.",
+   "bg": "room",
+   "bg_opts": {
+    "wall": "#2a2724",
+    "floor": "#1c1916"
+   },
+   "camera": "pan_right",
+   "transition": "whip_right",
+   "text": {
+    "big": "50+ RAINCOATS",
+    "sub": "LIFE VESTS AND A RAFT",
+    "y": 0.22
+   },
+   "props": [
+    {
+     "kind": "raft",
+     "x": 0.5,
+     "y": 0.8,
+     "scale": 0.8,
+     "motion": "pop",
+     "appear": 1.4,
+     "z": 2
+    }
+   ],
+   "cast": [
+    {
+     "id": "clarence",
+     "x": 0.25,
+     "y": 0.9,
+     "scale": 1.0,
+     "action": "hold",
+     "expr": "serious"
+    },
+    {
+     "id": "john",
+     "x": 0.78,
+     "y": 0.9,
+     "scale": 0.98,
+     "action": "talk",
+     "face": -1
+    }
+   ]
+  },
+  {
+   "say": "To fool the guards, they made fake heads from plaster, painted them, and added real human hair.",
+   "hook": "THE DECOY",
+   "bg": "prison",
+   "bg_opts": {
+    "guard": false
+   },
+   "camera": "push_in",
+   "transition": "push",
+   "props": [
+    {
+     "kind": "dummy_head",
+     "x": 0.32,
+     "y": 0.56,
+     "scale": 1.4,
+     "motion": "pop",
+     "appear": 0.4,
+     "opts": {
+      "hair": "#3a2618"
+     }
+    },
+    {
+     "kind": "dummy_head",
+     "x": 0.68,
+     "y": 0.58,
+     "scale": 1.4,
+     "motion": "pop",
+     "appear": 1.2,
+     "opts": {
+      "hair": "#1a1412"
+     }
+    }
+   ]
+  },
+  {
+   "say": "On the night of June 11th, 1962, they left the heads in their beds, climbed to the roof, and launched the raft into the bay.",
+   "bg": "sea_night",
+   "bg_opts": {
+    "island": true,
+    "island_x": 250,
+    "moon": [
+     820,
+     330
+    ]
+   },
+   "camera": "track_right",
+   "transition": "whip_left",
+   "text": {
+    "big": "JUNE 11, 1962",
+    "sub": "ALCATRAZ",
+    "y": 0.22
+   },
+   "props": [
+    {
+     "kind": "raft",
+     "x": [
+      0.32,
+      0.66
+     ],
+     "y": 0.76,
+     "scale": 0.9,
+     "motion": "none",
+     "z": 3
+    }
+   ],
+   "cast": [
+    {
+     "id": "morris",
+     "x": [
+      0.22,
+      0.56
+     ],
+     "y": 0.76,
+     "scale": 0.58,
+     "action": "sit",
+     "z": 2
+    },
+    {
+     "id": "john",
+     "x": [
+      0.34,
+      0.68
+     ],
+     "y": 0.76,
+     "scale": 0.56,
+     "action": "sit",
+     "z": 2
+    },
+    {
+     "id": "clarence",
+     "x": [
+      0.45,
+      0.79
+     ],
+     "y": 0.76,
+     "scale": 0.58,
+     "action": "sit",
+     "z": 2
+    }
+   ]
+  },
+  {
+   "say": "A fourth man, Allen West, couldn't open his vent in time. He was left behind.",
+   "bg": "prison",
+   "bg_opts": {
+    "bars": true,
+    "guard": false
+   },
+   "camera": "pull_out",
+   "transition": "dissolve",
+   "label": {
+    "name": "ALLEN WEST",
+    "role": "LEFT BEHIND",
+    "y": 0.22,
+    "at": 0.6
+   },
+   "cast": [
+    {
+     "id": "west",
+     "x": 0.5,
+     "y": 1.18,
+     "scale": 1.9,
+     "action": "stand",
+     "expr": "sad",
+     "z": 0
+    }
+   ]
+  },
+  {
+   "say": "At the morning bed check, the guards found only dummies.",
+   "hook": "THE NEXT MORNING",
+   "bg": "prison",
+   "camera": "push_in",
+   "transition": "flash",
+   "props": [
+    {
+     "kind": "dummy_head",
+     "x": 0.66,
+     "y": 0.62,
+     "scale": 1.2,
+     "motion": "drop",
+     "appear": 0.6
+    }
+   ],
+   "cast": [
+    {
+     "id": "guard",
+     "x": 0.3,
+     "y": 0.92,
+     "scale": 1.15,
+     "action": "shock",
+     "expr": "shock",
+     "appear": 0.2
+    }
+   ]
+  },
+  {
+   "say": "Searchers found paddles and a homemade life vest washed up on a beach. But no bodies.",
+   "bg": "river",
+   "camera": "pan_left",
+   "transition": "whip_right",
+   "cast": [
+    {
+     "id": "agent",
+     "x": 0.3,
+     "y": 0.88,
+     "scale": 1.05,
+     "action": "point",
+     "expr": "serious"
+    }
+   ],
+   "props": [
+    {
+     "kind": "stamp",
+     "x": 0.6,
+     "y": 0.42,
+     "scale": 0.9,
+     "opts": {
+      "text": "NO BODIES"
+     },
+     "motion": "slam",
+     "appear": 3.0,
+     "z": 3
+    }
+   ]
+  },
+  {
+   "say": "The FBI investigated for seventeen years and found no credible evidence they survived.",
+   "hook": "17 YEARS",
+   "bg": "office",
+   "bg_opts": {
+    "labels": [
+     "FRANK MORRIS",
+     "JOHN ANGLIN",
+     "CLARENCE ANGLIN",
+     "JUNE 11, 1962",
+     "ALCATRAZ"
+    ]
+   },
+   "camera": "push_in",
+   "transition": "fog",
+   "cast": [
+    {
+     "id": "agent",
+     "x": 0.24,
+     "y": 0.95,
+     "scale": 1.15,
+     "action": "point",
+     "expr": "serious"
+    }
+   ],
+   "props": [
+    {
+     "kind": "poster",
+     "x": 0.7,
+     "y": 0.5,
+     "scale": 0.95,
+     "opts": {
+      "title": "WANTED",
+      "char": "morris",
+      "sub": "FRANK MORRIS"
+     },
+     "motion": "float"
+    }
+   ]
+  },
+  {
+   "say": "Officially, they probably drowned. But their bodies were never found.",
+   "bg": "sea_night",
+   "bg_opts": {
+    "city": true,
+    "rain": true,
+    "moon": [
+     540,
+     300
+    ]
+   },
+   "camera": "rise",
+   "transition": "dissolve",
+   "props": [
+    {
+     "kind": "stamp",
+     "x": 0.5,
+     "y": 0.42,
+     "scale": 1.0,
+     "opts": {
+      "text": "MISSING"
+     },
+     "motion": "slam",
+     "appear": 1.4
+    }
+   ]
+  },
+  {
+   "say": "So did they die in the bay, or pull off the perfect escape? Tell me in the comments.",
+   "hook": "YOUR VERDICT?",
+   "bg": "prison",
+   "bg_opts": {
+    "bars": true,
+    "guard": false
+   },
+   "camera": "pull_out",
+   "transition": "push",
+   "cast": [
+    {
+     "id": "morris",
+     "x": 0.5,
+     "y": 0.9,
+     "scale": 1.35,
+     "action": "stand",
+     "expr": "smile"
+    }
+   ]
+  }
+ ]
+}

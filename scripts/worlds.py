@@ -372,7 +372,7 @@ def W_cabin(o):
             "bloom": 0.32}
 
 def W_office(o):
-    labels = o.get("labels", ["FLIGHT 305", "$200,000", "SEATTLE", "RENO", "NORJAK"])
+    labels = o.get("labels") or [""]
     def wall(c, t, o_):
         c.drawRect(rect(-M, -M, W + 2 * M, H + 2 * M), grad_v("#26302a", "#141a17", 0, H))
         # window with blinds
@@ -400,8 +400,11 @@ def W_office(o):
             else:  # clipping with label
                 c.drawRect(rect(-80, -50, 160, 110), fill("#e9e2cf"))
                 lab = labels[(i // 2) % len(labels)]
-                f = font(FONT_BIG, 26 if len(lab) < 10 else 20)
-                draw_text_c(c, lab, 0, -18, f, "#1c1a17")
+                if lab:
+                    f = font(FONT_BIG, 26 if len(lab) < 10 else 20)
+                    draw_text_c(c, lab, 0, -18, f, "#1c1a17")
+                else:
+                    c.drawRect(rect(-60, -34, 120, 22), fill("#3a3632"))
                 for k in range(4):
                     c.drawLine(-64, 0 + k * 13, 60 - (k % 2) * 30, 0 + k * 13, stroke("#8f897a", 4))
             c.restore()
@@ -479,6 +482,117 @@ def W_river(o):
             "grade": ("#5f7a74", 0.12), "light": {"dx": -1, "rim": "#f4f0e6", "rim_a": 120, "shadow": "#1c2622", "sa": 95},
             "bloom": 0.22}
 
+
+def W_prison(o):
+    def back(c, t, o_):
+        c.drawRect(rect(-M, -M, W + 2 * M, H + 2 * M), grad_v("#1d2224", "#0e1112", -M, H))
+        for i in range(4):  # high barred windows with moonlight
+            x = 120 + i * 250
+            c.drawRect(rect(x, 140, 110, 170), fill("#3a4a66"))
+            for k in range(5):
+                c.drawRect(rect(x + 10 + k * 22, 140, 6, 170), fill("#111416"))
+            godrays(c, t, x + 55, 300, 20 - i * 6, "#b8c8e8", 30, 3, 20, 1500)
+    def tiers(c, t, o_):
+        vx = W / 2
+        for side in (-1, 1):
+            for tier in range(3):
+                y0 = 420 + tier * 330
+                for i in range(7):
+                    d = i / 7
+                    x = vx + side * lerp(560, 150, d ** 0.7)
+                    w_ = lerp(170, 40, d ** 0.7); h_ = lerp(260, 90, d ** 0.7)
+                    yy = lerp(y0, 560 + tier * 120, d ** 0.7)
+                    c.drawRect(rect(x - w_ / 2, yy, w_, h_), fill("#16191b"))
+                    for k in range(6):
+                        c.drawRect(rect(x - w_ / 2 + k * w_ / 6, yy, max(2, w_ * 0.04), h_), fill("#6e7478"))
+                    c.drawRect(rect(x - w_ / 2, yy + h_ - 6, w_, 6), fill("#4a5054"))
+                c.drawLine(vx + side * 650, y0 + 270, vx + side * 120, 560 + tier * 120 + 80, stroke("#5a6064", 6))
+        for i in range(6):  # hanging lights
+            y = 200 + i * 40; x = vx + (i - 2.5) * 30
+            c.drawCircle(x, y, 14, fill("#fff6d8"))
+            c.drawCircle(x, y + 40, 260 - i * 25, screen(radial(x, y + 40, 260 - i * 25, "#dfe8ff", 40, "#dfe8ff", 0)))
+        c.drawPath(poly([(vx - 120, 900), (vx + 120, 900), (W + M, H + M), (-M, H + M)]), grad_v("#3a3f42", "#1a1d1f", 900, H))
+        c.drawRect(rect(vx - 160, 1200, 320, 500), screen(grad_v("#dfe8ff", "#dfe8ff", 1200, 1700, 30, 0)))
+        if o.get("guard", True):  # patrolling guard silhouette in the distance
+            x = vx + 120 * math.sin(t * 0.25)
+            c.save(); c.translate(x, 1040); c.scale(0.16, 0.16)
+            c.drawRoundRect(rect(-70, -800, 140, 340), 50, 50, fill("#0c0e10")); c.drawCircle(0, -880, 52, fill("#0c0e10"))
+            c.drawRoundRect(rect(-80, -960, 160, 40), 14, 14, fill("#0c0e10"))
+            for s_ in (-1, 1):
+                a = math.radians(20 * math.sin(t * 6 + (0 if s_ < 0 else math.pi)))
+                c.drawLine(s_ * 30, -470, s_ * 30 + math.sin(a) * 460, -470 + math.cos(a) * 460, stroke("#0c0e10", 50))
+            c.restore()
+        dust(c, t, 0, 300, W, 1200, 22, "#e8f0ff", 60)
+    def fg(c, t, o_):
+        if o.get("bars"):
+            for k in range(-1, 9):
+                x = k * 150 + 20
+                c.drawRect(rect(x, -M, 26, H + 2 * M), grad_v("#2a2e30", "#0e1011"))
+                c.drawRect(rect(x + 4, -M, 5, H + 2 * M), fill("#9aa2a8", 70))
+            c.drawRect(rect(-M, 300, W + 2 * M, 24), fill("#1a1d1f"))
+    return {"layers": [(0.15, back, False), (0.55, tiers, False), (1.5, fg, True)],
+            "grade": ("#4a6a6a", 0.16), "light": {"dx": 1, "rim": "#dfe8ff", "rim_a": 150, "shadow": "#06090c", "sa": 125},
+            "bloom": 0.3}
+
+def W_sea_night(o):
+    def sky(c, t, o_):
+        night_sky(c, t, dict(o, moon=o.get("moon", (300, 380))))
+        clouds_layer(c, t, 260, 1.5, "#3f4766", 120, 8, 3, 12)
+    def horizon(c, t, o_):
+        hy = 980
+        if o.get("city", True):
+            for i in range(60):
+                x = -M + i * 26
+                hh = 20 + 90 * h01(i + 30) ** 2
+                c.drawRect(rect(x, hy - hh, 22, hh), fill("#141a2c"))
+                if h01(i * 3) > 0.35:
+                    c.drawCircle(x + 11, hy - hh * h01(i + 7), 2.5, fill("#ffd48a", int(150 + 90 * math.sin(t * 2 + i))))
+        if o.get("island", False):
+            ix = o.get("island_x", 760)
+            c.drawPath(poly([(ix - 260, hy + 6), (ix - 200, hy - 70), (ix - 60, hy - 110), (ix + 140, hy - 100), (ix + 260, hy + 6)]), fill("#0d1120"))
+            c.drawRect(rect(ix - 120, hy - 170, 220, 70), fill("#121729"))
+            c.drawRect(rect(ix + 120, hy - 230, 16, 130), fill("#121729"))
+            for k in range(8):
+                c.drawCircle(ix - 100 + k * 26, hy - 140, 3, fill("#ffe2a0", 200))
+            ang = t * 40 % 360
+            bx, by = ix + 128, hy - 232
+            r = math.radians(ang)
+            p = skia.Paint(AntiAlias=True)
+            p.setShader(skia.GradientShader.MakeLinear([skia.Point(bx, by), skia.Point(bx + math.cos(r) * 900, by + math.sin(r) * 120)],
+                                                       [hexcol("#fff2c8", int(110 * abs(math.cos(r)))), hexcol("#fff2c8", 0)]))
+            c.drawPath(poly([(bx, by), (bx + math.cos(r) * 900, by + math.sin(r) * 120 - 60), (bx + math.cos(r) * 900, by + math.sin(r) * 120 + 60)]), p)
+            c.drawCircle(bx, by, 9, fill("#fff2c8"))
+        draw_fog(c, t, hy - 140, 260, "#8090b8", 60, 12, 4.0, 13)
+    def water(c, t, o_):
+        hy = 980
+        c.drawRect(rect(-M, hy, W + 2 * M, H), grad_v("#141a30", "#05070e", hy, H))
+        mx = o.get("moon", (300, 380))[0]
+        for j in range(40):  # moon glitter path
+            y = hy + 10 + j ** 1.6 * 2.2
+            wdt = 30 + j * 6
+            off = 20 * math.sin(t * 1.4 + j * 0.9)
+            c.drawRect(rect(mx - wdt / 2 + off, y, wdt * (0.4 + 0.6 * h01(j + int(t * 3) % 7)), 3 + j * 0.15), fill("#dfe6ff", int(150 - j * 3)))
+        for j in range(26):
+            y = hy + 20 + j ** 1.5 * 3.4
+            p = skia.Path(); p.moveTo(-M, y)
+            for x in range(-M, W + M + 1, 40):
+                p.lineTo(x, y + (2 + j * 0.5) * math.sin(x / (40 + j * 6) + t * (1.1 + j * 0.05) + j))
+            c.drawPath(p, stroke("#4a5680", 1.5 + j * 0.12, 120))
+    def fg(c, t, o_):
+        for k in range(2):
+            base = 1700 + k * 120
+            p = skia.Path(); p.moveTo(-M, H + M)
+            for x in range(-M, W + M + 1, 30):
+                p.lineTo(x, base - 50 * math.sin(x / 210 + t * (1.2 + k * 0.3) + k * 2) - 25 * math.sin(x / 90 + t * 2.1))
+            p.lineTo(W + M, H + M); p.close()
+            c.drawPath(p, grad_v("#0c1222", "#03050a", base - 80, H))
+            c.drawPath(p, stroke("#6a78a8", 2, 90))
+        if o.get("rain"):
+            rain(c, t, 24, 70, 2600, 140, 4.5, seed=6, col="#c8d6f0")
+    return {"layers": [(0.0, sky, False), (0.2, horizon, False), (0.6, water, False), (1.5, fg, True)],
+            "grade": ("#1b2a5c", 0.2), "light": {"dx": -1, "rim": "#b8c8ff", "rim_a": 150, "shadow": "#05080f", "sa": 125},
+            "bloom": 0.38}
+
 def legacy(name):
     fn = BACKGROUNDS[name]
     def build(o):
@@ -490,6 +604,6 @@ def legacy(name):
     return build
 
 WORLDS = {"forest_night": W_forest_night, "sky": W_sky, "sky_night": W_sky, "airport": W_airport, "cabin": W_cabin,
-          "office": W_office, "evidence": W_office, "river": W_river}
+          "office": W_office, "evidence": W_office, "river": W_river, "prison": W_prison, "sea_night": W_sea_night}
 for _n in ("street", "battlefield", "palace", "courtroom", "room", "map", "black"):
     WORLDS[_n] = legacy(_n)
