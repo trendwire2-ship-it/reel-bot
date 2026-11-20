@@ -1,0 +1,5 @@
+# Enough to run scripts/validate.py (no voice models needed)
+numpy
+pillow
+soundfile
+skia-python
