@@ -77,6 +77,23 @@ def check_facebook():
         print("WARNING: this looks like a user token, not the Page token. Use the access_token from me/accounts.")
     print("Facebook connection looks good.")
 
+FOLLOW_LINE = os.environ.get("FOLLOW_LINE", "🔔 Follow Facts on Facts for a new true story every day.")
+CORE_TAGS = ["#FactsOnFacts", "#Reels"]
+
+def build_description(story):
+    cap = story.get("caption", "").strip()
+    tags = list(story.get("hashtags", []))
+    # pull any hashtags already typed into the caption into the list
+    for tg in [w for w in cap.split() if w.startswith("#")]:
+        tags.append(tg); cap = cap.replace(tg, "")
+    cap = " ".join(cap.split(" ")).strip()
+    seen, out = set(), []
+    for tg in tags + CORE_TAGS:
+        k = tg.lower()
+        if k not in seen:
+            seen.add(k); out.append(tg)
+    return f"{cap}\n\n{FOLLOW_LINE}\n\n{' '.join(out[:10])}"
+
 def main():
     if os.environ.get("CHECK_FB") == "1":
         check_facebook()
@@ -96,9 +113,12 @@ def main():
     os.makedirs(os.path.dirname(out), exist_ok=True)
     subprocess.run([sys.executable, os.path.join(ROOT, "scripts", "render.py"), path, out], check=True)
     if os.environ.get("DRY_RUN") == "1":
+        print("Description:\n" + build_description(story))
         print("DRY_RUN: rendered", out, "- not posting.")
         return
-    vid = publish_reel(out, story["caption"], story.get("title", ""))
+    desc = build_description(story)
+    print("Description:\n" + desc)
+    vid = publish_reel(out, desc, story.get("title", ""))
     shutil.move(path, os.path.join(ROOT, "posted", os.path.basename(path)))
     log.append({"id": story["id"], "slot": slot, "video_id": vid, "at": dt.datetime.utcnow().isoformat() + "Z"})
     json.dump(log, open(LOG, "w"), indent=1)

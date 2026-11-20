@@ -75,5 +75,14 @@ Cast spec keys: `skin`(hex) `hair`(black|brown|dark_brown|blonde|red|auburn|grey
   submarine (surfaced, bobbing), dummy_head(opts hair).
 - Use `close-ups` (big scale) on the key person 2–3 times; vary backgrounds and cameras every scene.
 
-## Caption (Facebook description)
-1–2 sentences that tease without spoiling, then a question, then 5–7 hashtags (#truecrime #history #mystery ...).
+## Caption + hashtags (the Facebook post text)
+The poster builds the description as: caption, then "🔔 Follow Facts on Facts for a new true story every day.",
+then the hashtags (plus #FactsOnFacts #Reels, added automatically).
+- `caption`: three short lines separated by blank lines (\n\n), no hashtags:
+  1. Scroll-stopping hook (under 15 words): the most shocking fact or a tense contradiction, one fitting emoji
+     ("He hijacked a plane, took $200,000… then jumped out into a storm at night. 🪂").
+  2. Tease (1 sentence) that adds stakes but doesn't give away the ending.
+  3. A debatable question + "Tell us below 👇".
+- `hashtags`: 5–8 tags: 2–3 broad (#TrueCrime #History #WW2 #Mystery), 2–3 topic-specific (#DBCooper #Alcatraz),
+  1–2 community tags (#UnsolvedMysteries #ColdCase #MilitaryHistory). CamelCase, no spaces.
+- Optional `cta`: the end-of-video follow card text (default "MORE TRUE STORIES DAILY"; keep under 26 characters).

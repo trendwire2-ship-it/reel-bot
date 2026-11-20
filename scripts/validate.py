@@ -31,6 +31,11 @@ def check(path, sheet=None):
         errs.append(f"{len(d['scenes'])} scenes (need 10-15)")
     if len(d.get("sources", [])) < 2:
         errs.append("needs at least 2 source URLs")
+    tags = d.get("hashtags", [])
+    if not 5 <= len(tags) <= 8 or not all(isinstance(x, str) and x.startswith("#") and " " not in x for x in tags):
+        errs.append("needs 'hashtags': 5-8 tags like \"#TrueCrime\" (mix broad + topic-specific)")
+    if "?" not in d["caption"] or "#" in d["caption"]:
+        errs.append("caption must end on a question and contain no hashtags (put them in 'hashtags')")
     if sum(1 for s in d["scenes"] if s.get("hook")) < 3:
         warns.append("fewer than 3 re-hook banners")
     for i, s in enumerate(d["scenes"]):

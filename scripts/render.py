@@ -658,6 +658,33 @@ def draw_banner(c, text, t0, t, dur=2.4, y=330, color="#c0302a"):
     c.drawString(text, x0 + 42, y + 10, f, fill("#f3efe6"))
     c.restore()
 
+def draw_follow_card(c, text, t, total):
+    """End-of-reel call to action: a pill with a pulsing FOLLOW button, above the caption zone."""
+    t0 = total - 3.4
+    d = t - t0
+    if d < 0:
+        return
+    a = ease_out(d / 0.45) * (1 - ease_io((t - (total - 0.7)) / 0.5))
+    if a <= 0:
+        return
+    f = fit(text, FONT_BIG, W - 300, 54)
+    fb = font(FONT_BIG, 50)
+    tw = text_w(text, f); bw = text_w("+ FOLLOW", fb) + 60
+    w = tw + bw + 90
+    y = 1180 + (1 - ease_out(d / 0.45)) * 60
+    x0 = W / 2 - w / 2
+    c.saveLayerAlpha(None, int(255 * a))
+    c.drawRoundRect(rect(x0, y - 62, w, 104), 52, 52, fill("#0b0b0d", 225))
+    c.drawRoundRect(rect(x0, y - 62, w, 104), 52, 52, stroke("#f3efe6", 2, 60))
+    c.drawString(text, x0 + 40, y + 10, f, fill("#f3efe6"))
+    pulse = 1 + 0.06 * math.sin(max(0.0, d - 0.5) * 6.0) * (1 if d > 0.5 else 0)
+    bx = x0 + 40 + tw + 25
+    c.save(); c.translate(bx + bw / 2, y - 10); c.scale(pulse, pulse)
+    c.drawRoundRect(rect(-bw / 2, -40, bw, 80), 40, 40, fill("#c0302a"))
+    c.drawString("+ FOLLOW", -bw / 2 + 30, 18, fb, fill("#ffffff"))
+    c.restore()
+    c.restore()
+
 def vignette_paint():
     p = skia.Paint(AntiAlias=True)
     p.setShader(skia.GradientShader.MakeRadial(skia.Point(W / 2, H / 2), H * 0.7,
@@ -764,6 +791,8 @@ def render_frame(c, st, tl, t, surf=None, fi=0, post=None):
         if story["scenes"][i].get("hook"):
             draw_banner(c, story["scenes"][i]["hook"], s["s"], t, dur=2.6, y=330, color="#c0302a" if i % 2 else "#d4a017")
     draw_captions(c, groups, t)
+    if story.get("cta", "MORE TRUE STORIES DAILY"):
+        draw_follow_card(c, story.get("cta", "MORE TRUE STORIES DAILY"), t, total)
     if t > total - 0.6:
         c.drawRect(rect(0, 0, W, H), fill("#000000", int(255 * ease_io((t - (total - 0.6)) / 0.6))))
 
