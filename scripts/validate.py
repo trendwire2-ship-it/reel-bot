@@ -36,6 +36,28 @@ def check(path, sheet=None):
         errs.append("needs 'hashtags': 5-8 tags like \"#TrueCrime\" (mix broad + topic-specific)")
     if "?" not in d["caption"] or "#" in d["caption"]:
         errs.append("caption must end on a question and contain no hashtags (put them in 'hashtags')")
+    if d.get("style", "sketch") == "sketch":
+        nb = 0
+        for i, s in enumerate(d["scenes"]):
+            bts = s.get("beats")
+            nw = len(s["say"].split())
+            if not bts:
+                errs.append(f"scene {i}: needs 'beats' (sketch style: a hand-lettered title per shot)")
+                continue
+            last = -1
+            for b in bts:
+                if not b.get("title") or len(b["title"].split()) > 5:
+                    errs.append(f"scene {i}: beat title must be 1-5 words ({b.get('title')!r})")
+                w = int(b.get("word", 0))
+                if w <= last or w >= nw:
+                    errs.append(f"scene {i}: beat word index {w} must increase and be < {nw}")
+                last = w
+                if b.get("frame", "medium") not in ("wide", "medium", "close"):
+                    errs.append(f"scene {i}: frame must be wide|medium|close")
+            nb += len(bts)
+        tot = sum(len(s["say"].split()) for s in d["scenes"]) / 2.7
+        if nb and tot / nb > 3.6:
+            warns.append(f"only {nb} shots for ~{tot:.0f}s: aim for a new shot every 1.5-3 s")
     if sum(1 for s in d["scenes"] if s.get("hook")) < 3:
         warns.append("fewer than 3 re-hook banners")
     for i, s in enumerate(d["scenes"]):
@@ -62,13 +84,20 @@ def check(path, sheet=None):
         scenes.append({"s": t, "e": t + dur}); t += dur + 0.22
     scenes[-1]["e"] += 1.0
     tl = {"scenes": scenes, "groups": R.caption_groups(wl), "total": scenes[-1]["e"]}
+    sketch_mode = d.get("style", "sketch") == "sketch"
+    if sketch_mode:
+        import sketch as S
+        tl.update(style="sketch", fps=30, shots=S.plan_shots(d, scenes, wl))
     info = skia.ImageInfo.Make(R.W, R.H, skia.kBGRA_8888_ColorType, skia.kPremul_AlphaType)
     surf = skia.Surface.MakeRaster(info); c = surf.getCanvas()
     tiles = []
     for i, s in enumerate(scenes):
         for k, tt in enumerate((s["s"] + 0.05, (s["s"] + s["e"]) / 2, s["e"] - 0.05)):
             try:
-                R.render_frame(c, R.Stage(d), tl, min(tt, tl["total"] - 0.01), surf, 0, R.Post())
+                if sketch_mode:
+                    S.SketchRenderer(R.Stage(d), tl).frame(c, min(tt, tl["total"] - 0.01), 0)
+                else:
+                    R.render_frame(c, R.Stage(d), tl, min(tt, tl["total"] - 0.01), surf, 0, R.Post())
             except Exception as e:
                 errs.append(f"scene {i}: render error {type(e).__name__}: {e}")
                 break

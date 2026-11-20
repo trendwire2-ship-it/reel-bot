@@ -388,12 +388,12 @@ class Stage:
         z = 1 + (zoom - 1) * depth
         c.translate(W / 2, H / 2); c.scale(z, z); c.translate(-W / 2 - panx * depth, -H / 2 - pany * depth)
 
-    def draw_scene(self, c, idx, lt, dur):
+    def draw_scene(self, c, idx, lt, dur, cam_override=None, overlays=True):
         sc = self.story["scenes"][idx]
         self.first = idx == 0
         wd = self.world(idx, sc)
         p = clamp(lt / max(dur, 0.1))
-        cam = sc.get("camera", "drift")
+        cam = cam_override or sc.get("camera", "drift")
         if isinstance(cam, str):
             cam = CAM_PRESETS.get(cam, CAM_PRESETS["drift"])
         zoom = max(1.0, val(cam.get("zoom"), p, 1.08))
@@ -418,12 +418,12 @@ class Stage:
             (self.draw_prop if kind == "prop" else self.draw_char)(c, it, lt, p, dur, wd)
         c.restore()
         for depth, fn, fg in wd["layers"]:
-            if fg:
+            if fg and not (cam_override and zoom > 1.25):  # tight framings drop foreground clutter
                 c.save(); self.cam_apply(c, zoom, panx, pany, depth); fn(c, lt, sc.get("bg_opts", {})); c.restore()
         c.restore()
-        if sc.get("text"):
+        if overlays and sc.get("text"):
             draw_title(c, sc["text"], lt)
-        if sc.get("label"):
+        if overlays and sc.get("label"):
             draw_label(c, sc["label"], lt)
         return wd
 
@@ -798,6 +798,23 @@ def render_frame(c, st, tl, t, surf=None, fi=0, post=None):
 
 def worker(args):
     story, tl, f0, f1, out = args
+    fps = tl.get("fps", FPS)
+    if tl.get("style") == "sketch":
+        from sketch import SketchRenderer
+        st = Stage(story)
+        sr = SketchRenderer(st, tl)
+        info = skia.ImageInfo.Make(W, H, skia.kBGRA_8888_ColorType, skia.kPremul_AlphaType)
+        surf = skia.Surface.MakeRaster(info); c = surf.getCanvas()
+        ff = subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "bgra", "-s", f"{W}x{H}",
+                               "-r", str(fps), "-i", "-", "-c:v", "libx264", "-preset", os.environ.get("X264_PRESET", "veryfast"),
+                               "-crf", "18", "-pix_fmt", "yuv420p", "-g", str(fps * 2), out], stdin=subprocess.PIPE)
+        buf = np.empty((H, W, 4), np.uint8)
+        for fi in range(f0, f1):
+            sr.frame(c, fi / fps, fi)
+            surf.readPixels(info, buf, W * 4)
+            ff.stdin.write(buf.tobytes())
+        ff.stdin.close(); ff.wait()
+        return out
     st = Stage(story)
     post = Post()
     info = skia.ImageInfo.Make(W, H, skia.kBGRA_8888_ColorType, skia.kPremul_AlphaType)
@@ -823,8 +840,14 @@ def render(story_path, out_path, preview=None):
     music = make_music(total, [s["s"] for s in scenes[1:]], hits, tmp, seed=sum(map(ord, story.get("id", "x"))))
     groups = caption_groups(words)
     tl = {"scenes": scenes, "groups": groups, "total": total}
+    style = story.get("style", os.environ.get("REEL_STYLE", "sketch"))
+    fps = FPS
+    if style == "sketch":
+        from sketch import plan_shots
+        fps = int(os.environ.get("SKETCH_FPS", "30"))
+        tl.update(style="sketch", shots=plan_shots(story, scenes, words), fps=fps)
     end_t = min(total, preview) if preview else total
-    nframes = int(end_t * FPS)
+    nframes = int(end_t * fps)
     nw = max(1, min(mp.cpu_count(), 8))
     bounds = [round(i * nframes / nw) for i in range(nw + 1)]
     parts = [os.path.join(tmp, f"part{i}.mp4") for i in range(nw)]
@@ -842,7 +865,7 @@ def render(story_path, out_path, preview=None):
         "-map", "0:v", "-map", "[a]", "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-ar", "48000",
         "-movflags", "+faststart", "-t", f"{end_t:.3f}", out_path,
     ], check=True)
-    print(f"rendered {out_path}: {end_t:.1f}s at {FPS}fps")
+    print(f"rendered {out_path}: {end_t:.1f}s at {fps}fps, style {style}")
     return total
 
 if __name__ == "__main__":
