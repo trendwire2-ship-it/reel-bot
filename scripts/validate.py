@@ -36,7 +36,7 @@ def check(path, sheet=None):
         errs.append("needs 'hashtags': 5-8 tags like \"#TrueCrime\" (mix broad + topic-specific)")
     if "?" not in d["caption"] or "#" in d["caption"]:
         errs.append("caption must end on a question and contain no hashtags (put them in 'hashtags')")
-    if d.get("style", "sketch") == "sketch":
+    if d.get("style", "cinematic") == "sketch":
         nb = 0
         for i, s in enumerate(d["scenes"]):
             bts = s.get("beats")
@@ -84,7 +84,7 @@ def check(path, sheet=None):
         scenes.append({"s": t, "e": t + dur}); t += dur + 0.22
     scenes[-1]["e"] += 1.0
     tl = {"scenes": scenes, "groups": R.caption_groups(wl), "total": scenes[-1]["e"]}
-    sketch_mode = d.get("style", "sketch") == "sketch"
+    sketch_mode = d.get("style", "cinematic") == "sketch"
     if sketch_mode:
         import sketch as S
         tl.update(style="sketch", fps=30, shots=S.plan_shots(d, scenes, wl))

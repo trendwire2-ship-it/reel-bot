@@ -840,7 +840,7 @@ def render(story_path, out_path, preview=None):
     music = make_music(total, [s["s"] for s in scenes[1:]], hits, tmp, seed=sum(map(ord, story.get("id", "x"))))
     groups = caption_groups(words)
     tl = {"scenes": scenes, "groups": groups, "total": total}
-    style = story.get("style", os.environ.get("REEL_STYLE", "sketch"))
+    style = story.get("style", os.environ.get("REEL_STYLE", "cinematic"))
     fps = FPS
     if style == "sketch":
         from sketch import plan_shots

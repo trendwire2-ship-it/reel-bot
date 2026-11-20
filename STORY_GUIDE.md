@@ -1,29 +1,8 @@
 # Story guide (for the daily writer)
 
-## HOUSE STYLE: pencil-sketch documentary (default, `"style": "sketch"`)
-Every reel is rendered as a black-and-white graphite pencil drawing on paper, like a hand-drawn storybook:
-a NEW SHOT every 1.5–3 seconds, each with a big hand-lettered title at the top (2–4 words, like
-"ONE HOUR AFTER", "THE DECOY", "I HAVE A BOMB"), a slow push-in on each shot and a quick blurred slide
-between shots. There are no word-by-word captions: the shot titles carry the story, so write them well.
-
-Every scene MUST have `beats`: one per shot, in order.
-```
-"beats": [{"word": 0, "title": "1971. A HIJACKING", "frame": "wide"},
-          {"word": 7, "title": "$200,000 RANSOM", "frame": "medium", "focus": "cooper"},
-          {"word": 22, "title": "NEVER FOUND", "frame": "close", "focus": "cooper"}]
-```
-- `word`: index (0-based) of the word in that scene's `say` where the shot starts; first beat is 0, increasing.
-- `title`: 1–5 words, punchy, hand-lettered feel; a fact, a time jump, a quote fragment or an emotional beat.
-  Titles must only use facts from the narration. Vary them; never just copy the sentence.
-- `frame`: wide (whole scene), medium (waist up on `focus`), close (face of `focus`). Alternate framings so
-  consecutive shots look different. `focus` = a cast id in that scene (omit for wide or prop shots).
-- Aim for ~30–40 beats in an 85-second story.
-- Pencil drawings read best with clear silhouettes: keep characters large, use props, avoid empty frames.
-  Prefer scenes with people and objects over plain map/sky backdrops.
-
-
-Each story is one JSON file in `queue/`, named `YYYY-MM-DD-N-slug.json` (N = 1, 2, 3 for that day's 9 AM, 1 PM and 7 PM New York slots).
-Files post oldest-name-first, so date-prefixed names keep the order. See `posted/` and `queue/` for complete examples.
+## House style
+Cinematic 2.5D noir documentary (the default). Do NOT set "style" and do NOT add "beats"; the optional pencil-sketch
+mode ("style": "sketch" + beats) is switched off unless the owner asks for it again.
 
 ## Topics
 Rotate history, war and true crime. Prefer famous, well-documented, decades-old cases and events (US/UK audiences).
