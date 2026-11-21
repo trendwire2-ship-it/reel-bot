@@ -61,7 +61,7 @@
  },
  "scenes": [
   {
-   "say": "He was the most notorious gangster in America. But what finally put Al Capone behind bars wasn't murder. It was taxes.",
+   "say": "He was America's most notorious gangster. But what finally put Al Capone behind bars wasn't murder. It was taxes.",
    "bg": "street",
    "bg_opts": {
     "rain": true
@@ -93,7 +93,7 @@
    ]
   },
   {
-   "say": "In the late 1920s, his empire of bootlegging, speakeasies and gambling reportedly brought in about $60 million a year.",
+   "say": "His bootlegging and gambling empire reportedly brought in about $60 million a year.",
    "bg": "room",
    "bg_opts": {
     "wall": "#3a2a22",
@@ -129,7 +129,7 @@
    ]
   },
   {
-   "say": "But on paper, he had nothing. He'd never filed a tax return. Nothing was bought in his own name.",
+   "say": "But on paper, he had nothing. He'd never filed a tax return.",
    "hook": "ON PAPER: NOTHING",
    "bg": "office",
    "bg_opts": {
@@ -155,7 +155,7 @@
    ]
   },
   {
-   "say": "So the government sent a tax man after him: IRS special agent Frank Wilson.",
+   "say": "So the government sent a tax man: IRS agent Frank Wilson.",
    "bg": "street",
    "camera": "track_left",
    "transition": "fog",
@@ -181,7 +181,7 @@
    ]
   },
   {
-   "say": "Wilson dug through some 2 million documents, and found ledgers tracing unreported payments straight to Capone.",
+   "say": "Wilson dug through some 2 million documents and found ledgers tracing payments straight to Capone.",
    "hook": "2 MILLION DOCUMENTS",
    "bg": "evidence",
    "bg_opts": {
@@ -217,7 +217,7 @@
    ]
   },
   {
-   "say": "In June 1931, Capone was indicted for tax evasion. Prosecutors said he owed over $200,000 in unpaid taxes.",
+   "say": "In 1931, Capone was indicted for tax evasion.",
    "bg": "office",
    "bg_opts": {
     "labels": [
@@ -243,7 +243,7 @@
    ]
   },
   {
-   "say": "Capone reportedly tried to bribe the jury. So the judge quietly swapped the jury panel before the trial.",
+   "say": "He reportedly tried to bribe the jury. So the judge swapped the jury panel before the trial.",
    "hook": "THE SWITCH",
    "bg": "courtroom",
    "camera": "pan_right",
@@ -267,28 +267,7 @@
    ]
   },
   {
-   "say": "He's quoted as saying: \"The income tax law is a lot of bunk. The government can't collect legal taxes from illegal money.\"",
-   "bg": "room",
-   "bg_opts": {
-    "wall": "#24282e",
-    "floor": "#141518"
-   },
-   "camera": "push_in",
-   "transition": "dissolve",
-   "cast": [
-    {
-     "id": "capone",
-     "x": 0.45,
-     "y": 1.22,
-     "scale": 2.1,
-     "action": "talk",
-     "expr": "smile",
-     "talk": true
-    }
-   ]
-  },
-  {
-   "say": "On October 17, 1931, the jury found him guilty on five counts.",
+   "say": "On October 17, 1931, he was found guilty on five counts.",
    "hook": "GUILTY",
    "bg": "courtroom",
    "camera": "push_in",
@@ -309,7 +288,7 @@
    ]
   },
   {
-   "say": "The sentence: 11 years in federal prison, plus $80,000 in fines and court costs.",
+   "say": "The sentence: 11 years in prison and $80,000 in fines and costs. First Atlanta, then Alcatraz.",
    "bg": "courtroom",
    "camera": "pull_out",
    "transition": "push",
@@ -330,40 +309,7 @@
    ]
   },
   {
-   "say": "He went to Atlanta first, then to Alcatraz.",
-   "hook": "ALCATRAZ",
-   "bg": "prison",
-   "bg_opts": {
-    "guard": true
-   },
-   "camera": "track_right",
-   "transition": "whip_right",
-   "cast": [
-    {
-     "id": "capone",
-     "x": [
-      0.2,
-      0.45
-     ],
-     "y": 0.9,
-     "action": "walk",
-     "expr": "sad"
-    },
-    {
-     "id": "guard",
-     "x": [
-      0.05,
-      0.3
-     ],
-     "y": 0.9,
-     "action": "walk",
-     "expr": "serious",
-     "z": 0
-    }
-   ]
-  },
-  {
-   "say": "He came out in 1939, straight into a hospital. He never ran Chicago again, and died in 1947.",
+   "say": "He came out in 1939, straight into a hospital, and never ran Chicago again.",
    "bg": "street",
    "bg_opts": {
     "rain": true
@@ -386,7 +332,7 @@
    ]
   },
   {
-   "say": "So was this justice, or proof the system couldn't catch him for his real crimes? Tell me in the comments.",
+   "say": "Justice, or proof they couldn't catch him for his real crimes? Tell me in the comments.",
    "hook": "YOUR VERDICT?",
    "bg": "office",
    "bg_opts": {

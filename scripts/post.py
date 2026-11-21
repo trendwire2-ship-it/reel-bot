@@ -166,6 +166,18 @@ def backfill_comments():
             e["comment_id"] = cid
     json.dump(log, open(LOG, "w"), indent=1)
 
+def archive_original(out, story):
+    """Proof of authorship: a SHA-256 fingerprint of every master file, logged with a timestamp.
+    The workflow also attaches the master MP4 to a dated GitHub Release (see post-reels.yml)."""
+    import hashlib
+    h = hashlib.sha256(open(out, "rb").read()).hexdigest()
+    reg = os.path.join(ROOT, "posted", "originals.json")
+    rows = json.load(open(reg)) if os.path.exists(reg) else []
+    rows.append({"id": story["id"], "title": story.get("title"), "sha256": h,
+                 "rendered_utc": dt.datetime.utcnow().isoformat() + "Z", "style": "comic" if story.get("comic") else story.get("style", "cinematic")})
+    json.dump(rows, open(reg, "w"), indent=1)
+    open(out + ".sha256", "w").write(f"{h}  {os.path.basename(out)}\n")
+
 def main():
     if os.environ.get("COMMENT_BACKFILL") == "1":
         backfill_comments()
@@ -185,15 +197,25 @@ def main():
     if not queue:
         print("Queue is empty; nothing to post.")
         return
-    path = queue[0]
+    # One painted motion-comic reel a day goes out in the COMIC_SLOT (default 1 PM New York);
+    # the other slots take cinematic stories. If the preferred kind isn't queued, post whatever is next.
+    comic_slot = os.environ.get("COMIC_SLOT", "@13")
+    want_comic = slot != "manual" and slot.endswith(comic_slot)
+    kinds = [(p, bool(json.load(open(p)).get("comic"))) for p in queue]
+    path = next((p for p, k in kinds if k == want_comic), queue[0]) if slot != "manual" else queue[0]
     story = json.load(open(path))
     out = os.path.join(ROOT, "out", story["id"] + ".mp4")
     os.makedirs(os.path.dirname(out), exist_ok=True)
-    subprocess.run([sys.executable, os.path.join(ROOT, "scripts", "render.py"), path, out], check=True)
+    if story.get("comic"):
+        env = dict(os.environ, COMIC_VARIANT=story["comic"].get("variant", "hybrid"))
+        subprocess.run([sys.executable, os.path.join(ROOT, "scripts", "comic.py"), path, out], check=True, env=env)
+    else:
+        subprocess.run([sys.executable, os.path.join(ROOT, "scripts", "render.py"), path, out], check=True)
     if os.environ.get("DRY_RUN") == "1":
         print("Description:\n" + build_description(story))
         print("DRY_RUN: rendered", out, "- not posting.")
         return
+    archive_original(out, story)
     desc = build_description(story)
     print("Description:\n" + desc)
     vid = publish_reel(out, desc, story.get("title", ""))

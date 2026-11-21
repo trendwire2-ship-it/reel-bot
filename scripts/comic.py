@@ -214,6 +214,7 @@ def worker(args):
         for i, s in enumerate(tl["scenes"]):
             if story["scenes"][i].get("hook"):
                 R.draw_banner(c, story["scenes"][i]["hook"], s["s"], t, dur=2.6, y=330, color="#c0302a" if i % 2 else "#d4a017")
+        R.draw_watermark(c, t, sum(map(ord, story.get("id", "x"))))
         R.draw_captions(c, tl["groups"], t)
         R.draw_follow_card(c, story.get("cta", "MORE TRUE STORIES DAILY"), t, total)
         if t > total - 0.6:
@@ -255,7 +256,7 @@ def render(story_path, out_path, variant):
                     "[1:a]highpass=f=70,acompressor=threshold=-21dB:ratio=2.5:attack=12:release=220:makeup=2[v];[2:a]volume=0.15[m];"
                     "[v][m]amix=inputs=2:duration=first:normalize=0,loudnorm=I=-14:TP=-1.5:LRA=9[a]",
                     "-map", "0:v", "-map", "[a]", "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart",
-                    "-t", f"{total:.3f}", out_path], check=True)
+                    *R.COPYRIGHT_META, "-t", f"{total:.3f}", out_path], check=True)
     print(f"rendered {out_path} ({variant}, {total:.1f}s)")
 
 if __name__ == "__main__":

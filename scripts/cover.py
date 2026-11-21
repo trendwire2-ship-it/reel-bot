@@ -22,6 +22,15 @@ def pick_scene(story):
                 best, score = i, sc
     return best
 
+def draw_comic_bg(story, c):
+    """Painted key art: cover.image, else the first key shot, else the first shot."""
+    import comic, cv2
+    shots = story["comic"]["shots"]
+    url = story.get("cover", {}).get("image") or next((x["image"] for x in shots if x.get("key")), shots[0]["image"])
+    img = comic.cover_resize(cv2.imread(comic.fetch(url)))
+    bgra = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
+    c.drawImage(skia.Image.fromarray(np.ascontiguousarray(bgra), colorType=skia.kBGRA_8888_ColorType), 0, 0)
+
 def make_cover(story, out):
     # estimated timeline (no audio needed)
     t, scenes = 0.15, []
@@ -31,7 +40,7 @@ def make_cover(story, out):
     si = pick_scene(story)
     s = scenes[si]
     lt = story.get("cover", {}).get("t", (s["e"] - s["s"]) * 0.6)
-    st = R.Stage(story)
+    st = None if story.get("comic") else R.Stage(story)
     info = skia.ImageInfo.Make(W, H, skia.kBGRA_8888_ColorType, skia.kPremul_AlphaType)
     surf = skia.Surface.MakeRaster(info); c = surf.getCanvas()
     c.clear(hexcol("#000000"))
@@ -40,7 +49,7 @@ def make_cover(story, out):
     cast = sorted(sc.get("cast", []), key=lambda ca: -(max(ca["scale"]) if isinstance(ca.get("scale"), list) else ca.get("scale", 1.0)))
     focus = story.get("cover", {}).get("focus")
     ca = next((x for x in cast if x["id"] == focus), cast[0] if cast else None)
-    if ca is not None:
+    if ca is not None and st is not None:
         p = min(1.0, lt / max(0.1, s["e"] - s["s"]))
         sca = R.val(ca.get("scale"), p, 1.0)
         hs = st.cast[ca["id"]].hscale if ca["id"] in st.cast else 1.0
@@ -49,8 +58,11 @@ def make_cover(story, out):
         face_y = y - 0.62 * sca * hs * 900
         z = max(1.0, min(2.8, 2.3 / max(sca, 0.4)))
         cam = {"zoom": z, "pan": x - W / 2, "pany": face_y - H / 2 - 0.16 * H / z}
-    wd = st.draw_scene(c, si, lt, s["e"] - s["s"], cam_override=cam, overlays=False)
-    R.Post().apply(surf, c, 0, wd.get("bloom", 0.3), wd.get("grade"))
+    if story.get("comic"):
+        draw_comic_bg(story, c)
+    else:
+        wd = st.draw_scene(c, si, lt, s["e"] - s["s"], cam_override=cam, overlays=False)
+        R.Post().apply(surf, c, 0, wd.get("bloom", 0.3), wd.get("grade"))
     c.drawRect(rect(0, 0, W, H), R.vignette_paint())
     # readability gradients
     for y0, y1, a0, a1 in ((0, 980, 235, 0), (H - 520, H, 0, 220)):

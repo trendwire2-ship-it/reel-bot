@@ -52,14 +52,14 @@ jobs:
           path: |
             ~/.cache/pip
             ~/.cache/huggingface
-          key: deps-v2-${{ hashFiles('.github/workflows/post-reels.yml') }}
+          key: deps-v3-${{ hashFiles('.github/workflows/post-reels.yml') }}
 
       - name: Install tools
         if: ${{ !inputs.check_facebook && !inputs.comment_posted }}
         run: |
           sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg libegl1 libgl1 fonts-dejavu-core
           pip install -q torch==2.6.0 torchaudio==2.6.0 --index-url https://download.pytorch.org/whl/cpu
-          pip install -q chatterbox-tts==0.1.7 kokoro-onnx soundfile pillow numpy edge-tts skia-python
+          pip install -q chatterbox-tts==0.1.7 kokoro-onnx soundfile pillow numpy edge-tts skia-python opencv-python-headless transformers
 
       - name: Unlock your voice sample
         if: ${{ !inputs.check_facebook && !inputs.comment_posted }}
@@ -111,6 +111,16 @@ jobs:
           path: out/*.mp4
           if-no-files-found: ignore
           retention-days: 14
+
+      - name: Archive the master file as proof of ownership (GitHub Release)
+        if: ${{ !inputs.dry_run && !inputs.check_facebook && !inputs.comment_posted && !inputs.covers_posted }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          ls out/*.sha256 >/dev/null 2>&1 || exit 0   # only written when a reel was actually posted
+          tag="masters-$(date -u +%Y-%m)"
+          gh release view "$tag" >/dev/null 2>&1 || gh release create "$tag" --title "Original masters $(date -u +%B\ %Y)" --notes "Original Facts on Facts reels with SHA-256 fingerprints and upload timestamps. (c) Facts on Facts. All rights reserved."
+          gh release upload "$tag" out/*.mp4 out/*.sha256 --clobber || echo "archive upload failed (posting unaffected)"
 
       - name: Save queue/posted changes
         run: |

@@ -99,7 +99,7 @@
  },
  "scenes": [
   {
-   "say": "In 1950, masked men walked out of a Boston vault with over $1.2 million in cash. It was called the perfect crime. It nearly was.",
+   "say": "In 1950, masked men walked out of a Boston vault with over $1.2 million in cash. The perfect crime... almost.",
    "bg": "street",
    "bg_opts": {
     "rain": true
@@ -142,7 +142,7 @@
    ]
   },
   {
-   "say": "January 17, 1950. Shortly before 7:30 PM, Brink's employees in Boston's North End were counting money.",
+   "say": "January 17, 1950. Just before 7:30 PM, Brink's employees were counting money.",
    "bg": "office",
    "bg_opts": {
     "labels": [
@@ -182,7 +182,7 @@
    ]
   },
   {
-   "say": "Seven armed men slipped inside. Halloween masks, pea coats, chauffeur's caps, gloves.",
+   "say": "Seven armed men slipped inside. Halloween masks, pea coats, chauffeur's caps.",
    "hook": "THEY'RE INSIDE",
    "bg": "room",
    "bg_opts": {
@@ -231,7 +231,7 @@
    ]
   },
   {
-   "say": "Every locked door opened. Because for months, the gang had secretly removed each lock cylinder and copied the keys.",
+   "say": "Every locked door opened. For months, the gang had secretly removed the lock cylinders and copied the keys.",
    "hook": "HOW?",
    "bg": "street",
    "camera": "push_in",
@@ -259,7 +259,7 @@
    ]
   },
   {
-   "say": "In about 20 minutes they were gone, with $1.2 million in cash, plus $1.5 million in checks and money orders.",
+   "say": "In about 20 minutes they were gone, with $1.2 million in cash and $1.5 million in checks.",
    "bg": "room",
    "bg_opts": {
     "wall": "#2a2420",
@@ -303,29 +303,7 @@
    ]
   },
   {
-   "say": "The largest robbery in US history at the time. They left behind almost nothing. One chauffeur's cap.",
-   "bg": "evidence",
-   "bg_opts": {
-    "labels": [
-     "$1.2 MILLION CASH",
-     "LARGEST ROBBERY",
-     "CHAUFFEUR'S CAP"
-    ]
-   },
-   "camera": "pan_left",
-   "transition": "whip_right",
-   "cast": [
-    {
-     "id": "agent",
-     "x": 0.28,
-     "y": 0.92,
-     "action": "point",
-     "expr": "serious"
-    }
-   ]
-  },
-  {
-   "say": "The FBI chased hundreds of dead ends. Years passed. And in Massachusetts, after six years, no one could be charged.",
+   "say": "The FBI chased hundreds of dead ends. Years passed. The six-year deadline to charge them was running out.",
    "hook": "THE CLOCK IS TICKING",
    "bg": "office",
    "bg_opts": {
@@ -354,7 +332,7 @@
    ]
   },
   {
-   "say": "Then the gang turned on one of its own: Joseph \"Specs\" O'Keefe.",
+   "say": "Then the gang turned on one of its own, Joseph \"Specs\" O'Keefe. A hitman shot him. He survived.",
    "bg": "street",
    "bg_opts": {
     "rain": true
@@ -375,43 +353,6 @@
      "scale": 2.0,
      "action": "stand",
      "expr": "serious"
-    }
-   ]
-  },
-  {
-   "say": "A hitman hired by the gang shot him. He survived.",
-   "hook": "HE SURVIVED",
-   "bg": "street",
-   "camera": "track_right",
-   "transition": "flash",
-   "shake": [
-    [
-     0.8,
-     0.6,
-     22
-    ]
-   ],
-   "cast": [
-    {
-     "id": "okeefe",
-     "x": [
-      0.55,
-      0.6
-     ],
-     "y": 0.9,
-     "action": "fall",
-     "expr": "shock",
-     "appear": 0.0
-    }
-   ],
-   "props": [
-    {
-     "kind": "gun",
-     "x": 0.2,
-     "y": 0.5,
-     "scale": 1.1,
-     "motion": "slam",
-     "appear": 0.5
     }
    ]
   },
@@ -445,7 +386,7 @@
    ]
   },
   {
-   "say": "On January 12, 1956, just five days before the six-year deadline, the FBI arrested six men.",
+   "say": "On January 12, just five days before the deadline, the FBI arrested six men.",
    "hook": "5 DAYS LEFT",
    "bg": "evidence",
    "bg_opts": {
@@ -477,42 +418,7 @@
    ]
   },
   {
-   "say": "Eight gang members were convicted and got life in prison. O'Keefe pleaded guilty and got four years.",
-   "bg": "courtroom",
-   "camera": "pan_right",
-   "transition": "whip_right",
-   "cast": [
-    {
-     "id": "judge",
-     "x": 0.5,
-     "y": 0.84,
-     "action": "talk",
-     "expr": "serious"
-    },
-    {
-     "id": "okeefe",
-     "x": 0.2,
-     "y": 0.92,
-     "action": "stand",
-     "expr": "sad"
-    }
-   ],
-   "props": [
-    {
-     "kind": "newspaper",
-     "x": 0.72,
-     "y": 0.5,
-     "scale": 0.9,
-     "opts": {
-      "headline": "BRINK'S GANG|LIFE IN PRISON"
-     },
-     "motion": "pop",
-     "appear": 1.0
-    }
-   ]
-  },
-  {
-   "say": "But here's the twist. Most of the cash was never found. Reportedly, over $1 million has never been accounted for.",
+   "say": "But most of the cash was never found. Reportedly, over $1 million is still unaccounted for.",
    "hook": "WHERE'S THE MONEY?",
    "bg": "forest_night",
    "camera": "crane_down",
@@ -536,7 +442,7 @@
    ]
   },
   {
-   "say": "So where did it go? Buried, spent, or still hidden somewhere in Boston? Tell me in the comments.",
+   "say": "So where did it go? Tell me in the comments.",
    "hook": "YOUR THEORY?",
    "bg": "street",
    "bg_opts": {

@@ -62,7 +62,7 @@
  },
  "scenes": [
   {
-   "say": "200,000 miles from Earth, an explosion ripped through Apollo 13. Three astronauts were suddenly losing air, power and time.",
+   "say": "200,000 miles from Earth, an explosion ripped through Apollo 13. Three astronauts were losing air, power and time.",
    "bg": "sky_night",
    "camera": "push_in",
    "shake": [
@@ -84,7 +84,7 @@
    ]
   },
   {
-   "say": "April 11, 1970. Lovell, Swigert and Haise launched for the Moon. For nearly 56 hours, it was perfect.",
+   "say": "April 1970. Lovell, Swigert and Haise launched for the Moon. For 56 hours, it was perfect.",
    "bg": "airport",
    "bg_opts": {
     "board": [
@@ -164,7 +164,7 @@
    ]
   },
   {
-   "say": "Swigert radioed: \"Houston, we've had a problem here.\" Moments later, Lovell repeated it: \"Houston, we've had a problem.\"",
+   "say": "Swigert radioed: \"Houston, we've had a problem here.\"",
    "bg": "cabin",
    "camera": "push_in",
    "transition": "push",
@@ -197,7 +197,7 @@
    ]
   },
   {
-   "say": "The command module was dying. The Moon landing was over. The only mission now: get home alive.",
+   "say": "The Moon landing was over. The only mission now: get home alive.",
    "hook": "THE MOON IS GONE",
    "bg": "cabin",
    "camera": "pull_out",
@@ -221,7 +221,7 @@
    ]
   },
   {
-   "say": "So the crew crawled into the lunar module, Aquarius, and turned it into a lifeboat.",
+   "say": "The crew crawled into the lunar module, Aquarius, and turned it into a lifeboat.",
    "bg": "room",
    "bg_opts": {
     "wall": "#2b2f36",
@@ -269,7 +269,7 @@
    ]
   },
   {
-   "say": "But that wasn't the worst problem. Carbon dioxide was building up, and the command module's square filters didn't fit Aquarius's round openings.",
+   "say": "Then a new killer: carbon dioxide. The square filters didn't fit Aquarius's round openings.",
    "hook": "A NEW KILLER",
    "bg": "cabin",
    "camera": "push_in",
@@ -293,7 +293,7 @@
    ]
   },
   {
-   "say": "A square peg in a round hole. In Houston, engineers improvised a fix out of plastic bags, cardboard and tape.",
+   "say": "In Houston, engineers improvised a fix from plastic bags, cardboard and tape. The crew built it. It worked.",
    "bg": "office",
    "bg_opts": {
     "labels": [
@@ -327,31 +327,7 @@
    ]
   },
   {
-   "say": "They radioed the instructions up. The crew built it, and it worked.",
-   "bg": "cabin",
-   "camera": "rise",
-   "transition": "push",
-   "cast": [
-    {
-     "id": "swigert",
-     "x": 0.32,
-     "y": 0.9,
-     "action": "dig",
-     "expr": "serious"
-    },
-    {
-     "id": "haise",
-     "x": 0.66,
-     "y": 0.9,
-     "action": "hold",
-     "face": -1,
-     "expr": "smile",
-     "hold": "note"
-    }
-   ]
-  },
-  {
-   "say": "Instead of landing, they swung around the far side of the Moon, setting a record for the farthest flight from Earth.",
+   "say": "They swung around the far side of the Moon, farther from Earth than any humans before.",
    "hook": "SO FAR FROM HOME",
    "bg": "sky_night",
    "camera": "track_left",
@@ -363,7 +339,7 @@
    }
   },
   {
-   "say": "On April 17, 1970, after almost a week in space, they splashed down in the Pacific near Samoa. All three were alive.",
+   "say": "On April 17, they splashed down in the Pacific. All three were alive.",
    "hook": "APRIL 17, 1970",
    "bg": "sea_night",
    "bg_opts": {
@@ -416,34 +392,7 @@
    ]
   },
   {
-   "say": "The cause? Before launch, a power surge during ground testing wrecked the tank's heater switches and damaged its wiring.",
-   "bg": "evidence",
-   "bg_opts": {
-    "labels": [
-     "OXYGEN TANK 2",
-     "HEATER SWITCHES",
-     "POWER SURGE",
-     "DAMAGED WIRING"
-    ]
-   },
-   "camera": "push_in",
-   "transition": "push",
-   "props": [
-    {
-     "kind": "file",
-     "x": 0.5,
-     "y": 0.6,
-     "scale": 0.9,
-     "opts": {
-      "title": "OXYGEN TANK 2"
-     },
-     "motion": "pop",
-     "appear": 0.4
-    }
-   ]
-  },
-  {
-   "say": "NASA calls Apollo 13 a successful failure. So was it a failure, or NASA's finest hour? Tell me in the comments.",
+   "say": "NASA calls it a successful failure. So was it a failure, or NASA's finest hour? Tell me in the comments.",
    "hook": "YOUR VERDICT?",
    "bg": "sky_night",
    "camera": "pull_out",

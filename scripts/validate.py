@@ -13,6 +13,44 @@ PROPS = {"briefcase", "note", "money", "moneybag", "parachute", "shovel", "newsp
          "stamp", "file", "gun", "sword", "fire", "phone_booth", "raft", "submarine", "dummy_head"}
 TRANS = {"whip_left", "whip_right", "push", "fog", "flash", "dissolve", "zoom", "push_left", "push_right"}
 
+MOVES = {"push_in", "pull_out", "pan_left", "pan_right", "tilt_up", "tilt_down"}
+FX = {"rain", "heavy_rain", "fog", "dust", "lightning", "flicker", "embers", "snow"}
+
+def check_comic(d, errs, warns):
+    cm = d["comic"]
+    shots = cm.get("shots", [])
+    if cm.get("variant", "hybrid") not in ("comic", "hybrid", "full"):
+        errs.append("comic.variant must be comic|hybrid|full")
+    if not 10 <= len(shots) <= 22:
+        errs.append(f"{len(shots)} comic shots (need 12-20: a new painted panel every 3-5 s)")
+    seen, last = set(), (-1, -1)
+    for i, sh in enumerate(shots):
+        sc, w = int(sh.get("scene", -1)), int(sh.get("word", 0))
+        if not 0 <= sc < len(d["scenes"]):
+            errs.append(f"shot {i}: bad scene index {sc}"); continue
+        if (sc, w) <= last:
+            errs.append(f"shot {i}: shots must be in order (scene, word)")
+        if w >= len(d["scenes"][sc]["say"].split()):
+            errs.append(f"shot {i}: word index {w} past the end of scene {sc}")
+        last = (sc, w); seen.add(sc)
+        if not str(sh.get("image", "")).startswith("https://"):
+            errs.append(f"shot {i}: needs an https 'image' (Higgsfield URL)")
+        if sh.get("clip") and not str(sh["clip"]).startswith("https://"):
+            errs.append(f"shot {i}: 'clip' must be an https URL")
+        if sh.get("move", "push_in") not in MOVES:
+            errs.append(f"shot {i}: unknown move '{sh.get('move')}'")
+        for f in sh.get("fx", []):
+            if f not in FX:
+                errs.append(f"shot {i}: unknown fx '{f}'")
+    if shots and (shots[0].get("scene") != 0 or shots[0].get("word", 0) != 0):
+        errs.append("first shot must start at scene 0, word 0")
+    missing = [i for i in range(len(d["scenes"])) if i not in seen]
+    if missing:
+        warns.append(f"scenes without their own panel: {missing}")
+    if sum(1 for s in d["scenes"] if s.get("hook")) < 3:
+        warns.append("fewer than 3 re-hook banners")
+    return errs, warns
+
 def check(path, sheet=None):
     errs, warns = [], []
     try:
@@ -25,10 +63,10 @@ def check(path, sheet=None):
     if errs:
         return errs, warns
     words = sum(len(s["say"].split()) for s in d["scenes"])
-    if not 200 <= words <= 245:
-        errs.append(f"{words} spoken words (need 215-235)")
-    if not 9 <= len(d["scenes"]) <= 16:
-        errs.append(f"{len(d['scenes'])} scenes (need 10-15)")
+    if not 140 <= words <= 175:
+        errs.append(f"{words} spoken words (need 150-170 so the reel stays under 65s)")
+    if not 7 <= len(d["scenes"]) <= 12:
+        errs.append(f"{len(d['scenes'])} scenes (need 8-11)")
     if len(d.get("sources", [])) < 2:
         errs.append("needs at least 2 source URLs")
     tags = d.get("hashtags", [])
@@ -58,6 +96,8 @@ def check(path, sheet=None):
         tot = sum(len(s["say"].split()) for s in d["scenes"]) / 2.7
         if nb and tot / nb > 3.6:
             warns.append(f"only {nb} shots for ~{tot:.0f}s: aim for a new shot every 1.5-3 s")
+    if d.get("comic"):
+        return check_comic(d, errs, warns)
     if sum(1 for s in d["scenes"] if s.get("hook")) < 3:
         warns.append("fewer than 3 re-hook banners")
     for i, s in enumerate(d["scenes"]):

@@ -15,7 +15,7 @@ from worlds import WORLDS
 
 FPS = int(os.environ.get("REEL_FPS", "60"))
 SR = 24000
-MAX_LEN = 88.5  # Facebook Reels API limit is 90s
+MAX_LEN = float(os.environ.get("MAX_LEN", "64.5"))  # house cap: reels stay under 65s
 VOICE = os.environ.get("REEL_VOICE", "en-US-AndrewNeural")
 MODEL = os.environ.get("KOKORO_MODEL", os.path.join(ROOT, "models/kokoro.onnx"))
 VOICES = os.environ.get("KOKORO_VOICES", os.path.join(ROOT, "models/voices.bin"))
@@ -724,6 +724,60 @@ class Post:
         c.drawRect(rect(0, 0, W, H), fill("#14161c", 18))
         # vignette + film grain are applied by ffmpeg at encode time (much faster)
 
+
+# ------------------------------------------------------------------ anti-theft watermark
+# A semi-transparent "(c) FACTS ON FACTS" bug that hops between safe spots every few
+# seconds, so it can't be removed with one crop or one blur box, plus a faint centre mark.
+_LOGO = None
+WM_SPOTS = [(70, 175, "l"), (W - 70, 175, "r"), (70, 1270, "l"), (W - 70, 1270, "r"), (70, 760, "l"), (W - 70, 760, "r")]
+WM_HOLD = 6.0
+
+def _logo():
+    global _LOGO
+    if _LOGO is None:
+        lp = os.path.join(ROOT, "assets", "brand", "logo.png")
+        _LOGO = skia.Image.open(lp) if os.path.exists(lp) else False
+    return _LOGO
+
+def draw_watermark(c, t, seed=0):
+    k = int(t // WM_HOLD)
+    lt = t - k * WM_HOLD
+    x, y, side = WM_SPOTS[(k * 5 + seed) % len(WM_SPOTS)]
+    a = min(1.0, lt / 0.5, (WM_HOLD - lt) / 0.5)
+    a = max(0.0, a) * 0.62
+    if a <= 0.01:
+        return
+    r = 34
+    fnt = font(FONT_BIG, 30)
+    label = "\u00a9 FACTS ON FACTS"
+    tw = fnt.measureText(label)
+    cx = x + r if side == "l" else x - r
+    tx = cx + r + 12 if side == "l" else cx - r - 12 - tw
+    c.save()
+    lg = _logo()
+    if lg:
+        c.save()
+        path = skia.Path(); path.addCircle(cx, y, r)
+        c.clipPath(path, doAntiAlias=True)
+        p = skia.Paint(); p.setAlphaf(a)
+        c.drawImageRect(lg, skia.Rect.MakeXYWH(cx - r, y - r, 2 * r, 2 * r), skia.SamplingOptions(skia.FilterMode.kLinear), p)
+        c.restore()
+    ring = skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=3, Color=hexcol("#ffffff", int(200 * a)))
+    c.drawCircle(cx, y, r, ring)
+    sh = skia.Paint(AntiAlias=True, Color=hexcol("#000000", int(150 * a)))
+    c.drawString(label, tx + 2, y + 13, fnt, sh)
+    c.drawString(label, tx, y + 11, fnt, skia.Paint(AntiAlias=True, Color=hexcol("#ffffff", int(235 * a))))
+    # faint tiled mark across the middle (survives cropping to the centre)
+    f2 = font(FONT_BIG, 46)
+    p2 = skia.Paint(AntiAlias=True, Color=hexcol("#ffffff", 10))
+    c.translate(W / 2, H * 0.52); c.rotate(-24)
+    for row in (-1, 0, 1):
+        c.drawString("FACTS ON FACTS  \u00a9  FACTS ON FACTS", -430, row * 210, f2, p2)
+    c.restore()
+
+COPYRIGHT_META = ["-metadata", "artist=Facts on Facts", "-metadata", "copyright=(c) %s Facts on Facts. All rights reserved. Reuse prohibited." % __import__("datetime").date.today().year,
+                  "-metadata", "comment=Original reel by Facts on Facts (facebook.com/1458396710691502). Unauthorised reuploads will be reported."]
+
 # ------------------------------------------------------------------ frame rendering
 TRANS = 0.36  # half-length of a transition (s)
 
@@ -790,6 +844,7 @@ def render_frame(c, st, tl, t, surf=None, fi=0, post=None):
     for i, s in enumerate(scenes):
         if story["scenes"][i].get("hook"):
             draw_banner(c, story["scenes"][i]["hook"], s["s"], t, dur=2.6, y=330, color="#c0302a" if i % 2 else "#d4a017")
+    draw_watermark(c, t, sum(map(ord, story.get("id", "x"))))
     draw_captions(c, groups, t)
     if story.get("cta", "MORE TRUE STORIES DAILY"):
         draw_follow_card(c, story.get("cta", "MORE TRUE STORIES DAILY"), t, total)
@@ -863,7 +918,7 @@ def render(story_path, out_path, preview=None):
         "-filter_complex",
         "[1:a]highpass=f=70,acompressor=threshold=-21dB:ratio=2.5:attack=12:release=220:makeup=2,equalizer=f=6500:t=q:w=1.2:g=-3[v];[2:a]volume=0.15[m];[v][m]amix=inputs=2:duration=first:normalize=0,loudnorm=I=-14:TP=-1.5:LRA=9[a]",
         "-map", "0:v", "-map", "[a]", "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-ar", "48000",
-        "-movflags", "+faststart", "-t", f"{end_t:.3f}", out_path,
+        "-movflags", "+faststart", *COPYRIGHT_META, "-t", f"{end_t:.3f}", out_path,
     ], check=True)
     print(f"rendered {out_path}: {end_t:.1f}s at {fps}fps, style {style}")
     return total

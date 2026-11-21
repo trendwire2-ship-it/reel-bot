@@ -82,7 +82,7 @@
  },
  "scenes": [
   {
-   "say": "April 18, 1942. Sixteen American bombers took off from an aircraft carrier to hit Tokyo. They had no way to land back on the ship.",
+   "say": "April 18, 1942. Sixteen American bombers took off from an aircraft carrier to hit Tokyo, with no way to land back on the ship.",
    "bg": "sea_night",
    "bg_opts": {
     "city": false,
@@ -122,19 +122,7 @@
    ]
   },
   {
-   "say": "Four months after Pearl Harbor, America needed to hit back.",
-   "bg": "map",
-   "camera": "push_in",
-   "transition": "fog",
-   "text": {
-    "big": "PEARL HARBOR",
-    "sub": "FOUR MONTHS EARLIER",
-    "y": 0.26,
-    "color": "#ff5a4f"
-   }
-  },
-  {
-   "say": "Lieutenant Colonel Jimmy Doolittle would lead 16 Army B-25s off the deck of the USS Hornet.",
+   "say": "Four months after Pearl Harbor, Lieutenant Colonel Jimmy Doolittle would lead 16 B-25s off the USS Hornet.",
    "bg": "sea_night",
    "bg_opts": {
     "city": false,
@@ -164,7 +152,7 @@
    ]
   },
   {
-   "say": "The plan: bomb Japan, then fly on to friendly airfields in China.",
+   "say": "The plan: bomb Japan, then fly on to airfields in China.",
    "bg": "map",
    "camera": "pan_right",
    "transition": "push",
@@ -184,7 +172,7 @@
    ]
   },
   {
-   "say": "But on the morning of the raid, a Japanese picket boat spotted the fleet and radioed a warning.",
+   "say": "But that morning, a Japanese picket boat spotted the fleet.",
    "hook": "SPOTTED",
    "bg": "sea_night",
    "bg_opts": {
@@ -204,7 +192,7 @@
    ]
   },
   {
-   "say": "They were still hundreds of miles farther out than planned. Launch now, and they might run out of fuel. They launched anyway.",
+   "say": "They were hundreds of miles farther out than planned. They might run out of fuel. They launched anyway.",
    "hook": "LAUNCH NOW",
    "bg": "sky",
    "bg_opts": {
@@ -229,7 +217,7 @@
    ]
   },
   {
-   "say": "Over Japan, they hit targets in Tokyo, Yokohama, Kobe and Nagoya.",
+   "say": "They hit targets in Tokyo, Yokohama, Kobe and Nagoya.",
    "bg": "battlefield",
    "bg_opts": {
     "blasts": [
@@ -254,7 +242,7 @@
    }
   },
   {
-   "say": "Then the fuel ran low. Over China, crews bailed out or crash-landed. One plane landed in the Soviet Union, and its crew was held there.",
+   "say": "Then the fuel ran low. Not one bomber reached its planned airfield. Crews bailed out or crash-landed.",
    "bg": "forest_night",
    "bg_opts": {
     "lightning": [
@@ -291,20 +279,7 @@
    ]
   },
   {
-   "say": "Not one of the 16 bombers reached its planned airfield.",
-   "hook": "ALL 16 LOST",
-   "bg": "map",
-   "camera": "pull_out",
-   "transition": "push",
-   "text": {
-    "big": "0 OF 16",
-    "sub": "REACHED THEIR AIRFIELDS",
-    "y": 0.26,
-    "color": "#ff5a4f"
-   }
-  },
-  {
-   "say": "Three men died bailing out or crash-landing. Eight were captured by the Japanese. Three of them were executed, and another died in captivity.",
+   "say": "Three men died. Eight were captured. Three of them were executed.",
    "bg": "prison",
    "bg_opts": {
     "bars": true
@@ -322,7 +297,7 @@
    ]
   },
   {
-   "say": "Doolittle was sure he'd be court-martialed. Instead, he got the Medal of Honor and was promoted to brigadier general.",
+   "say": "Doolittle expected a court-martial. Instead, he got the Medal of Honor.",
    "hook": "HERE'S THE TWIST",
    "bg": "palace",
    "camera": "push_in",
@@ -345,7 +320,7 @@
    ]
   },
   {
-   "say": "The damage was small. But the raid boosted American morale and helped push Japan toward Midway, a battle that turned the war in the Pacific.",
+   "say": "The damage was small, but the raid lifted American morale and pushed Japan toward Midway.",
    "bg": "map",
    "camera": "pan_left",
    "transition": "fog",
@@ -356,7 +331,7 @@
    }
   },
   {
-   "say": "So was it a brilliant gamble or a reckless one? Tell me in the comments.",
+   "say": "Brilliant gamble or reckless one? Tell me in the comments.",
    "hook": "YOUR VERDICT?",
    "bg": "sky_night",
    "camera": "pull_out",

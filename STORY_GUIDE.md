@@ -1,8 +1,13 @@
 # Story guide (for the daily writer)
 
 ## House style
-Cinematic 2.5D noir documentary (the default). Do NOT set "style" and do NOT add "beats"; the optional pencil-sketch
-mode ("style": "sketch" + beats) is switched off unless the owner asks for it again.
+Two formats run side by side (a 2-week test the owner will judge in Insights):
+- **Cinematic** (free): 2.5D noir documentary rendered from the scene layout below. Do NOT set "style" or "beats"
+  (pencil-sketch mode is switched off unless the owner asks for it again).
+- **Motion comic** (painted, paid Higgsfield credits): exactly ONE per day. It posts in the 1 PM New York slot;
+  cinematic stories fill the other two slots. See "Motion comic stories" at the end.
+Every reel is 55–65 seconds. The renderers burn in the "© FACTS ON FACTS" watermark automatically; never ask for
+text, logos or watermarks inside generated art.
 
 ## Topics
 Rotate history, war and true crime. Prefer famous, well-documented, decades-old cases and events (US/UK audiences).
@@ -16,15 +21,15 @@ national archives, major newspapers, Wikipedia cross-checked). Put 2+ URLs in `s
 it out or say "reportedly". Quotes must be the documented wording.
 
 ## Length & pacing
-- 215–235 spoken words total (the renderer keeps it under 89 seconds; aim for 80–88 s).
-- 10–15 scenes, each 1–3 short sentences, 6–30 words. Short punchy sentences. Fragments are good.
+- 150–170 spoken words total. HARD CAP: every reel is 55–65 seconds (the renderer speeds up anything past 64.5 s).
+- 8–11 scenes, each 1–3 short sentences, 6–25 words. Short punchy sentences. Fragments are good.
 - Write numbers naturally: "1971", "$200,000", "8:13 PM" — the voice reads them correctly.
 
 ## Retention structure (every story)
 1. **0–3 s cold open**: start at the most shocking moment, state the mystery or stakes in the first sentence.
    Top-level `"hook"` = 2–5 word banner (e.g. "HE WAS NEVER FOUND").
 2. **Open a loop** early that only closes at the end ("But that's not the strangest part").
-3. **Re-hook every ~10–15 s**: add `"hook"` banners to 4–5 scenes at turning points ("THEN HE SAID THIS...",
+3. **Re-hook every ~10–15 s**: add `"hook"` banners to 3–4 scenes at turning points ("THEN HE SAID THIS...",
    "9 YEARS LATER...", "HERE'S THE TWIST"). Use a pattern interrupt: new location, time jump, a number, a quote.
 4. **Escalate**: each scene raises stakes or reveals something new. No filler, no background lectures.
 5. **Payoff + question**: resolve the loop, then end with a debatable question and "Tell me in the comments."
@@ -92,3 +97,43 @@ then the hashtags (plus #FactsOnFacts #Reels, added automatically).
   The cover (thumbnail) shows the focus character close-up with the title; defaults to `hook` and the biggest
   close-up. Write a cover title that creates curiosity ("HE FOOLED HITLER", "NEVER SEEN AGAIN").
 - Optional `cta`: the end-of-video follow card text (default "MORE TRUE STORIES DAILY"; keep under 26 characters).
+
+
+## Motion comic stories (one per day)
+A motion comic is a normal story (all the fields above: title, hook, caption, hashtags, pinned_comment, cast,
+sources, 8–11 scenes, 150–170 words) plus a `"comic"` block. The scene layout fields (bg, props, camera, actions)
+are ignored for comics, so you may keep them minimal (`"say"` and optional `"hook"` per scene are what matter).
+Name the file so it sorts with the others, e.g. `queue/2026-11-22-2-name.json`.
+
+Budget per reel: max **45 credits** (check `balance` first; if under 60 credits, write a cinematic story instead
+and say so in the run summary). Typical spend: 14–16 images × 2 + 3 key clips × 3.75 ≈ 40.
+
+1. **Style reference**: the owner's logo, Higgsfield media id `455225e4-119b-4022-821e-771632558344`
+   (if it ever stops working, re-import it with `media_import_url` from
+   https://raw.githubusercontent.com/trendwire2-ship-it/reel-bot/main/assets/brand/logo.png).
+2. **Character sheet first** for each person who appears in 2+ panels: one `nano_banana_pro` 9:16 1k image,
+   front/three-quarter/profile of the same person on a plain background, in the style reference, matching their
+   real documented appearance (period photos). Pass its job id as a second `image_references` media in every
+   panel that shows them, and describe them identically each time. This keeps faces consistent.
+3. **Panels**: 12–20 `nano_banana_pro` images, `aspect_ratio` 9:16, `resolution` 1k, logo (+ character sheet) as
+   `image_references`. Prompt start: "In EXACTLY the art style of the first reference image: bold semi-realistic
+   digital comic painting, confident ink outlines, dramatic cinematic lighting, deep blacks, rich red, gold and
+   moonlit blue palette, gritty grain texture, vertical 9:16 composition. No text, no letters, no captions, no logo,
+   no watermark." Then one concrete, period-accurate moment. A new panel every 3–5 seconds of narration.
+   Use `generate_image_batch`, then `jobs_wait`.
+4. **Key clips** (3, for the hook and the 2 biggest turns): `kling3_0`, mode std, 3 s, sound off, image-to-video
+   from that panel, a short motion prompt (what moves, how the camera moves). Never more than 4.
+5. Write the block:
+   ```json
+   "comic": {"variant": "hybrid", "shots": [
+     {"scene": 0, "word": 0, "image": "https://...png", "clip": "https://...mp4", "key": true, "move": "push_in", "fx": ["rain"]},
+     {"scene": 0, "word": 12, "image": "https://...png", "move": "pan_left", "fx": []}
+   ]}
+   ```
+   - `scene` / `word`: the panel appears on that word (0-based index into that scene's `say`). Shots in order;
+     the first is scene 0, word 0. Every scene should get at least one panel.
+   - `image` / `clip`: the result URLs from Higgsfield (https). `key: true` only on shots that have a clip.
+   - `move`: push_in | pull_out | pan_left | pan_right | tilt_up | tilt_down (vary them).
+   - `fx` (optional overlays): rain, heavy_rain, fog, dust, lightning, flicker, embers, snow.
+   - Optional `"cover": {"image": "<best panel URL>", "title": "2-5 WORD HOOK"}`.
+6. Run `python3 scripts/validate.py <file>` (it checks the comic block). Fix every error before committing.
