@@ -14,17 +14,24 @@ LOG = os.path.join(ROOT, "posted", "log.json")
 def now_local():
     return dt.datetime.now(ZoneInfo(os.environ.get("TZ_NAME", "America/New_York")))
 
+def parse_slots():
+    """SLOTS like "America/New_York:9,America/New_York:13,Africa/Accra:20" (plain hours use TZ_NAME)."""
+    out = []
+    for item in os.environ.get("SLOTS", "America/New_York:9,America/New_York:13,Africa/Accra:20").split(","):
+        tz, _, h = item.strip().rpartition(":")
+        out.append((tz or os.environ.get("TZ_NAME", "America/New_York"), int(h)))
+    return out
+
 def due_slot(log):
-    """Return 'YYYY-MM-DD@H' for the slot that is due now and not yet used, else None."""
-    slots = [int(s) for s in os.environ.get("SLOTS", "9,13,19").split(",")]
-    n = now_local()
-    for h in sorted(slots, reverse=True):
+    """Return 'YYYY-MM-DD@H' (+tz) for the slot due now and not yet used, else None."""
+    now_utc = dt.datetime.now(dt.timezone.utc)
+    for tz, h in parse_slots():
+        n = now_utc.astimezone(ZoneInfo(tz))
         start = n.replace(hour=h, minute=0, second=0, microsecond=0)
-        if n < start - dt.timedelta(minutes=50):
-            continue
-        if start - dt.timedelta(minutes=50) <= n < start + dt.timedelta(hours=3):  # early start for render time; tolerate late cron
-            key = f"{start:%Y-%m-%d}@{h}"
-            return None if any(e.get("slot") == key for e in log) else key
+        if start - dt.timedelta(minutes=50) <= n < start + dt.timedelta(hours=3):
+            key = f"{start:%Y-%m-%d}@{h}" + ("" if tz == "America/New_York" else f"@{tz}")
+            if not any(e.get("slot") == key for e in log):
+                return key
     return None
 
 def api(method, url, data=None, headers=None):

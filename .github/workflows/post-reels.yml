@@ -2,8 +2,8 @@ name: Post reels
 
 on:
   schedule:
-    # ~45 min before 9 AM, 1 PM, 7 PM New York time (both EST and EDT); voice + rendering take ~20-30 min, the script checks NY time
-    - cron: "15 12,13,16,17,22,23 * * *"
+    # ~45 min before 9 AM + 1 PM New York (EST/EDT) and 8 PM Ghana; the script checks the real local times
+    - cron: "15 12,13,16,17,19 * * *"
   workflow_dispatch:
     inputs:
       force:
@@ -95,7 +95,7 @@ jobs:
           CHECK_FB: ${{ inputs.check_facebook && '1' || '0' }}
           COMMENT_BACKFILL: ${{ inputs.comment_posted && '1' || '0' }}
           COVER_BACKFILL: ${{ inputs.covers_posted && '1' || '0' }}
-          SLOTS: "9,13,19"
+          SLOTS: "America/New_York:9,America/New_York:13,Africa/Accra:20"
           TZ_NAME: "America/New_York"
         run: python scripts/post.py
 
