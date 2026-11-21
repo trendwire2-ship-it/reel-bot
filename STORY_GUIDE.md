@@ -88,4 +88,7 @@ then the hashtags (plus #FactsOnFacts #Reels, added automatically).
   1–2 community tags (#UnsolvedMysteries #ColdCase #MilitaryHistory). CamelCase, no spaces.
 - `pinned_comment`: the Page's own first comment, posted automatically (the owner pins it). One debate question with
   numbered options + a follow nudge, e.g. "📌 Which do you believe? 1️⃣ He died in the jump 2️⃣ He got away 👇".
+- Optional `cover`: {"title": "2-5 word cover hook", "scene": index, "focus": cast id, "tag": "TRUE STORY"}.
+  The cover (thumbnail) shows the focus character close-up with the title; defaults to `hook` and the biggest
+  close-up. Write a cover title that creates curiosity ("HE FOOLED HITLER", "NEVER SEEN AGAIN").
 - Optional `cta`: the end-of-video follow card text (default "MORE TRUE STORIES DAILY"; keep under 26 characters).

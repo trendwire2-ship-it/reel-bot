@@ -114,6 +114,39 @@ def comment_as_page(video_id, text):
         print("WARNING: could not post the comment (add pages_manage_engagement to the token?):", e.read().decode()[:300])
         return None
 
+def set_cover(video_id, story_path):
+    """Generate the cover image and upload it as the reel's preferred thumbnail."""
+    out = os.path.join(ROOT, "out", os.path.basename(story_path)[:-5] + "-cover.jpg")
+    os.makedirs(os.path.dirname(out), exist_ok=True)
+    try:
+        subprocess.run([sys.executable, os.path.join(ROOT, "scripts", "cover.py"), story_path, out], check=True)
+    except Exception as e:
+        print("WARNING: cover generation failed:", e); return False
+    token = os.environ["FB_PAGE_TOKEN"]
+    boundary = "----reelbot" + str(int(time.time() * 1000))
+    parts = []
+    for k, v in (("is_preferred", "true"), ("access_token", token)):
+        parts.append(f"--{boundary}\r\nContent-Disposition: form-data; name=\"{k}\"\r\n\r\n{v}\r\n".encode())
+    parts.append(f"--{boundary}\r\nContent-Disposition: form-data; name=\"source\"; filename=\"cover.jpg\"\r\nContent-Type: image/jpeg\r\n\r\n".encode())
+    parts.append(open(out, "rb").read()); parts.append(f"\r\n--{boundary}--\r\n".encode())
+    req = urllib.request.Request(f"{GRAPH}/{video_id}/thumbnails", data=b"".join(parts), method="POST",
+                                 headers={"Content-Type": f"multipart/form-data; boundary={boundary}"})
+    try:
+        with urllib.request.urlopen(req, timeout=120) as r:
+            print("Cover set:", r.read().decode()[:200]); return True
+    except urllib.error.HTTPError as e:
+        print("WARNING: could not set cover:", e.read().decode()[:300]); return False
+
+def backfill_covers():
+    log = json.load(open(LOG)) if os.path.exists(LOG) else []
+    for e in log:
+        p = os.path.join(ROOT, "posted", e["id"] + ".json")
+        if e.get("cover_set") or not e.get("video_id") or not os.path.exists(p):
+            continue
+        if set_cover(e["video_id"], p):
+            e["cover_set"] = True
+    json.dump(log, open(LOG, "w"), indent=1)
+
 def backfill_comments():
     log = json.load(open(LOG)) if os.path.exists(LOG) else []
     for e in log:
@@ -129,6 +162,9 @@ def backfill_comments():
 def main():
     if os.environ.get("COMMENT_BACKFILL") == "1":
         backfill_comments()
+        return
+    if os.environ.get("COVER_BACKFILL") == "1":
+        backfill_covers()
         return
     if os.environ.get("CHECK_FB") == "1":
         check_facebook()
@@ -154,8 +190,14 @@ def main():
     desc = build_description(story)
     print("Description:\n" + desc)
     vid = publish_reel(out, desc, story.get("title", ""))
-    shutil.move(path, os.path.join(ROOT, "posted", os.path.basename(path)))
+    dest = os.path.join(ROOT, "posted", os.path.basename(path))
+    shutil.move(path, dest)
     entry = {"id": story["id"], "slot": slot, "video_id": vid, "at": dt.datetime.utcnow().isoformat() + "Z"}
+    try:
+        if set_cover(vid, dest):
+            entry["cover_set"] = True
+    except Exception as e:  # a cover problem must never block posting
+        print("WARNING: cover step failed:", e)
     time.sleep(20)
     cid = comment_as_page(vid, pinned_text(story))
     if cid:

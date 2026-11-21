@@ -18,6 +18,10 @@ on:
         description: "Only check the Facebook connection (no render, no post)"
         type: boolean
         default: false
+      covers_posted:
+        description: "Add custom covers (thumbnails) to already-posted reels that don't have one"
+        type: boolean
+        default: false
       comment_posted:
         description: "Add the engagement comment to already-posted reels that don't have one"
         type: boolean
@@ -90,6 +94,7 @@ jobs:
           DRY_RUN: ${{ inputs.dry_run && '1' || '0' }}
           CHECK_FB: ${{ inputs.check_facebook && '1' || '0' }}
           COMMENT_BACKFILL: ${{ inputs.comment_posted && '1' || '0' }}
+          COVER_BACKFILL: ${{ inputs.covers_posted && '1' || '0' }}
           SLOTS: "9,13,19"
           TZ_NAME: "America/New_York"
         run: python scripts/post.py
