@@ -4,8 +4,8 @@
 Two formats run side by side (a 2-week test the owner will judge in Insights):
 - **Cinematic** (free): 2.5D noir documentary rendered from the scene layout below. Do NOT set "style" or "beats"
   (pencil-sketch mode is switched off unless the owner asks for it again).
-- **Motion comic** (painted, paid Higgsfield credits): exactly ONE per day. It posts in the 1 PM New York slot;
-  cinematic stories fill the other two slots. See "Motion comic stories" at the end.
+- **Motion comic** (painted, paid Higgsfield credits): exactly ONE per day. It posts at 6 PM New York;
+  the cinematic story posts at 9 AM New York. Two reels a day in total. See "Motion comic stories" at the end.
 Every reel is 55–65 seconds. The renderers burn in the "© FACTS ON FACTS" watermark automatically; never ask for
 text, logos or watermarks inside generated art.
 
