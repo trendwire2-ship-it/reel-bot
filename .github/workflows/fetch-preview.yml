@@ -1,0 +1,36 @@
+name: Fetch media preview
+on:
+  workflow_dispatch:
+    inputs:
+      manifest:
+        description: "JSON file in the repo with {\"img\": {\"i\": [job, url]}, \"clip\": {...}}"
+        required: true
+permissions:
+  contents: write
+jobs:
+  sheet:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          pip install -q pillow
+          python3 - <<'PY'
+          import json, urllib.request, io
+          from PIL import Image, ImageDraw
+          m = json.load(open("${{ inputs.manifest }}"))
+          items = sorted(m.get("img", {}).items(), key=lambda kv: int(kv[0]))
+          if m.get("ref"): items = [("ref", [None, m["ref"]])] + items
+          tiles = []
+          for k, (_, url) in items:
+              im = Image.open(io.BytesIO(urllib.request.urlopen(url, timeout=60).read())).convert("RGB")
+              im.thumbnail((300, 534)); t = Image.new("RGB", (300, 534)); t.paste(im, ((300 - im.width)//2, (534 - im.height)//2))
+              ImageDraw.Draw(t).text((6, 6), str(k), fill=(255, 0, 0)); tiles.append(t)
+          cols = 7; rows = (len(tiles) + cols - 1) // cols
+          sheet = Image.new("RGB", (300 * cols, 534 * rows))
+          for i, t in enumerate(tiles): sheet.paste(t, ((i % cols) * 300, (i // cols) * 534))
+          sheet.save("/tmp/sheet.jpg", quality=85)
+          PY
+          git config user.name reel-bot; git config user.email reel-bot@users.noreply.github.com
+          git checkout -q --orphan previews-sheet
+          git rm -rfq . >/dev/null 2>&1 || true
+          cp /tmp/sheet.jpg sheet.jpg && git add sheet.jpg && git commit -qm "sheet" && git push -qf origin HEAD:previews-sheet
