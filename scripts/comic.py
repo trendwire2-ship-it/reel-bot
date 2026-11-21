@@ -253,7 +253,7 @@ def render(story_path, out_path, variant):
     silent = os.path.join(tmp, "v.mp4")
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", lst, "-c", "copy", silent], check=True)
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", silent, "-i", voice, "-i", music, "-filter_complex",
-                    "[1:a]highpass=f=70,acompressor=threshold=-21dB:ratio=2.5:attack=12:release=220:makeup=2[v];[2:a]volume=0.15[m];"
+                    "[1:a]" + R.VOICE_FX + "[v];[2:a]volume=0.15[m];"
                     "[v][m]amix=inputs=2:duration=first:normalize=0,loudnorm=I=-14:TP=-1.5:LRA=9[a]",
                     "-map", "0:v", "-map", "[a]", "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart",
                     *R.COPYRIGHT_META, "-t", f"{total:.3f}", out_path], check=True)

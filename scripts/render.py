@@ -62,10 +62,26 @@ def spoken(t):
         t = t.replace(a, b)
     return t
 
+def _dec(whole, frac):
+    """1.2 -> 'one point two'; 3.75 -> 'three point seven five'."""
+    w = n2w(whole.replace(",", ""))
+    return w + (" point " + " ".join(ONES[int(d)] if d != "0" else "zero" for d in frac) if frac else "")
+
+SCALE = r"(thousand|million|billion|trillion)"
+
 def normalize(text):
-    t = re.sub(r"\$(\d[\d,]*)", lambda m: n2w(m.group(1).replace(",", "")) + " dollars", text)
+    t = text
+    # money: $1.2 million -> one point two million dollars; $4.50 -> four dollars and fifty cents; $200,000 -> ... dollars
+    t = re.sub(r"\$(\d[\d,]*)(?:\.(\d+))?\s+" + SCALE + r"\b", lambda m: _dec(m.group(1), m.group(2)) + " " + m.group(3) + " dollars", t)
+    t = re.sub(r"\$(\d[\d,]*)\.(\d\d)\b", lambda m: n2w(m.group(1).replace(",", "")) + " dollars" + ("" if m.group(2) == "00" else " and " + n2w(int(m.group(2))) + " cents"), t)
+    t = re.sub(r"\$(\d[\d,]*)", lambda m: ("one dollar" if m.group(1) == "1" else n2w(m.group(1).replace(",", "")) + " dollars"), t)
+    t = re.sub(r"(\d[\d,]*(?:\.\d+)?)\s?%", lambda m: m.group(1) + " percent", t)
+    # plain decimals: 1.5 million, 3.5 -> three point five
+    t = re.sub(r"\b(\d[\d,]*)\.(\d+)\b", lambda m: _dec(m.group(1), m.group(2)), t)
     t = re.sub(r"\b(\d{1,2}):(\d{2})\s*([AaPp])\.?[Mm]\b\.?", lambda m: n2w(m.group(1)) + " " + ("o'clock" if int(m.group(2)) == 0 else n2w(m.group(2)) if int(m.group(2)) >= 10 else "oh " + ONES[int(m.group(2))]) + " " + m.group(3).upper() + " M", t)
     t = re.sub(r"\b(\d+)(st|nd|rd|th)\b", lambda m: ordinal(int(m.group(1))), t)
+    t = re.sub(r"\b(January|February|March|April|May|June|July|August|September|October|November|December|Jan\.|Feb\.|Aug\.|Sept\.|Oct\.|Nov\.|Dec\.) (\d{1,2})\b(?!:)",
+               lambda m: m.group(1) + " " + ordinal(int(m.group(2))), t)
     t = re.sub(r"\b(1[1-9]\d\d|20\d\d)s\b", lambda m: year2w(m.group(1)).rsplit(" ", 1)[0] + " " + (year2w(m.group(1)).rsplit(" ", 1)[1].replace("y", "ie") + "s"), t)
     t = re.sub(r"\b(1[1-9]\d\d|20\d\d)\b", lambda m: year2w(m.group(1)), t)
     t = re.sub(r"\b\d[\d,]*\b", lambda m: n2w(m.group(0).replace(",", "")), t)
@@ -113,7 +129,19 @@ def sentence_timed(tx, synth, speed):
     return np.concatenate(pieces), words
 
 _clone = {}
-def chunk_text(tx, limit=280):
+_rng = __import__("random").Random(11)
+
+VOICE_FX = ("highpass=f=70,equalizer=f=160:t=q:w=1.0:g=2,equalizer=f=3200:t=q:w=1.5:g=1.5,"
+            "equalizer=f=6500:t=q:w=1.2:g=-3,acompressor=threshold=-21dB:ratio=2.2:attack=15:release=250:makeup=2,"
+            "aecho=0.9:0.9:23|41:0.07|0.04")
+
+def human_pause(chunk):
+    """Breath-length gap after a take: longer after questions/dramatic beats, never metronomic."""
+    end = chunk.rstrip()[-1:]
+    base = 0.34 if end in "?!" else 0.42 if end == "…" else 0.26
+    return base + _rng.uniform(-0.05, 0.07)
+
+def chunk_text(tx, limit=170):
     sents = [x for x in re.split(r"(?<=[.!?…])\s+", tx.strip()) if x]
     out, cur = [], ""
     for snt in sents:
@@ -194,9 +222,9 @@ def clone_scenes(texts, speed):
     m = _clone["m"]
     def synth(text):
         wav = m.generate(text, audio_prompt_path=REF,
-                         exaggeration=float(os.environ.get("VOICE_EXAGGERATION", "0.45")),
-                         cfg_weight=float(os.environ.get("VOICE_CFG", "0.5")),
-                         temperature=float(os.environ.get("VOICE_TEMP", "0.7")))
+                         exaggeration=float(os.environ.get("VOICE_EXAGGERATION", "0.55")),
+                         cfg_weight=float(os.environ.get("VOICE_CFG", "0.4")),
+                         temperature=float(os.environ.get("VOICE_TEMP", "0.75")))
         if m.sr != SR:
             wav = torchaudio.functional.resample(wav, m.sr, SR)
         a = wav.squeeze().cpu().numpy().astype(np.float32)
@@ -215,8 +243,9 @@ def clone_scenes(texts, speed):
             a = synth(normalize(ch))
             for s_, e_, w in align_words(ch, a):
                 words.append((t + s_, t + e_, w))
-            pieces += [a, np.zeros(int(0.16 * SR), np.float32)]
-            t += len(a) / SR + 0.16
+            gap = human_pause(ch)
+            pieces += [a, np.zeros(int(gap * SR), np.float32)]
+            t += len(a) / SR + gap
         audio = np.concatenate(pieces[:-1]) if pieces else np.zeros(1, np.float32)
         if abs(speed - 1.0) > 0.01:
             audio = atempo(audio, speed)
@@ -916,7 +945,7 @@ def render(story_path, out_path, preview=None):
     subprocess.run([
         "ffmpeg", "-y", "-loglevel", "error", "-i", silent, "-i", voice, "-i", music,
         "-filter_complex",
-        "[1:a]highpass=f=70,acompressor=threshold=-21dB:ratio=2.5:attack=12:release=220:makeup=2,equalizer=f=6500:t=q:w=1.2:g=-3[v];[2:a]volume=0.15[m];[v][m]amix=inputs=2:duration=first:normalize=0,loudnorm=I=-14:TP=-1.5:LRA=9[a]",
+        "[1:a]" + VOICE_FX + "[v];[2:a]volume=0.15[m];[v][m]amix=inputs=2:duration=first:normalize=0,loudnorm=I=-14:TP=-1.5:LRA=9[a]",
         "-map", "0:v", "-map", "[a]", "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-ar", "48000",
         "-movflags", "+faststart", *COPYRIGHT_META, "-t", f"{end_t:.3f}", out_path,
     ], check=True)
