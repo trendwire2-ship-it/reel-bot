@@ -20,6 +20,8 @@ CACHE = os.path.join(R.ROOT, "out", "cache")
 XF = 0.32  # crossfade seconds between shots
 
 def fetch(url):
+    if os.path.exists(url):
+        return url
     os.makedirs(CACHE, exist_ok=True)
     ext = os.path.splitext(url.split("?")[0])[1] or ".bin"
     p = os.path.join(CACHE, hashlib.md5(url.encode()).hexdigest() + ext)
@@ -146,7 +148,7 @@ def fx_draw(c, fx, t, k):
         for lt in (0.6 + 2.3 * h01(k), 2.9 + h01(k + 1)):
             d = (t % 4.2) - lt
             if 0 <= d < 0.5:
-                c.drawRect(rect(0, 0, W, H), fill("#dfe6ff", int(120 * math.exp(-d * 9) * (1 + 0.5 * math.sin(d * 40)))))
+                c.drawRect(rect(0, 0, W, H), fill("#dfe6ff", int(95 * clamp(d / 0.05) * math.exp(-max(0.0, d - 0.05) * 7))))
     if "flicker" in fx:
         a = int(30 * max(0.0, math.sin(t * 13) * math.sin(t * 5.3) - 0.3))
         if a:
@@ -224,7 +226,16 @@ def worker(args):
 def render(story_path, out_path, variant):
     story = json.load(open(story_path))
     tmp = tempfile.mkdtemp()
-    voice, words, scenes, total = R.build_audio(story, tmp)
+    import pickle, shutil
+    os.makedirs(CACHE, exist_ok=True)
+    vc = os.path.join(CACHE, f"voice-{story.get('id', 'x')}.pkl")
+    if os.path.exists(vc):
+        voice_src, words, scenes, total = pickle.load(open(vc, "rb"))
+        voice = os.path.join(tmp, "voice.wav"); shutil.copy(voice_src, voice)
+    else:
+        voice, words, scenes, total = R.build_audio(story, tmp)
+        keep = os.path.join(CACHE, f"voice-{story.get('id', 'x')}.wav"); shutil.copy(voice, keep)
+        pickle.dump((keep, words, scenes, total), open(vc, "wb"))
     hits = [0.05] + [s["s"] for i, s in enumerate(scenes) if story["scenes"][i].get("hook")]
     music = R.make_music(total, [s["s"] for s in scenes[1:]], hits, tmp, seed=sum(map(ord, story.get("id", "x"))))
     tl = {"scenes": scenes, "groups": R.caption_groups(words), "total": total, "plan": plan(story, scenes, words)}

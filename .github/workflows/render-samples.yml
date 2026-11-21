@@ -1,0 +1,51 @@
+name: Render comic samples
+on:
+  workflow_dispatch:
+    inputs:
+      story:
+        description: "Story JSON with a 'comic' section"
+        required: true
+      variants:
+        description: "Space-separated: comic hybrid full"
+        default: "comic hybrid full"
+permissions:
+  contents: write
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/pip
+            ~/.cache/huggingface
+          key: deps-comic-v1
+      - name: Install
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg libegl1 libgl1
+          pip install -q torch==2.6.0 torchaudio==2.6.0 --index-url https://download.pytorch.org/whl/cpu
+          pip install -q chatterbox-tts==0.1.7 kokoro-onnx soundfile pillow numpy edge-tts skia-python opencv-python-headless "transformers>=4.45"
+      - name: Unlock voice
+        env:
+          VOICE_KEY: ${{ secrets.VOICE_KEY }}
+        run: openssl enc -d -aes-256-cbc -pbkdf2 -in assets/voice_ref.wav.enc -out assets/voice_ref.wav -pass env:VOICE_KEY
+      - name: Render
+        run: |
+          mkdir -p out
+          for v in ${{ inputs.variants }}; do
+            COMIC_VARIANT=$v python scripts/comic.py "${{ inputs.story }}" out/sample-$v.mp4
+          done
+          rm -f assets/voice_ref.wav
+      - name: Publish to previews-comic branch
+        run: |
+          mkdir -p /tmp/pv && cp out/sample-*.mp4 /tmp/pv/
+          git config user.name reel-bot; git config user.email reel-bot@users.noreply.github.com
+          git checkout -q --orphan previews-comic
+          git rm -rfq . >/dev/null 2>&1 || true
+          rm -rf assets scripts queue posted out models comic
+          cp /tmp/pv/*.mp4 . && git add *.mp4 && git commit -qm "comic samples" && git push -qf origin HEAD:previews-comic
