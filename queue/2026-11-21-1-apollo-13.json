@@ -1,0 +1,472 @@
+{
+ "id": "2026-11-21-1-apollo-13",
+ "title": "Houston, We've Had a Problem",
+ "caption": "200,000 miles from Earth, their spaceship exploded. 🚀\n\nThree astronauts had to survive in a tiny lunar module never meant to carry them home.\n\nNASA's worst failure, or its finest hour? Tell us below 👇",
+ "hook": "200,000 MILES FROM HOME",
+ "sources": [
+  "https://www.nasa.gov/missions/apollo/apollo-13-the-successful-failure/",
+  "https://www.britannica.com/topic/Apollo-13-mission",
+  "https://www.history.com/news/apollo-13-what-went-wrong"
+ ],
+ "cast": {
+  "lovell": {
+   "skin": "#e8c3a2",
+   "hair": "brown",
+   "hair_style": "side_part",
+   "age": 42,
+   "build": "average",
+   "outfit": "uniform",
+   "outfit_color": "#e6e6e0",
+   "tie_color": "none",
+   "pants_color": "#e6e6e0",
+   "hat": "none"
+  },
+  "swigert": {
+   "skin": "#ebc6a6",
+   "hair": "dark_brown",
+   "hair_style": "side_part",
+   "age": 38,
+   "build": "average",
+   "height": 1.02,
+   "outfit": "uniform",
+   "outfit_color": "#e6e6e0",
+   "tie_color": "none",
+   "pants_color": "#e6e6e0",
+   "hat": "none"
+  },
+  "haise": {
+   "skin": "#e4bf9c",
+   "hair": "dark_brown",
+   "hair_style": "short",
+   "age": 36,
+   "build": "slim",
+   "outfit": "uniform",
+   "outfit_color": "#e6e6e0",
+   "tie_color": "none",
+   "pants_color": "#e6e6e0",
+   "hat": "none"
+  },
+  "engineer": {
+   "skin": "#e2bc98",
+   "hair": "brown",
+   "hair_style": "short",
+   "glasses": "glasses",
+   "outfit": "suit",
+   "outfit_color": "#f0f0ea",
+   "shirt_color": "#f4f4f0",
+   "tie_color": "#1e2a44",
+   "pants_color": "#3a3d44",
+   "age": 33,
+   "build": "slim"
+  }
+ },
+ "scenes": [
+  {
+   "say": "200,000 miles from Earth, an explosion ripped through Apollo 13. Three astronauts were suddenly losing air, power and time.",
+   "bg": "sky_night",
+   "camera": "push_in",
+   "shake": [
+    [
+     0.4,
+     1.0,
+     26
+    ]
+   ],
+   "props": [
+    {
+     "kind": "fire",
+     "x": 0.55,
+     "y": 0.45,
+     "scale": 1.2,
+     "motion": "pop",
+     "appear": 0.4
+    }
+   ]
+  },
+  {
+   "say": "April 11, 1970. Lovell, Swigert and Haise launched for the Moon. For nearly 56 hours, it was perfect.",
+   "bg": "airport",
+   "bg_opts": {
+    "board": [
+     "APOLLO 13  MOON  APR 11"
+    ],
+    "counter": false
+   },
+   "camera": "track_right",
+   "transition": "whip_left",
+   "text": {
+    "big": "APRIL 11, 1970",
+    "sub": "DESTINATION: THE MOON",
+    "y": 0.24
+   },
+   "cast": [
+    {
+     "id": "lovell",
+     "x": [
+      0.15,
+      0.42
+     ],
+     "y": 0.9,
+     "action": "walk",
+     "expr": "smile"
+    },
+    {
+     "id": "swigert",
+     "x": [
+      0.02,
+      0.29
+     ],
+     "y": 0.9,
+     "action": "walk",
+     "expr": "smile",
+     "z": 0
+    },
+    {
+     "id": "haise",
+     "x": [
+      0.28,
+      0.56
+     ],
+     "y": 0.9,
+     "action": "walk",
+     "expr": "neutral",
+     "z": 2
+    }
+   ]
+  },
+  {
+   "say": "Then, on April 13, oxygen tank number two exploded.",
+   "hook": "APRIL 13, 1970",
+   "bg": "sky",
+   "bg_opts": {
+    "lightning": [
+     0.6
+    ]
+   },
+   "camera": "drift",
+   "transition": "flash",
+   "shake": [
+    [
+     0.5,
+     1.2,
+     28
+    ]
+   ],
+   "props": [
+    {
+     "kind": "fire",
+     "x": 0.5,
+     "y": 0.5,
+     "scale": 1.6,
+     "motion": "pop",
+     "appear": 0.6
+    }
+   ]
+  },
+  {
+   "say": "Swigert radioed: \"Houston, we've had a problem here.\" Moments later, Lovell repeated it: \"Houston, we've had a problem.\"",
+   "bg": "cabin",
+   "camera": "push_in",
+   "transition": "push",
+   "label": {
+    "name": "JACK SWIGERT",
+    "role": "COMMAND MODULE PILOT",
+    "y": 0.2,
+    "at": 0.4
+   },
+   "cast": [
+    {
+     "id": "swigert",
+     "x": 0.4,
+     "y": 1.25,
+     "scale": 2.1,
+     "action": "talk",
+     "expr": "serious",
+     "talk": true
+    },
+    {
+     "id": "lovell",
+     "x": 0.75,
+     "y": 0.92,
+     "action": "talk",
+     "face": -1,
+     "expr": "serious",
+     "appear": 3.2,
+     "enter": "fade"
+    }
+   ]
+  },
+  {
+   "say": "The command module was dying. The Moon landing was over. The only mission now: get home alive.",
+   "hook": "THE MOON IS GONE",
+   "bg": "cabin",
+   "camera": "pull_out",
+   "transition": "fog",
+   "cast": [
+    {
+     "id": "lovell",
+     "x": 0.3,
+     "y": 0.9,
+     "action": "lean",
+     "expr": "sad"
+    },
+    {
+     "id": "haise",
+     "x": 0.65,
+     "y": 0.9,
+     "action": "shock",
+     "face": -1,
+     "expr": "shock"
+    }
+   ]
+  },
+  {
+   "say": "So the crew crawled into the lunar module, Aquarius, and turned it into a lifeboat.",
+   "bg": "room",
+   "bg_opts": {
+    "wall": "#2b2f36",
+    "floor": "#17191d"
+   },
+   "camera": "pan_left",
+   "transition": "whip_right",
+   "label": {
+    "name": "AQUARIUS",
+    "role": "THE LUNAR MODULE",
+    "y": 0.2,
+    "at": 1.0
+   },
+   "cast": [
+    {
+     "id": "haise",
+     "x": [
+      0.85,
+      0.6
+     ],
+     "y": 0.9,
+     "action": "walk",
+     "face": -1
+    },
+    {
+     "id": "swigert",
+     "x": [
+      0.7,
+      0.4
+     ],
+     "y": 0.9,
+     "action": "walk",
+     "face": -1
+    },
+    {
+     "id": "lovell",
+     "x": [
+      0.55,
+      0.2
+     ],
+     "y": 0.9,
+     "action": "walk",
+     "face": -1
+    }
+   ]
+  },
+  {
+   "say": "But that wasn't the worst problem. Carbon dioxide was building up, and the command module's square filters didn't fit Aquarius's round openings.",
+   "hook": "A NEW KILLER",
+   "bg": "cabin",
+   "camera": "push_in",
+   "transition": "dissolve",
+   "text": {
+    "big": "CO2 RISING",
+    "sub": "SQUARE FILTERS. ROUND OPENINGS.",
+    "y": 0.24,
+    "color": "#ff5a4f"
+   },
+   "cast": [
+    {
+     "id": "lovell",
+     "x": 0.45,
+     "y": 1.25,
+     "scale": 2.0,
+     "action": "hold",
+     "expr": "serious",
+     "hold": "briefcase"
+    }
+   ]
+  },
+  {
+   "say": "A square peg in a round hole. In Houston, engineers improvised a fix out of plastic bags, cardboard and tape.",
+   "bg": "office",
+   "bg_opts": {
+    "labels": [
+     "SQUARE FILTERS",
+     "ROUND OPENINGS",
+     "PLASTIC BAGS",
+     "CARDBOARD",
+     "TAPE"
+    ]
+   },
+   "camera": "pan_right",
+   "transition": "whip_left",
+   "cast": [
+    {
+     "id": "engineer",
+     "x": 0.3,
+     "y": 0.92,
+     "action": "point",
+     "expr": "serious"
+    }
+   ],
+   "props": [
+    {
+     "kind": "note",
+     "x": 0.65,
+     "y": 0.58,
+     "scale": 1.2,
+     "motion": "drop",
+     "appear": 2.0
+    }
+   ]
+  },
+  {
+   "say": "They radioed the instructions up. The crew built it, and it worked.",
+   "bg": "cabin",
+   "camera": "rise",
+   "transition": "push",
+   "cast": [
+    {
+     "id": "swigert",
+     "x": 0.32,
+     "y": 0.9,
+     "action": "dig",
+     "expr": "serious"
+    },
+    {
+     "id": "haise",
+     "x": 0.66,
+     "y": 0.9,
+     "action": "hold",
+     "face": -1,
+     "expr": "smile",
+     "hold": "note"
+    }
+   ]
+  },
+  {
+   "say": "Instead of landing, they swung around the far side of the Moon, setting a record for the farthest flight from Earth.",
+   "hook": "SO FAR FROM HOME",
+   "bg": "sky_night",
+   "camera": "track_left",
+   "transition": "fog",
+   "text": {
+    "big": "FARTHEST FLIGHT",
+    "sub": "AROUND THE FAR SIDE OF THE MOON",
+    "y": 0.26
+   }
+  },
+  {
+   "say": "On April 17, 1970, after almost a week in space, they splashed down in the Pacific near Samoa. All three were alive.",
+   "hook": "APRIL 17, 1970",
+   "bg": "sea_night",
+   "bg_opts": {
+    "city": false,
+    "moon": [
+     760,
+     300
+    ]
+   },
+   "camera": "crane_down",
+   "transition": "whip_right",
+   "props": [
+    {
+     "kind": "raft",
+     "x": 0.5,
+     "y": 0.66,
+     "scale": 1.1,
+     "motion": "none",
+     "z": 0
+    }
+   ],
+   "cast": [
+    {
+     "id": "lovell",
+     "x": 0.4,
+     "y": 0.64,
+     "scale": 0.6,
+     "action": "sit",
+     "expr": "smile",
+     "z": 1
+    },
+    {
+     "id": "haise",
+     "x": 0.5,
+     "y": 0.64,
+     "scale": 0.6,
+     "action": "sit",
+     "expr": "smile",
+     "z": 1
+    },
+    {
+     "id": "swigert",
+     "x": 0.6,
+     "y": 0.64,
+     "scale": 0.6,
+     "action": "sit",
+     "expr": "smile",
+     "z": 1
+    }
+   ]
+  },
+  {
+   "say": "The cause? Before launch, a power surge during ground testing wrecked the tank's heater switches and damaged its wiring.",
+   "bg": "evidence",
+   "bg_opts": {
+    "labels": [
+     "OXYGEN TANK 2",
+     "HEATER SWITCHES",
+     "POWER SURGE",
+     "DAMAGED WIRING"
+    ]
+   },
+   "camera": "push_in",
+   "transition": "push",
+   "props": [
+    {
+     "kind": "file",
+     "x": 0.5,
+     "y": 0.6,
+     "scale": 0.9,
+     "opts": {
+      "title": "OXYGEN TANK 2"
+     },
+     "motion": "pop",
+     "appear": 0.4
+    }
+   ]
+  },
+  {
+   "say": "NASA calls Apollo 13 a successful failure. So was it a failure, or NASA's finest hour? Tell me in the comments.",
+   "hook": "YOUR VERDICT?",
+   "bg": "sky_night",
+   "camera": "pull_out",
+   "transition": "dissolve",
+   "cast": [
+    {
+     "id": "lovell",
+     "x": 0.5,
+     "y": 1.22,
+     "scale": 2.0,
+     "action": "stand",
+     "expr": "neutral"
+    }
+   ]
+  }
+ ],
+ "hashtags": [
+  "#History",
+  "#Space",
+  "#Apollo13",
+  "#NASA",
+  "#SpaceHistory",
+  "#TrueStory",
+  "#Moon"
+ ]
+}

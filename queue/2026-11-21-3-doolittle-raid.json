@@ -1,0 +1,384 @@
+{
+ "id": "2026-11-21-3-doolittle-raid",
+ "title": "The Doolittle Raid",
+ "caption": "16 bombers took off from a carrier to hit Tokyo, with no way to land back on the ship. ✈️\n\nThen they were spotted, and had to launch hundreds of miles too early.\n\nBrilliant gamble or reckless mission? Tell us below 👇",
+ "hook": "NO WAY BACK",
+ "sources": [
+  "https://history.navy.mil/browse-by-topic/wars-conflicts-and-operations/world-war-ii/1942/halsey-doolittle-raid.html",
+  "https://www.britannica.com/event/Doolittle-Raid",
+  "https://www.nationalgeographic.com/history/article/doolittle-raiders-anniversary-world-war-two-history"
+ ],
+ "cast": {
+  "doolittle": {
+   "skin": "#e8c4a2",
+   "hair": "dark_brown",
+   "hair_style": "receding",
+   "age": 45,
+   "build": "average",
+   "height": 0.9,
+   "medals": false,
+   "outfit": "uniform",
+   "outfit_color": "#5b5338",
+   "shirt_color": "#8a7f5c",
+   "tie_color": "#4a432c",
+   "pants_color": "#6b6246",
+   "hat": "military",
+   "hat_color": "#5b5338"
+  },
+  "doolittle_mh": {
+   "skin": "#e8c4a2",
+   "hair": "dark_brown",
+   "hair_style": "receding",
+   "age": 46,
+   "build": "average",
+   "height": 0.9,
+   "medals": true,
+   "outfit": "uniform",
+   "outfit_color": "#5b5338",
+   "shirt_color": "#8a7f5c",
+   "tie_color": "#4a432c",
+   "pants_color": "#6b6246",
+   "hat": "military",
+   "hat_color": "#5b5338"
+  },
+  "pilot": {
+   "skin": "#e4bf9c",
+   "hair": "brown",
+   "hair_style": "short",
+   "age": 24,
+   "build": "slim",
+   "outfit": "coat",
+   "outfit_color": "#5a3e28",
+   "pants_color": "#5b5338",
+   "hat": "cap",
+   "hat_color": "#4a3a28",
+   "tie_color": "none"
+  },
+  "pilot2": {
+   "skin": "#e9c8a8",
+   "hair": "blonde",
+   "hair_style": "short",
+   "age": 23,
+   "build": "average",
+   "outfit": "coat",
+   "outfit_color": "#5a3e28",
+   "pants_color": "#5b5338",
+   "hat": "cap",
+   "hat_color": "#4a3a28",
+   "tie_color": "none"
+  },
+  "sailor": {
+   "skin": "#dcb48e",
+   "hair": "brown",
+   "hair_style": "buzz",
+   "age": 22,
+   "outfit": "uniform",
+   "outfit_color": "#1e2a44",
+   "pants_color": "#1e2a44",
+   "tie_color": "none",
+   "hat": "cap",
+   "hat_color": "#f0f0f0"
+  }
+ },
+ "scenes": [
+  {
+   "say": "April 18, 1942. Sixteen American bombers took off from an aircraft carrier to hit Tokyo. They had no way to land back on the ship.",
+   "bg": "sea_night",
+   "bg_opts": {
+    "city": false,
+    "moon": [
+     800,
+     320
+    ]
+   },
+   "camera": "crane_down",
+   "text": {
+    "big": "APRIL 18, 1942",
+    "sub": "TARGET: TOKYO",
+    "y": 0.24
+   },
+   "cast": [
+    {
+     "id": "pilot",
+     "x": [
+      0.3,
+      0.45
+     ],
+     "y": 0.9,
+     "action": "run",
+     "expr": "serious"
+    },
+    {
+     "id": "pilot2",
+     "x": [
+      0.15,
+      0.3
+     ],
+     "y": 0.9,
+     "action": "run",
+     "expr": "serious",
+     "z": 0
+    }
+   ]
+  },
+  {
+   "say": "Four months after Pearl Harbor, America needed to hit back.",
+   "bg": "map",
+   "camera": "push_in",
+   "transition": "fog",
+   "text": {
+    "big": "PEARL HARBOR",
+    "sub": "FOUR MONTHS EARLIER",
+    "y": 0.26,
+    "color": "#ff5a4f"
+   }
+  },
+  {
+   "say": "Lieutenant Colonel Jimmy Doolittle would lead 16 Army B-25s off the deck of the USS Hornet.",
+   "bg": "sea_night",
+   "bg_opts": {
+    "city": false,
+    "moon": [
+     300,
+     300
+    ]
+   },
+   "camera": "push_in",
+   "transition": "whip_left",
+   "label": {
+    "name": "LT. COL. JIMMY DOOLITTLE",
+    "role": "MISSION LEADER",
+    "y": 0.2,
+    "at": 0.6
+   },
+   "cast": [
+    {
+     "id": "doolittle",
+     "x": 0.45,
+     "y": 1.22,
+     "scale": 2.0,
+     "action": "talk",
+     "expr": "serious",
+     "talk": true
+    }
+   ]
+  },
+  {
+   "say": "The plan: bomb Japan, then fly on to friendly airfields in China.",
+   "bg": "map",
+   "camera": "pan_right",
+   "transition": "push",
+   "text": {
+    "big": "JAPAN → CHINA",
+    "sub": "THE PLAN",
+    "y": 0.26
+   },
+   "cast": [
+    {
+     "id": "doolittle",
+     "x": 0.25,
+     "y": 0.92,
+     "action": "point",
+     "expr": "serious"
+    }
+   ]
+  },
+  {
+   "say": "But on the morning of the raid, a Japanese picket boat spotted the fleet and radioed a warning.",
+   "hook": "SPOTTED",
+   "bg": "sea_night",
+   "bg_opts": {
+    "city": false,
+    "rain": true
+   },
+   "camera": "track_left",
+   "transition": "flash",
+   "cast": [
+    {
+     "id": "sailor",
+     "x": 0.4,
+     "y": 0.9,
+     "action": "point",
+     "expr": "shock"
+    }
+   ]
+  },
+  {
+   "say": "They were still hundreds of miles farther out than planned. Launch now, and they might run out of fuel. They launched anyway.",
+   "hook": "LAUNCH NOW",
+   "bg": "sky",
+   "bg_opts": {
+    "rain": true
+   },
+   "camera": "rise",
+   "transition": "whip_right",
+   "text": {
+    "big": "HUNDREDS OF MILES",
+    "sub": "FARTHER THAN PLANNED",
+    "y": 0.24
+   },
+   "cast": [
+    {
+     "id": "doolittle",
+     "x": 0.5,
+     "y": 1.22,
+     "scale": 2.0,
+     "action": "stand",
+     "expr": "serious"
+    }
+   ]
+  },
+  {
+   "say": "Over Japan, they hit targets in Tokyo, Yokohama, Kobe and Nagoya.",
+   "bg": "battlefield",
+   "bg_opts": {
+    "blasts": [
+     0.5,
+     1.4,
+     2.4
+    ]
+   },
+   "camera": "track_right",
+   "transition": "whip_left",
+   "shake": [
+    [
+     0.5,
+     2.4,
+     20
+    ]
+   ],
+   "text": {
+    "big": "TOKYO",
+    "sub": "YOKOHAMA · KOBE · NAGOYA",
+    "y": 0.24
+   }
+  },
+  {
+   "say": "Then the fuel ran low. Over China, crews bailed out or crash-landed. One plane landed in the Soviet Union, and its crew was held there.",
+   "bg": "forest_night",
+   "bg_opts": {
+    "lightning": [
+     1.0,
+     4.0
+    ]
+   },
+   "camera": "crane_down",
+   "transition": "fog",
+   "cast": [
+    {
+     "id": "pilot",
+     "x": 0.35,
+     "y": [
+      0.3,
+      0.75
+     ],
+     "action": "hang",
+     "chute": true,
+     "expr": "shock"
+    },
+    {
+     "id": "pilot2",
+     "x": 0.68,
+     "y": [
+      0.15,
+      0.6
+     ],
+     "action": "hang",
+     "chute": true,
+     "expr": "serious",
+     "appear": 1.0
+    }
+   ]
+  },
+  {
+   "say": "Not one of the 16 bombers reached its planned airfield.",
+   "hook": "ALL 16 LOST",
+   "bg": "map",
+   "camera": "pull_out",
+   "transition": "push",
+   "text": {
+    "big": "0 OF 16",
+    "sub": "REACHED THEIR AIRFIELDS",
+    "y": 0.26,
+    "color": "#ff5a4f"
+   }
+  },
+  {
+   "say": "Three men died bailing out or crash-landing. Eight were captured by the Japanese. Three of them were executed, and another died in captivity.",
+   "bg": "prison",
+   "bg_opts": {
+    "bars": true
+   },
+   "camera": "drift",
+   "transition": "dissolve",
+   "cast": [
+    {
+     "id": "pilot2",
+     "x": 0.45,
+     "y": 0.9,
+     "action": "sit",
+     "expr": "sad"
+    }
+   ]
+  },
+  {
+   "say": "Doolittle was sure he'd be court-martialed. Instead, he got the Medal of Honor and was promoted to brigadier general.",
+   "hook": "HERE'S THE TWIST",
+   "bg": "palace",
+   "camera": "push_in",
+   "transition": "whip_right",
+   "label": {
+    "name": "MEDAL OF HONOR",
+    "role": "PROMOTED TO BRIGADIER GENERAL",
+    "y": 0.2,
+    "at": 2.5
+   },
+   "cast": [
+    {
+     "id": "doolittle_mh",
+     "x": 0.5,
+     "y": 1.22,
+     "scale": 2.0,
+     "action": "salute",
+     "expr": "smile"
+    }
+   ]
+  },
+  {
+   "say": "The damage was small. But the raid boosted American morale and helped push Japan toward Midway, a battle that turned the war in the Pacific.",
+   "bg": "map",
+   "camera": "pan_left",
+   "transition": "fog",
+   "text": {
+    "big": "MIDWAY",
+    "sub": "JUNE 1942",
+    "y": 0.26
+   }
+  },
+  {
+   "say": "So was it a brilliant gamble or a reckless one? Tell me in the comments.",
+   "hook": "YOUR VERDICT?",
+   "bg": "sky_night",
+   "camera": "pull_out",
+   "transition": "dissolve",
+   "cast": [
+    {
+     "id": "doolittle",
+     "x": 0.5,
+     "y": 0.9,
+     "action": "stand",
+     "expr": "neutral"
+    }
+   ]
+  }
+ ],
+ "hashtags": [
+  "#WW2",
+  "#History",
+  "#DoolittleRaid",
+  "#WorldWar2",
+  "#MilitaryHistory",
+  "#Aviation",
+  "#TrueStory"
+ ]
+}
