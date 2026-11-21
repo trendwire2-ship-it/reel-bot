@@ -86,4 +86,6 @@ then the hashtags (plus #FactsOnFacts #Reels, added automatically).
   3. A debatable question + "Tell us below 👇".
 - `hashtags`: 5–8 tags: 2–3 broad (#TrueCrime #History #WW2 #Mystery), 2–3 topic-specific (#DBCooper #Alcatraz),
   1–2 community tags (#UnsolvedMysteries #ColdCase #MilitaryHistory). CamelCase, no spaces.
+- `pinned_comment`: the Page's own first comment, posted automatically (the owner pins it). One debate question with
+  numbered options + a follow nudge, e.g. "📌 Which do you believe? 1️⃣ He died in the jump 2️⃣ He got away 👇".
 - Optional `cta`: the end-of-video follow card text (default "MORE TRUE STORIES DAILY"; keep under 26 characters).

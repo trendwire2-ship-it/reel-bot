@@ -94,7 +94,42 @@ def build_description(story):
             seen.add(k); out.append(tg)
     return f"{cap}\n\n{FOLLOW_LINE}\n\n{' '.join(out[:10])}"
 
+def pinned_text(story):
+    if story.get("pinned_comment"):
+        return story["pinned_comment"]
+    q = [ln for ln in story.get("caption", "").split("\n") if "?" in ln]
+    ask = q[-1].replace("Tell us below 👇", "").strip() if q else "What do you think happened?"
+    return f"📌 {ask} Drop your answer below 👇 New true story every day, follow so you don't miss the next one."
+
+def comment_as_page(video_id, text):
+    """First comment as the Page (needs pages_manage_engagement). Pinning itself isn't available in the API."""
+    token = os.environ["FB_PAGE_TOKEN"]
+    body = urllib.parse.urlencode({"message": text, "access_token": token}).encode()
+    try:
+        with urllib.request.urlopen(urllib.request.Request(f"{GRAPH}/{video_id}/comments", data=body, method="POST"), timeout=60) as r:
+            cid = json.loads(r.read()).get("id")
+            print("Comment posted:", cid)
+            return cid
+    except urllib.error.HTTPError as e:
+        print("WARNING: could not post the comment (add pages_manage_engagement to the token?):", e.read().decode()[:300])
+        return None
+
+def backfill_comments():
+    log = json.load(open(LOG)) if os.path.exists(LOG) else []
+    for e in log:
+        if e.get("comment_id") or not e.get("video_id"):
+            continue
+        p = os.path.join(ROOT, "posted", e["id"] + ".json")
+        story = json.load(open(p)) if os.path.exists(p) else {}
+        cid = comment_as_page(e["video_id"], pinned_text(story))
+        if cid:
+            e["comment_id"] = cid
+    json.dump(log, open(LOG, "w"), indent=1)
+
 def main():
+    if os.environ.get("COMMENT_BACKFILL") == "1":
+        backfill_comments()
+        return
     if os.environ.get("CHECK_FB") == "1":
         check_facebook()
         return
@@ -120,7 +155,12 @@ def main():
     print("Description:\n" + desc)
     vid = publish_reel(out, desc, story.get("title", ""))
     shutil.move(path, os.path.join(ROOT, "posted", os.path.basename(path)))
-    log.append({"id": story["id"], "slot": slot, "video_id": vid, "at": dt.datetime.utcnow().isoformat() + "Z"})
+    entry = {"id": story["id"], "slot": slot, "video_id": vid, "at": dt.datetime.utcnow().isoformat() + "Z"}
+    time.sleep(20)
+    cid = comment_as_page(vid, pinned_text(story))
+    if cid:
+        entry["comment_id"] = cid
+    log.append(entry)
     json.dump(log, open(LOG, "w"), indent=1)
     print("Posted", story["id"], "video", vid)
 

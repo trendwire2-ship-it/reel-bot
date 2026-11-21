@@ -18,6 +18,10 @@ on:
         description: "Only check the Facebook connection (no render, no post)"
         type: boolean
         default: false
+      comment_posted:
+        description: "Add the engagement comment to already-posted reels that don't have one"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -38,7 +42,7 @@ jobs:
           python-version: "3.12"
 
       - name: Cache Python packages and voice-clone model
-        if: ${{ !inputs.check_facebook }}
+        if: ${{ !inputs.check_facebook && !inputs.comment_posted }}
         uses: actions/cache@v4
         with:
           path: |
@@ -47,14 +51,14 @@ jobs:
           key: deps-v2-${{ hashFiles('.github/workflows/post-reels.yml') }}
 
       - name: Install tools
-        if: ${{ !inputs.check_facebook }}
+        if: ${{ !inputs.check_facebook && !inputs.comment_posted }}
         run: |
           sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg libegl1 libgl1 fonts-dejavu-core
           pip install -q torch==2.6.0 torchaudio==2.6.0 --index-url https://download.pytorch.org/whl/cpu
           pip install -q chatterbox-tts==0.1.7 kokoro-onnx soundfile pillow numpy edge-tts skia-python
 
       - name: Unlock your voice sample
-        if: ${{ !inputs.check_facebook }}
+        if: ${{ !inputs.check_facebook && !inputs.comment_posted }}
         env:
           VOICE_KEY: ${{ secrets.VOICE_KEY }}
         run: |
@@ -65,14 +69,14 @@ jobs:
           fi
 
       - name: Cache voice model
-        if: ${{ !inputs.check_facebook }}
+        if: ${{ !inputs.check_facebook && !inputs.comment_posted }}
         uses: actions/cache@v4
         with:
           path: models
           key: kokoro-v1.0-int8
 
       - name: Download voice model (first run only)
-        if: ${{ !inputs.check_facebook }}
+        if: ${{ !inputs.check_facebook && !inputs.comment_posted }}
         run: |
           mkdir -p models
           [ -f models/kokoro.onnx ] || curl -sSL -o models/kokoro.onnx https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/kokoro-v1.0.int8.onnx
@@ -85,6 +89,7 @@ jobs:
           FORCE: ${{ inputs.force && '1' || '0' }}
           DRY_RUN: ${{ inputs.dry_run && '1' || '0' }}
           CHECK_FB: ${{ inputs.check_facebook && '1' || '0' }}
+          COMMENT_BACKFILL: ${{ inputs.comment_posted && '1' || '0' }}
           SLOTS: "9,13,19"
           TZ_NAME: "America/New_York"
         run: python scripts/post.py
