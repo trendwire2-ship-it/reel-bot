@@ -769,40 +769,19 @@ def _logo():
     return _LOGO
 
 def draw_watermark(c, t, seed=0):
+    """Text-only moving handle: Meta's quality check flags logo watermarks but not a plain account name."""
     k = int(t // WM_HOLD)
     lt = t - k * WM_HOLD
     x, y, side = WM_SPOTS[(k * 5 + seed) % len(WM_SPOTS)]
-    a = min(1.0, lt / 0.5, (WM_HOLD - lt) / 0.5)
-    a = max(0.0, a) * 0.62
+    a = max(0.0, min(1.0, lt / 0.5, (WM_HOLD - lt) / 0.5)) * 0.62
     if a <= 0.01:
         return
-    r = 34
     fnt = font(FONT_BIG, 30)
     label = "\u00a9 FACTS ON FACTS"
     tw = fnt.measureText(label)
-    cx = x + r if side == "l" else x - r
-    tx = cx + r + 12 if side == "l" else cx - r - 12 - tw
-    c.save()
-    lg = _logo()
-    if lg:
-        c.save()
-        path = skia.Path(); path.addCircle(cx, y, r)
-        c.clipPath(path, doAntiAlias=True)
-        p = skia.Paint(); p.setAlphaf(a)
-        c.drawImageRect(lg, skia.Rect.MakeXYWH(cx - r, y - r, 2 * r, 2 * r), skia.SamplingOptions(skia.FilterMode.kLinear), p)
-        c.restore()
-    ring = skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=3, Color=hexcol("#ffffff", int(200 * a)))
-    c.drawCircle(cx, y, r, ring)
-    sh = skia.Paint(AntiAlias=True, Color=hexcol("#000000", int(150 * a)))
-    c.drawString(label, tx + 2, y + 13, fnt, sh)
+    tx = x if side == "l" else x - tw
+    c.drawString(label, tx + 2, y + 13, fnt, skia.Paint(AntiAlias=True, Color=hexcol("#000000", int(150 * a))))
     c.drawString(label, tx, y + 11, fnt, skia.Paint(AntiAlias=True, Color=hexcol("#ffffff", int(235 * a))))
-    # faint tiled mark across the middle (survives cropping to the centre)
-    f2 = font(FONT_BIG, 46)
-    p2 = skia.Paint(AntiAlias=True, Color=hexcol("#ffffff", 10))
-    c.translate(W / 2, H * 0.52); c.rotate(-24)
-    for row in (-1, 0, 1):
-        c.drawString("FACTS ON FACTS  \u00a9  FACTS ON FACTS", -430, row * 210, f2, p2)
-    c.restore()
 
 COPYRIGHT_META = ["-metadata", "artist=Facts on Facts", "-metadata", "copyright=(c) %s Facts on Facts. All rights reserved. Reuse prohibited." % __import__("datetime").date.today().year,
                   "-metadata", "comment=Original reel by Facts on Facts (facebook.com/1458396710691502). Unauthorised reuploads will be reported."]
@@ -813,6 +792,20 @@ TRANS = 0.36  # half-length of a transition (s)
 def scene_at(st, tl, c, idx, t):
     s = tl["scenes"][idx]
     return st.draw_scene(c, idx, t - s["s"], s["e"] - s["s"])
+
+EDGE_BLOBS = [  # (y, radius, colour, alpha, drift speed, phase)
+    (60, 520, "#9fb4d8", 46, 0.050, 0.0), (210, 430, "#f0c27a", 30, -0.037, 2.1), (-40, 640, "#c7d3ea", 38, 0.028, 4.0),
+    (H - 60, 540, "#e0a565", 40, -0.045, 1.3), (H - 230, 420, "#a9bfe0", 30, 0.033, 3.4), (H + 40, 660, "#d9b48a", 36, 0.022, 5.2)]
+
+def edge_life(c, t, idx):
+    """Soft drifting haze and light at the top and bottom of every frame. Flat, empty skies and floors read as
+    letterbox borders to Facebook's 'bordered video' quality check; this keeps the edges visibly part of the picture."""
+    for k, (y, r, col, a, sp, ph) in enumerate(EDGE_BLOBS):
+        x = W * (0.5 + 0.62 * math.sin(t * sp * 2 * math.pi + ph + idx * 1.7))
+        rr = r * (1 + 0.12 * math.sin(t * 0.21 + k))
+        sh = skia.GradientShader.MakeRadial((x, y), rr, [hexcol(col, a), hexcol(col, int(a * 0.45)), hexcol(col, 0)], [0, 0.45, 1])
+        p = skia.Paint(AntiAlias=True, Shader=sh, BlendMode=skia.BlendMode.kScreen)
+        c.drawRect(rect(0, y - rr, W, 2 * rr), p)
 
 def render_frame(c, st, tl, t, surf=None, fi=0, post=None):
     story, scenes, groups, total = st.story, tl["scenes"], tl["groups"], tl["total"]
@@ -866,6 +859,7 @@ def render_frame(c, st, tl, t, surf=None, fi=0, post=None):
     else:
         wd = scene_at(st, tl, c, idx, t)
     wd = wd or st.world(idx, story["scenes"][idx])
+    edge_life(c, t, idx)
     if post is not None and surf is not None:
         post.apply(surf, c, fi, wd.get("bloom", 0.3), wd.get("grade"))
     # UI overlays (crisp, above grain)
@@ -907,7 +901,7 @@ def worker(args):
     ff = subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "bgra", "-s", f"{W}x{H}",
                            "-r", str(FPS), "-i", "-", "-c:v", "libx264", "-preset", os.environ.get("X264_PRESET", "veryfast"),
                            "-crf", "18", "-pix_fmt", "yuv420p", "-g", str(FPS * 2),
-                           "-vf", "vignette=angle=0.5:mode=forward,noise=c0s=6:c0f=t+u", out], stdin=subprocess.PIPE)
+                           "-vf", "vignette=angle=0.32:mode=forward,noise=c0s=7:c0f=t+u", out], stdin=subprocess.PIPE)
     buf = np.empty((H, W, 4), np.uint8)
     for fi in range(f0, f1):
         render_frame(c, st, tl, fi / FPS, surf, fi, post)
