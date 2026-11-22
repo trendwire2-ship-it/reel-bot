@@ -1,0 +1,257 @@
+{
+ "id": "2026-11-22-3-bonnie-and-clyde-ambush",
+ "title": "The Ambush of Bonnie and Clyde",
+ "caption": "Six lawmen hid in the bushes for America's most wanted couple. They had one trick. 🚗\n\nThe bait was a farm truck with a missing wheel.\n\nRuthless killers, or outlaws turned into legends? Tell us below 👇",
+ "hook": "THE TRAP IS SET",
+ "sources": [
+  "https://www.fbi.gov/history/famous-cases/bonnie-and-clyde",
+  "https://64parishes.org/entry/capture-of-bonnie-and-clyde",
+  "https://en.wikipedia.org/wiki/Henry_Methvin"
+ ],
+ "cast": {
+  "bonnie": {
+   "skin": "#f2d6c2",
+   "hair": "#c98a5a",
+   "hair_style": "curly",
+   "outfit": "dress",
+   "outfit_color": "#2a2a30",
+   "shirt_color": "#efe6d6",
+   "hat": "beret",
+   "hat_color": "#8a1f24",
+   "build": "slim",
+   "height": 0.88,
+   "age": 23,
+   "gender": "f"
+  },
+  "clyde": {
+   "skin": "#ecc8aa",
+   "hair": "dark_brown",
+   "hair_style": "side_part",
+   "outfit": "suit",
+   "outfit_color": "#3a3c42",
+   "shirt_color": "#f0ece2",
+   "tie_color": "#5a2a2a",
+   "hat": "fedora",
+   "hat_color": "#7a7a7a",
+   "build": "slim",
+   "height": 0.97,
+   "age": 25,
+   "gender": "m"
+  },
+  "hamer": {
+   "skin": "#d9a982",
+   "hair": "brown",
+   "hair_style": "short",
+   "outfit": "suit",
+   "outfit_color": "#4a4036",
+   "shirt_color": "#f2efe6",
+   "hat": "fedora",
+   "hat_color": "#d8cdb4",
+   "build": "heavy",
+   "height": 1.1,
+   "age": 50,
+   "gender": "m"
+  },
+  "methvin": {
+   "skin": "#ecc8aa",
+   "hair": "brown",
+   "hair_style": "short",
+   "outfit": "tshirt",
+   "outfit_color": "#6a6458",
+   "build": "slim",
+   "age": 22,
+   "gender": "m"
+  }
+ },
+ "scenes": [
+  {
+   "say": "May 23, 1934. A Louisiana back road. Six lawmen hide in the bushes, waiting for America's most wanted couple.",
+   "hook": "THE TRAP IS SET"
+  },
+  {
+   "say": "Bonnie Parker and Clyde Barrow. Police believed they had committed 13 murders."
+  },
+  {
+   "say": "She stood 5 foot 5, just 100 pounds. He drove a Ford V8 at up to 90 miles an hour."
+  },
+  {
+   "say": "In January 1934, they raided Eastham prison farm in Texas and broke out five prisoners.",
+   "hook": "THE BREAKOUT"
+  },
+  {
+   "say": "One of them was Henry Methvin. His family would hold the key to the trap."
+  },
+  {
+   "say": "Henry's father parked his truck by the road with a wheel off, like a flat tire.",
+   "hook": "THE BAIT"
+  },
+  {
+   "say": "Then a Ford V8 came down the road. It slowed beside the truck. That was the signal."
+  },
+  {
+   "say": "The lawmen opened fire. More than 100 rounds tore into the car. Both were killed instantly.",
+   "hook": "100+ ROUNDS"
+  },
+  {
+   "say": "Within hours, the nearby town of Gibsland swelled from 2,000 people to 12,000."
+  },
+  {
+   "say": "Today, their bullet-riddled car sits on display at a Nevada casino.",
+   "hook": "WHERE IT IS NOW"
+  },
+  {
+   "say": "Ruthless killers, or outlaws the newspapers turned into legends? Tell me in the comments."
+  }
+ ],
+ "hashtags": [
+  "#TrueCrime",
+  "#History",
+  "#BonnieAndClyde",
+  "#Outlaws",
+  "#1930s",
+  "#Gangsters",
+  "#CrimeHistory"
+ ],
+ "pinned_comment": "📌 Bonnie and Clyde were... 1️⃣ Ruthless killers 2️⃣ Outlaws the papers made into legends. Vote below 👇 and follow for a new true story every day.",
+ "cover": {
+  "title": "THE LAST DRIVE",
+  "scene": 6,
+  "focus": "clyde",
+  "tag": "TRUE STORY"
+ },
+ "comic": {
+  "variant": "hybrid",
+  "shots": [
+   {
+    "scene": 0,
+    "word": 0,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261122_042758_5968ea9d-77a7-4db0-b52c-800cd8710a70.png",
+    "move": "push_in",
+    "fx": [
+     "fog"
+    ],
+    "key": true,
+    "clip": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261122_043012_eec43f51-6e3b-495b-964b-45d7f603c4df.mp4"
+   },
+   {
+    "scene": 1,
+    "word": 0,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261122_042758_e8317b24-f735-4182-b550-4b4dea0bd07b.png",
+    "move": "pan_right",
+    "fx": [
+     "dust"
+    ]
+   },
+   {
+    "scene": 2,
+    "word": 0,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261122_042758_25644ddc-66f2-42c9-a84b-a2dfaa0fd80b.png",
+    "move": "push_in",
+    "fx": [
+     "flicker"
+    ]
+   },
+   {
+    "scene": 2,
+    "word": 8,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261122_042758_8746a576-4427-4d9a-8ccb-229312306340.png",
+    "move": "pan_left",
+    "fx": [
+     "dust"
+    ]
+   },
+   {
+    "scene": 3,
+    "word": 0,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261122_042757_98a3a24d-a3e9-40ac-af7f-ed6634d125ef.png",
+    "move": "tilt_down",
+    "fx": [
+     "fog"
+    ]
+   },
+   {
+    "scene": 4,
+    "word": 0,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261122_042758_99e5b0ed-53b7-4189-8029-331fa3268bc9.png",
+    "move": "push_in",
+    "fx": []
+   },
+   {
+    "scene": 5,
+    "word": 0,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261122_042758_31545b13-5380-4db7-b062-79fad9cafd57.png",
+    "move": "pan_right",
+    "fx": [
+     "fog"
+    ]
+   },
+   {
+    "scene": 6,
+    "word": 0,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261122_042758_83867d02-acc7-4574-9777-4a9d0f7f0ab9.png",
+    "move": "push_in",
+    "fx": [],
+    "key": true,
+    "clip": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261122_043036_61b5e002-679b-452e-821f-c30de415963b.mp4"
+   },
+   {
+    "scene": 6,
+    "word": 13,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261122_042758_d324d8a9-0eec-4008-b12c-460ad7d459ed.png",
+    "move": "push_in",
+    "fx": []
+   },
+   {
+    "scene": 7,
+    "word": 0,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261122_042758_157ab963-8f0d-4cfa-80e1-22ad9b6649c5.png",
+    "move": "push_in",
+    "fx": [
+     "embers"
+    ],
+    "key": true,
+    "clip": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261122_043012_3da39123-60af-4d77-84ac-d372613afa18.mp4"
+   },
+   {
+    "scene": 7,
+    "word": 12,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261122_042758_d561fa2d-ac53-482a-b7dd-494a252317b7.png",
+    "move": "pull_out",
+    "fx": [
+     "dust"
+    ]
+   },
+   {
+    "scene": 8,
+    "word": 0,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261122_042758_7ac38d3b-0755-4113-ab24-4eb62d34b8ff.png",
+    "move": "tilt_down",
+    "fx": [
+     "dust"
+    ]
+   },
+   {
+    "scene": 9,
+    "word": 0,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261122_042800_e8cc89e4-291d-4515-8767-cc0928fae9f2.png",
+    "move": "pan_left",
+    "fx": [
+     "flicker"
+    ]
+   },
+   {
+    "scene": 10,
+    "word": 0,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261122_042800_fbf931c9-e82a-449a-a446-26078c498bab.png",
+    "move": "pull_out",
+    "fx": [
+     "lightning"
+    ]
+   }
+  ],
+  "cover": {
+   "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261122_042758_83867d02-acc7-4574-9777-4a9d0f7f0ab9.png",
+   "title": "THE LAST DRIVE"
+  }
+ }
+}

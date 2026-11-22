@@ -1,0 +1,356 @@
+{
+ "id": "2026-11-22-1-amelia-earhart",
+ "title": "The Last Flight of Amelia Earhart",
+ "caption": "Her voice came over the radio loud and clear… then she vanished forever. ✈️\n\nShe was 7,000 miles from finishing a flight around the world.\n\nCrashed at sea, or castaway on a lost island? Tell us below 👇",
+ "hook": "SHE VANISHED",
+ "sources": [
+  "https://www.archives.gov/college-park/highlights/earhart-log",
+  "https://airandspace.si.edu/stories/editorial/answering-your-questions-about-earharts-disappearance-except-big-one",
+  "https://www.history.com/articles/what-happened-to-amelia-earhart"
+ ],
+ "cast": {
+  "earhart": {
+   "skin": "#f0d2b8",
+   "hair": "#b08a5e",
+   "hair_style": "curly",
+   "eyes": "#6a7f8f",
+   "outfit": "coat",
+   "outfit_color": "#5a3a24",
+   "shirt_color": "#efe9dc",
+   "tie_color": "none",
+   "scarf_color": "#e8e2d0",
+   "hat": "none",
+   "build": "slim",
+   "height": 1.05,
+   "age": 39,
+   "gender": "f"
+  },
+  "noonan": {
+   "skin": "#e8c2a2",
+   "hair": "dark_brown",
+   "hair_style": "side_part",
+   "outfit": "coat",
+   "outfit_color": "#3a3d44",
+   "shirt_color": "#e9e5da",
+   "tie_color": "#2a2a30",
+   "build": "slim",
+   "height": 1.04,
+   "age": 44,
+   "gender": "m"
+  },
+  "radioman": {
+   "skin": "#e2bc98",
+   "hair": "brown",
+   "hair_style": "short",
+   "outfit": "uniform",
+   "outfit_color": "#1f2a3d",
+   "hat": "cap",
+   "hat_color": "#f2f2f2",
+   "age": 28,
+   "gender": "m"
+  }
+ },
+ "scenes": [
+  {
+   "say": "8:43 AM, July 2, 1937. Amelia Earhart's voice crackles over the radio. Then, silence. She was never seen again.",
+   "hook": "SHE VANISHED",
+   "bg": "sea_night",
+   "bg_opts": {
+    "moon": [
+     0.7,
+     0.2
+    ]
+   },
+   "camera": "push_in",
+   "text": {
+    "big": "JULY 2, 1937",
+    "sub": "8:43 AM",
+    "y": 0.24
+   },
+   "cast": [
+    {
+     "id": "earhart",
+     "x": 0.5,
+     "y": 1.24,
+     "scale": 2.1,
+     "action": "stand",
+     "expr": "serious"
+    }
+   ]
+  },
+  {
+   "say": "She was 22,000 miles into a flight around the world. 7,000 to go.",
+   "bg": "map",
+   "camera": "pan_right",
+   "transition": "whip_left",
+   "text": {
+    "big": "22,000 MILES",
+    "sub": "7,000 TO GO",
+    "y": 0.24,
+    "color": "#ffd60a"
+   },
+   "props": [
+    {
+     "kind": "plane_side",
+     "x": [
+      0.25,
+      0.7
+     ],
+     "y": 0.5,
+     "scale": 0.6,
+     "motion": "none"
+    }
+   ]
+  },
+  {
+   "say": "With navigator Fred Noonan, she had left Lae, New Guinea, in a twin-engine Lockheed Electra.",
+   "bg": "airport",
+   "bg_opts": {
+    "sign": "LAE, NEW GUINEA",
+    "board": [
+     "LAE, NEW GUINEA",
+     "LOCKHEED ELECTRA",
+     "NAVIGATOR: NOONAN"
+    ]
+   },
+   "camera": "track_left",
+   "transition": "push",
+   "label": {
+    "name": "FRED NOONAN",
+    "role": "NAVIGATOR",
+    "y": 0.2,
+    "at": 0.8
+   },
+   "cast": [
+    {
+     "id": "earhart",
+     "x": 0.36,
+     "y": 0.9,
+     "action": "walk",
+     "face": 1,
+     "expr": "smile"
+    },
+    {
+     "id": "noonan",
+     "x": 0.6,
+     "y": 0.9,
+     "action": "walk",
+     "face": 1,
+     "expr": "neutral"
+    }
+   ],
+   "props": [
+    {
+     "kind": "plane_side",
+     "x": 0.6,
+     "y": 0.55,
+     "scale": 1.0,
+     "motion": "none",
+     "opts": {
+      "stairs": 0.6
+     }
+    }
+   ]
+  },
+  {
+   "say": "Her target: Howland Island. Two miles long, one mile wide, in the middle of the Pacific.",
+   "hook": "A TINY TARGET",
+   "bg": "sea_night",
+   "bg_opts": {
+    "island": true,
+    "island_x": 0.6
+   },
+   "camera": "crane_down",
+   "transition": "fog",
+   "text": {
+    "big": "2 MILES LONG",
+    "sub": "HOWLAND ISLAND",
+    "y": 0.24
+   }
+  },
+  {
+   "say": "The cutter Itasca waited to guide her in. Her voice came in strong. But her plane never appeared.",
+   "bg": "room",
+   "camera": "push_in",
+   "transition": "whip_right",
+   "label": {
+    "name": "USCGC ITASCA",
+    "role": "COAST GUARD CUTTER",
+    "y": 0.2,
+    "at": 0.5
+   },
+   "cast": [
+    {
+     "id": "radioman",
+     "x": 0.45,
+     "y": 0.9,
+     "action": "lean",
+     "expr": "serious"
+    }
+   ],
+   "bg_opts": {
+    "wall": "#26303c",
+    "floor": "#151a20"
+   }
+  },
+  {
+   "say": "Her last message: \"We are on the line of position 157-337. We are running north and south.\"",
+   "hook": "THE LAST MESSAGE",
+   "bg": "sky",
+   "camera": "drift",
+   "transition": "flash",
+   "text": {
+    "big": "\"157-337\"",
+    "sub": "LAST MESSAGE",
+    "y": 0.24,
+    "color": "#ff5a4f"
+   },
+   "cast": [
+    {
+     "id": "earhart",
+     "x": 0.5,
+     "y": 1.22,
+     "scale": 2.0,
+     "action": "talk",
+     "talk": true,
+     "expr": "serious"
+    }
+   ]
+  },
+  {
+   "say": "The Navy and Coast Guard searched some 250,000 square miles of ocean. Nothing.",
+   "bg": "sea_night",
+   "bg_opts": {
+    "rain": true
+   },
+   "camera": "pan_left",
+   "transition": "whip_left",
+   "text": {
+    "big": "250,000",
+    "sub": "SQUARE MILES SEARCHED",
+    "y": 0.24
+   }
+  },
+  {
+   "say": "In January 1939, she was declared legally dead.",
+   "hook": "18 MONTHS LATER",
+   "bg": "office",
+   "bg_opts": {
+    "labels": [
+     "JANUARY 1939",
+     "DECLARED DEAD"
+    ]
+   },
+   "camera": "push_in",
+   "transition": "fog",
+   "props": [
+    {
+     "kind": "newspaper",
+     "x": 0.5,
+     "y": 0.52,
+     "scale": 1.1,
+     "motion": "slam",
+     "appear": 0.4,
+     "opts": {
+      "headline": "EARHART|DECLARED DEAD"
+     }
+    }
+   ]
+  },
+  {
+   "say": "Most experts believe she ran out of fuel and sank. Others point to a remote island, Nikumaroro.",
+   "bg": "evidence",
+   "bg_opts": {
+    "labels": [
+     "OUT OF FUEL?",
+     "NIKUMARORO?",
+     "157-337"
+    ]
+   },
+   "camera": "pan_right",
+   "transition": "push",
+   "cast": [
+    {
+     "id": "noonan",
+     "x": 0.3,
+     "y": 0.92,
+     "action": "point",
+     "expr": "serious"
+    }
+   ],
+   "props": [
+    {
+     "kind": "file",
+     "x": 0.68,
+     "y": 0.6,
+     "scale": 0.85,
+     "motion": "drop",
+     "appear": 2.0,
+     "opts": {
+      "title": "NIKUMARORO"
+     }
+    }
+   ]
+  },
+  {
+   "say": "Bones were found there in 1940. A 2018 analysis said they were more similar to Earhart than to 99 percent of people.",
+   "bg": "evidence",
+   "bg_opts": {
+    "labels": [
+     "BONES FOUND: 1940",
+     "2018 ANALYSIS",
+     "99 PERCENT"
+    ]
+   },
+   "camera": "push_in",
+   "transition": "dissolve",
+   "text": {
+    "big": "99%",
+    "sub": "2018 ANALYSIS",
+    "y": 0.24,
+    "color": "#ffd60a"
+   }
+  },
+  {
+   "say": "Crashed at sea, or castaway on a lost island? Tell me in the comments.",
+   "hook": "WHAT HAPPENED?",
+   "bg": "sea_night",
+   "bg_opts": {
+    "island": true,
+    "island_x": 0.3,
+    "moon": [
+     0.75,
+     0.18
+    ]
+   },
+   "camera": "pull_out",
+   "transition": "dissolve",
+   "cast": [
+    {
+     "id": "earhart",
+     "x": 0.55,
+     "y": 1.22,
+     "scale": 2.0,
+     "action": "stand",
+     "expr": "neutral"
+    }
+   ]
+  }
+ ],
+ "hashtags": [
+  "#History",
+  "#Mystery",
+  "#AmeliaEarhart",
+  "#Aviation",
+  "#Unsolved",
+  "#UnsolvedMysteries",
+  "#1930s"
+ ],
+ "pinned_comment": "📌 What happened to Amelia Earhart? 1️⃣ Crashed and sank 2️⃣ Castaway on Nikumaroro 3️⃣ Something else. Vote below 👇 and follow for a new true story every day.",
+ "cover": {
+  "title": "SHE NEVER LANDED",
+  "scene": 5,
+  "focus": "earhart",
+  "tag": "TRUE STORY"
+ }
+}

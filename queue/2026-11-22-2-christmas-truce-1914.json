@@ -1,0 +1,349 @@
+{
+ "id": "2026-11-22-2-christmas-truce-1914",
+ "title": "The Christmas Truce of 1914",
+ "caption": "In the middle of World War I, enemy soldiers put down their guns and met in no man's land. 🎄\n\nWhat happened next alarmed the generals.\n\nBrave humanity, or a dangerous risk in wartime? Tell us below 👇",
+ "hook": "THE GUNS WENT SILENT",
+ "sources": [
+  "https://www.iwm.org.uk/history/the-real-story-of-the-christmas-truce",
+  "https://www.history.com/articles/christmas-truce-1914-world-war-i-soldier-accounts",
+  "https://ww1.nam.ac.uk/1331/news/christmas-truce"
+ ],
+ "cast": {
+  "tommy": {
+   "skin": "#e6c0a0",
+   "hair": "brown",
+   "hair_style": "short",
+   "facial_hair": "mustache",
+   "beard_color": "brown",
+   "outfit": "uniform",
+   "outfit_color": "#6b5d3e",
+   "hat": "cap",
+   "hat_color": "#6b5d3e",
+   "build": "average",
+   "age": 24,
+   "gender": "m"
+  },
+  "fritz": {
+   "skin": "#e8c6a8",
+   "hair": "blonde",
+   "hair_style": "short",
+   "outfit": "uniform",
+   "outfit_color": "#6a6e63",
+   "hat": "helmet",
+   "hat_color": "#4a4d46",
+   "build": "average",
+   "age": 22,
+   "gender": "m"
+  },
+  "general": {
+   "skin": "#e2b896",
+   "hair": "grey",
+   "hair_style": "receding",
+   "facial_hair": "mustache",
+   "beard_color": "#c8c8c8",
+   "outfit": "uniform",
+   "outfit_color": "#6b5d3e",
+   "hat": "military",
+   "hat_color": "#6b5d3e",
+   "medals": true,
+   "build": "heavy",
+   "age": 56,
+   "gender": "m"
+  }
+ },
+ "scenes": [
+  {
+   "say": "Christmas Eve, 1914. In the middle of a world war, the shooting suddenly stopped.",
+   "hook": "THE GUNS WENT SILENT",
+   "bg": "battlefield",
+   "camera": "push_in",
+   "text": {
+    "big": "DEC 24, 1914",
+    "sub": "THE WESTERN FRONT",
+    "y": 0.24
+   },
+   "cast": [
+    {
+     "id": "tommy",
+     "x": 0.5,
+     "y": 1.24,
+     "scale": 2.1,
+     "action": "stand",
+     "expr": "shock"
+    }
+   ]
+  },
+  {
+   "say": "On the Western Front, British troops heard German soldiers singing carols, and saw little Christmas trees glowing on their trenches.",
+   "bg": "forest_night",
+   "camera": "pan_right",
+   "transition": "fog",
+   "cast": [
+    {
+     "id": "fritz",
+     "x": 0.65,
+     "y": 0.9,
+     "action": "talk",
+     "talk": true,
+     "expr": "smile",
+     "face": -1
+    },
+    {
+     "id": "tommy",
+     "x": 0.25,
+     "y": 0.92,
+     "action": "lean",
+     "expr": "neutral",
+     "face": 1
+    }
+   ],
+   "props": [
+    {
+     "kind": "fire",
+     "x": 0.8,
+     "y": 0.7,
+     "scale": 0.5,
+     "motion": "none"
+    }
+   ]
+  },
+  {
+   "say": "Weeks earlier, the Pope had begged for a Christmas truce. The leaders ignored him. The soldiers didn't.",
+   "bg": "palace",
+   "camera": "drift",
+   "transition": "whip_left",
+   "text": {
+    "big": "DEC 7, 1914",
+    "sub": "THE POPE BEGS FOR A TRUCE",
+    "y": 0.24
+   }
+  },
+  {
+   "say": "On Christmas Day, men climbed out and met their enemies in no man's land.",
+   "hook": "INTO NO MAN'S LAND",
+   "bg": "battlefield",
+   "camera": "track_right",
+   "transition": "push",
+   "cast": [
+    {
+     "id": "tommy",
+     "x": [
+      0.15,
+      0.4
+     ],
+     "y": 0.9,
+     "action": "walk",
+     "face": 1,
+     "expr": "neutral"
+    },
+    {
+     "id": "fritz",
+     "x": [
+      0.85,
+      0.6
+     ],
+     "y": 0.9,
+     "action": "walk",
+     "face": -1,
+     "expr": "neutral"
+    }
+   ]
+  },
+  {
+   "say": "They traded cigarettes, cigars and wine. They swapped souvenirs and posed for photographs.",
+   "bg": "battlefield",
+   "camera": "push_in",
+   "transition": "dissolve",
+   "cast": [
+    {
+     "id": "tommy",
+     "x": 0.38,
+     "y": 0.9,
+     "action": "give",
+     "face": 1,
+     "expr": "smile"
+    },
+    {
+     "id": "fritz",
+     "x": 0.62,
+     "y": 0.9,
+     "action": "hold",
+     "face": -1,
+     "expr": "smile"
+    }
+   ]
+  },
+  {
+   "say": "Then, side by side, they buried their dead.",
+   "bg": "river",
+   "camera": "drift",
+   "transition": "fog",
+   "cast": [
+    {
+     "id": "tommy",
+     "x": 0.38,
+     "y": 0.9,
+     "action": "dig",
+     "expr": "sad"
+    },
+    {
+     "id": "fritz",
+     "x": 0.62,
+     "y": 0.9,
+     "action": "kneel",
+     "expr": "sad",
+     "face": -1
+    }
+   ],
+   "props": [
+    {
+     "kind": "shovel",
+     "x": 0.5,
+     "y": 0.8,
+     "scale": 0.8,
+     "motion": "none"
+    }
+   ]
+  },
+  {
+   "say": "In some places, they reportedly played football. A German officer wrote that the English brought a ball from their trenches.",
+   "hook": "THEN A BALL APPEARED",
+   "bg": "battlefield",
+   "camera": "pan_left",
+   "transition": "whip_right",
+   "cast": [
+    {
+     "id": "tommy",
+     "x": [
+      0.3,
+      0.45
+     ],
+     "y": 0.9,
+     "action": "run",
+     "face": 1,
+     "expr": "smile"
+    },
+    {
+     "id": "fritz",
+     "x": [
+      0.75,
+      0.6
+     ],
+     "y": 0.9,
+     "action": "run",
+     "face": -1,
+     "expr": "smile"
+    }
+   ]
+  },
+  {
+   "say": "One British soldier remembered a kickabout of at least a couple of hundred men.",
+   "bg": "battlefield",
+   "camera": "rise",
+   "transition": "push",
+   "text": {
+    "big": "200+",
+    "sub": "MEN IN ONE KICKABOUT",
+    "y": 0.24,
+    "color": "#ffd60a"
+   },
+   "cast": [
+    {
+     "id": "tommy",
+     "x": 0.5,
+     "y": 1.22,
+     "scale": 2.0,
+     "action": "talk",
+     "talk": true,
+     "expr": "smile"
+    }
+   ]
+  },
+  {
+   "say": "Senior officers were not amused. One general called it proof of an \"apathetic state.\"",
+   "bg": "office",
+   "bg_opts": {
+    "labels": [
+     "CONFIDENTIAL",
+     "\"APATHETIC STATE\""
+    ]
+   },
+   "camera": "push_in",
+   "transition": "flash",
+   "cast": [
+    {
+     "id": "general",
+     "x": 0.45,
+     "y": 0.9,
+     "action": "point",
+     "expr": "angry"
+    }
+   ]
+  },
+  {
+   "say": "Orders came down: it must never happen again. And on that scale, it never did.",
+   "hook": "NEVER AGAIN",
+   "bg": "battlefield",
+   "bg_opts": {
+    "blasts": [
+     2.5,
+     4.0
+    ]
+   },
+   "camera": "pull_out",
+   "transition": "whip_left",
+   "shake": [
+    [
+     2.5,
+     0.5,
+     20
+    ]
+   ],
+   "props": [
+    {
+     "kind": "stamp",
+     "x": 0.5,
+     "y": 0.4,
+     "scale": 0.9,
+     "motion": "slam",
+     "appear": 1.0,
+     "opts": {
+      "text": "NEVER AGAIN"
+     }
+    }
+   ]
+  },
+  {
+   "say": "Brave humanity, or a dangerous risk in the middle of a war? Tell me in the comments.",
+   "hook": "WHAT DO YOU THINK?",
+   "bg": "forest_night",
+   "camera": "pull_out",
+   "transition": "dissolve",
+   "cast": [
+    {
+     "id": "fritz",
+     "x": 0.5,
+     "y": 1.22,
+     "scale": 2.0,
+     "action": "stand",
+     "expr": "neutral"
+    }
+   ]
+  }
+ ],
+ "hashtags": [
+  "#History",
+  "#WW1",
+  "#ChristmasTruce",
+  "#WorldWarOne",
+  "#MilitaryHistory",
+  "#Christmas"
+ ],
+ "pinned_comment": "📌 Would you have climbed out of the trench? 1️⃣ Yes, it's Christmas 2️⃣ No way, too risky. Vote below 👇 and follow for a new true story every day.",
+ "cover": {
+  "title": "ENEMIES BECAME FRIENDS",
+  "scene": 3,
+  "focus": "tommy",
+  "tag": "TRUE STORY"
+ }
+}
