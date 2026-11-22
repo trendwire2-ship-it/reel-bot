@@ -794,8 +794,8 @@ def scene_at(st, tl, c, idx, t):
     return st.draw_scene(c, idx, t - s["s"], s["e"] - s["s"])
 
 EDGE_BLOBS = [  # (y, radius, colour, alpha, drift speed, phase)
-    (60, 520, "#9fb4d8", 46, 0.050, 0.0), (210, 430, "#f0c27a", 30, -0.037, 2.1), (-40, 640, "#c7d3ea", 38, 0.028, 4.0),
-    (H - 60, 540, "#e0a565", 40, -0.045, 1.3), (H - 230, 420, "#a9bfe0", 30, 0.033, 3.4), (H + 40, 660, "#d9b48a", 36, 0.022, 5.2)]
+    (60, 560, "#9fb4d8", 72, 0.050, 0.0), (230, 460, "#f0c27a", 46, -0.037, 2.1), (-40, 680, "#c7d3ea", 58, 0.028, 4.0),
+    (H - 60, 580, "#e0a565", 66, -0.045, 1.3), (H - 250, 460, "#a9bfe0", 48, 0.033, 3.4), (H + 40, 700, "#d9b48a", 56, 0.022, 5.2)]
 
 def edge_life(c, t, idx):
     """Soft drifting haze and light at the top and bottom of every frame. Flat, empty skies and floors read as
