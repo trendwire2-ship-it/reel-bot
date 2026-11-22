@@ -19,5 +19,12 @@
   "sha256": "2960191ad3d11b37aad91b1173ac5a217770c087e6c9cf7afd88f860cff1bd36",
   "rendered_utc": "2026-11-22T14:23:49.909271Z",
   "style": "cinematic"
+ },
+ {
+  "id": "2026-11-22-3-bonnie-and-clyde-ambush",
+  "title": "The Ambush of Bonnie and Clyde",
+  "sha256": "cc62222d5e4541398689cdbf6db04433ea9a8c88cb74f64319b3f8869cf1cac5",
+  "rendered_utc": "2026-11-22T23:03:27.962285Z",
+  "style": "comic"
  }
 ]
