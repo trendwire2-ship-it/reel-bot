@@ -54,9 +54,14 @@ def publish_reel(video_path, description, title):
             headers={"Authorization": f"OAuth {token}", "offset": "0", "file_size": str(size)})
         with urllib.request.urlopen(req, timeout=600) as r:
             print("upload:", r.read().decode()[:200])
-    fin = api("POST", f"{GRAPH}/{page}/video_reels", {
-        "upload_phase": "finish", "video_id": vid, "video_state": "PUBLISHED",
-        "description": description, "title": title, "access_token": token})
+    params = {"upload_phase": "finish", "video_id": vid, "video_state": "PUBLISHED",
+              "description": description, "title": title, "access_token": token}
+    # Meta requires an "AI info" label on reels with a realistic AI voiceover (our cloned narration).
+    try:
+        fin = api("POST", f"{GRAPH}/{page}/video_reels", dict(params, video_labels=json.dumps(["LABELED_AI_GENERATED"])))
+    except SystemExit as e:
+        print("AI label not accepted by the API, publishing with the caption disclosure only:", e)
+        fin = api("POST", f"{GRAPH}/{page}/video_reels", params)
     print("finish:", fin)
     # poll status until published or error (max ~5 min)
     for _ in range(30):
@@ -87,6 +92,8 @@ def check_facebook():
 FOLLOW_LINE = os.environ.get("FOLLOW_LINE", "🔔 Follow Facts on Facts for a new true story every day.")
 CORE_TAGS = ["#FactsOnFacts", "#Reels"]
 
+AI_LINE = "🎙️ Narration voiced with AI. Story based on documented history."
+
 def build_description(story):
     cap = story.get("caption", "").strip()
     tags = list(story.get("hashtags", []))
@@ -99,7 +106,7 @@ def build_description(story):
         k = tg.lower()
         if k not in seen:
             seen.add(k); out.append(tg)
-    return f"{cap}\n\n{FOLLOW_LINE}\n\n{' '.join(out[:10])}"
+    return f"{cap}\n\n{FOLLOW_LINE}\n{AI_LINE}\n\n{' '.join(out[:10])}"
 
 def pinned_text(story):
     if story.get("pinned_comment"):
