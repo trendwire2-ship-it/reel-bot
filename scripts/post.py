@@ -215,7 +215,13 @@ def main():
     os.makedirs(os.path.dirname(out), exist_ok=True)
     if story.get("comic"):
         env = dict(os.environ, COMIC_VARIANT=story["comic"].get("variant", "hybrid"))
-        subprocess.run([sys.executable, os.path.join(ROOT, "scripts", "comic.py"), path, out], check=True, env=env)
+        try:
+            subprocess.run([sys.executable, os.path.join(ROOT, "scripts", "comic.py"), path, out], check=True, env=env)
+        except subprocess.CalledProcessError:
+            if not story["scenes"][0].get("bg"):
+                raise
+            print("Comic painting failed; rendering this story in the free cinematic style instead.", flush=True)
+            subprocess.run([sys.executable, os.path.join(ROOT, "scripts", "render.py"), path, out], check=True)
     else:
         subprocess.run([sys.executable, os.path.join(ROOT, "scripts", "render.py"), path, out], check=True)
     if os.environ.get("DRY_RUN") == "1":

@@ -2,8 +2,9 @@
 """Free panel painter for motion comics: turns each shot's text "prompt" into a 1080x1920 painted image.
 
 Order of providers (all free, no paid credits):
-  1. Pollinations.ai image endpoint (FLUX, no key, native 1080x1920, ~1 request per 15 s for anonymous use).
-  2. Fallback: Cloudflare Workers AI (FLUX.1 schnell, square, centre-cropped) if CF_ACCOUNT_ID + CF_API_TOKEN are set.
+  1. Cloudflare Workers AI SDXL-Lightning (free beta, native 768x1344 portrait) if CF_ACCOUNT_ID + CF_API_TOKEN are set.
+  2. Cloudflare Workers AI FLUX.1 schnell (free daily allowance, square, centre-cropped).
+  3. Pollinations.ai (no key; its anonymous tier now often answers 402, so it is only a last resort).
 Images are cached by prompt+seed in out/cache, so re-renders cost nothing and give identical art.
 
 Story format:
@@ -37,17 +38,32 @@ def _seed(story, i):
     return int(hashlib.md5(f"{story.get('id', 'x')}-{i}".encode()).hexdigest()[:6], 16)
 
 
-def _cloudflare(prompt, seed):
+def _cf_run(model, body):
     acc, tok = os.environ.get("CF_ACCOUNT_ID"), os.environ.get("CF_API_TOKEN")
     if not (acc and tok):
         return None
-    url = f"https://api.cloudflare.com/client/v4/accounts/{acc}/ai/run/@cf/black-forest-labs/flux-1-schnell"
-    body = json.dumps({"prompt": prompt[:2000], "steps": 8, "seed": seed}).encode()
-    req = urllib.request.Request(url, body, {"Authorization": f"Bearer {tok}", "Content-Type": "application/json"})
+    url = f"https://api.cloudflare.com/client/v4/accounts/{acc}/ai/run/{model}"
+    req = urllib.request.Request(url, json.dumps(body).encode(),
+                                 {"Authorization": f"Bearer {tok}", "Content-Type": "application/json"})
+    with urllib.request.urlopen(req, timeout=180) as r:
+        data, ctype = r.read(), r.headers.get("content-type", "")
+    if ctype.startswith("image"):
+        return data
     import base64
-    with urllib.request.urlopen(req, timeout=120) as r:
-        res = json.load(r)
+    res = json.loads(data)
+    if not res.get("success", True):
+        raise RuntimeError(str(res.get("errors"))[:300])
     return base64.b64decode(res["result"]["image"])
+
+
+def _cf_sdxl(prompt, seed):
+    return _cf_run("@cf/bytedance/stable-diffusion-xl-lightning",
+                   {"prompt": prompt[:1900], "negative_prompt": NEGATIVE + ", blurry, deformed, extra fingers",
+                    "width": 768, "height": 1344, "num_steps": 8, "guidance": 1.5, "seed": seed})
+
+
+def _cf_flux(prompt, seed):
+    return _cf_run("@cf/black-forest-labs/flux-1-schnell", {"prompt": prompt[:2000], "steps": 8, "seed": seed})
 
 
 def _pollinations(prompt, seed):
@@ -76,7 +92,8 @@ def paint_story(story):
             data, err = None, None
             for attempt in range(6):
                 try:
-                    data = _cloudflare(prompt, seed) if attempt >= 4 else None
+                    provider = [_cf_sdxl, _cf_sdxl, _cf_flux, _cf_flux, None, None][attempt]
+                    data = provider(prompt, seed) if provider else None
                     if data is None:
                         wait = 16 - (time.time() - last_poll)
                         if wait > 0:

@@ -58,7 +58,7 @@ run("3-british-storyteller-fable", {"KOKORO_VOICE": "bm_fable"}, lambda: R.kokor
 # 4-6. Edge narrators, slowed a touch and pitched down for gravitas
 run("4-american-christopher", {"VOICE_MODE": "edge", "EDGE_RATE": "-6", "EDGE_PITCH": "-4Hz"}, edge("en-US-ChristopherNeural"))
 run("5-american-guy", {"VOICE_MODE": "edge", "EDGE_RATE": "-6", "EDGE_PITCH": "-3Hz"}, edge("en-US-GuyNeural"))
-run("6-american-davis", {"VOICE_MODE": "edge", "EDGE_RATE": "-6", "EDGE_PITCH": "-3Hz"}, edge("en-US-DavisNeural"))
+run("6-american-brian", {"VOICE_MODE": "edge", "EDGE_RATE": "-6", "EDGE_PITCH": "-3Hz"}, edge("en-US-BrianNeural"))
 # 7. Expressive Chatterbox performance of the deep narrator (dramatic delivery)
 onyx = os.path.join(tmp, "onyx_ref.wav")
 try:
