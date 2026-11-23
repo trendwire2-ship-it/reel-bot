@@ -17,7 +17,7 @@ import skia
 
 FPS = 30
 CACHE = os.path.join(R.ROOT, "out", "cache")
-XF = 0.32  # crossfade seconds between shots
+XF = 0.38  # crossfade seconds between shots
 
 def fetch(url):
     if os.path.exists(url):
@@ -78,9 +78,9 @@ def load_clip(path):
     fps = cap.get(cv2.CAP_PROP_FPS) or 24
     return frames, fps
 
-MOVES = {"push_in": (1.03, 1.14, 0, 0, 0, 0), "pull_out": (1.15, 1.03, 0, 0, 0, 0),
-         "pan_left": (1.12, 1.12, 50, -50, 0, 0), "pan_right": (1.12, 1.12, -50, 50, 0, 0),
-         "tilt_up": (1.12, 1.12, 0, 0, 60, -60), "tilt_down": (1.12, 1.12, 0, 0, -60, 60)}
+MOVES = {"push_in": (1.04, 1.20, 0, 0, 0, 0), "pull_out": (1.21, 1.04, 0, 0, 0, 0),
+         "pan_left": (1.15, 1.17, 75, -75, 0, 0), "pan_right": (1.15, 1.17, -75, 75, 0, 0),
+         "tilt_up": (1.15, 1.17, 0, 0, 85, -85), "tilt_down": (1.15, 1.17, 0, 0, -85, 85)}
 
 class Shot:
     def __init__(self, spec, use_clip):
@@ -98,6 +98,29 @@ class Shot:
                 print("clip load failed:", e)
         yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
         self.xx, self.yy = xx, yy
+        self._living_setup()
+
+    def _living_setup(self):
+        """Free 'living painting' motion: the background drifts and shimmers (clouds, water, smoke, light) while the
+        foreground (people, objects) breathes and sways, all driven by the depth map. No AI video needed."""
+        import cv2
+        seed = int(hashlib.md5(str(self.spec.get("image", "")).encode()).hexdigest()[:6], 16)
+        rng = np.random.default_rng(seed)
+        def smooth_noise(cell):
+            n = rng.standard_normal((H // cell + 3, W // cell + 3)).astype(np.float32)
+            n = cv2.resize(n, (W + 300, H + 20), interpolation=cv2.INTER_CUBIC)
+            return cv2.GaussianBlur(n, (0, 0), cell / 2.5)
+        # two octaves, extra width so the field can scroll sideways
+        self.n1 = smooth_noise(96) + 0.5 * smooth_noise(40)
+        self.n2 = smooth_noise(96) + 0.5 * smooth_noise(40)
+        d = self.depth
+        self.w_far = ((1.0 - d) ** 2).astype(np.float32)                       # sky, walls, water, smoke
+        self.w_near = np.clip((d - 0.5) / 0.3, 0, 1).astype(np.float32)        # people, foreground objects
+        self.w_near = cv2.GaussianBlur(self.w_near, (0, 0), 12)
+        tot = self.w_near.sum() + 1e-3
+        self.cx = float((self.w_near * self.xx).sum() / tot) if tot > 50 else W / 2
+        self.cy = float((self.w_near * self.yy).sum() / tot) if tot > 50 else H * 0.6
+        self.phase = rng.uniform(0, 6.28)
 
     def frame(self, lt, dur):
         import cv2
@@ -114,11 +137,24 @@ class Shot:
         z0, z1, x0, x1, y0, y1 = MOVES.get(self.spec.get("move", "push_in"), MOVES["push_in"])
         z = z0 + (z1 - z0) * p
         tx = x0 + (x1 - x0) * p; ty = y0 + (y1 - y0) * p
-        par = 28.0 * (p - 0.5)  # parallax strength: near layers slide more than far ones
+        par = 46.0 * (p - 0.5)  # parallax strength: near layers slide more than far ones
         dz = 0.035 * (p - 0.5)
         d = self.depth
         sx = (self.xx - W / 2) / (z * (1 + dz * d)) + W / 2 - tx - par * d * (1 if (x1 - x0) >= 0 else -1)
         sy = (self.yy - H / 2) / (z * (1 + dz * d)) + H / 2 - ty - par * 0.35 * d
+        # living painting: drifting/shimmering background
+        off = int(lt * 22) % 280
+        f1 = self.n1[:H, off:off + W]; f2 = self.n2[:H, off:off + W]
+        amp = 7.0
+        sx = sx + amp * self.w_far * f1
+        sy = sy + amp * 0.6 * self.w_far * f2
+        # breathing + sway of the foreground subject
+        ph = lt * 2 * math.pi
+        br = 0.012 * math.sin(ph / 3.1 + self.phase)
+        sway = 5.0 * math.sin(ph / 4.3 + self.phase) + 2.0 * math.sin(ph / 1.9)
+        bob = 3.0 * math.sin(ph / 2.6 + 1.3 + self.phase)
+        sx = sx - self.w_near * ((self.xx - self.cx) * br + sway)
+        sy = sy - self.w_near * ((self.yy - self.cy) * br + bob)
         return cv2.remap(self.img, sx, sy, cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
 
 # ------------------------------------------------------------------ FX (procedural overlays)
@@ -169,6 +205,26 @@ def plan(story, scenes, words):
         o["e"] = out[i + 1]["s"] if i + 1 < len(out) else scenes[-1]["e"]
     return out
 
+def transition(a, b, q, n):
+    """Comic-style transitions between panels: whip pan, zoom-through, or a soft dissolve."""
+    import cv2
+    kind = ("whip", "zoom", "whip", "dissolve")[n % 4]
+    if kind == "whip":
+        off = int(W * q)
+        out = np.empty_like(a)
+        if n % 8 < 4:   # new panel slides in from the right
+            out[:, :W - off] = a[:, off:]; out[:, W - off:] = b[:, :off]
+        else:           # from the left
+            out[:, off:] = a[:, :W - off]; out[:, :off] = b[:, W - off:]
+        blur = int(90 * math.sin(math.pi * q)) | 1
+        return cv2.blur(out, (blur, 1)) if blur > 2 else out
+    if kind == "zoom":
+        za = 1 + 0.35 * q; zb = 0.8 + 0.2 * q
+        A = cv2.warpAffine(a, cv2.getRotationMatrix2D((W / 2, H / 2), 0, za), (W, H), borderMode=cv2.BORDER_REFLECT)
+        B = cv2.warpAffine(b, cv2.getRotationMatrix2D((W / 2, H / 2), 0, zb), (W, H), borderMode=cv2.BORDER_REFLECT)
+        return cv2.addWeighted(A, 1 - q, B, q, 0)
+    return cv2.addWeighted(a, 1 - q, b, q, 0)
+
 def worker(args):
     story, tl, f0, f1, outp, variant = args
     shots_spec = story["comic"]["shots"]
@@ -201,7 +257,14 @@ def worker(args):
             o2 = plan_[nxt]
             q = ease_io((t - (o2["s"] - XF)) / XF)
             img2 = shot(nxt).frame(t - o2["s"], o2["e"] - o2["s"])
-            img = (img.astype(np.float32) * (1 - q) + img2.astype(np.float32) * q).astype(np.uint8)
+            img = transition(img, img2, q, nxt)
+        # impact shake when a re-hook scene's first panel lands
+        sc = shots_spec[k]["scene"]
+        if story["scenes"][sc].get("hook") and shots_spec[k].get("word", 0) == 0 and 0 <= t - o["s"] < 0.45:
+            import cv2
+            amp = 14 * (1 - (t - o["s"]) / 0.45)
+            M = np.float32([[1.02, 0, amp * math.sin(t * 90) - W * 0.01], [0, 1.02, amp * math.cos(t * 77) - H * 0.01]])
+            img = cv2.warpAffine(img, M, (W, H), borderMode=cv2.BORDER_REFLECT)
         bgra = np.dstack([img, np.full((H, W), 255, np.uint8)])
         c.clear(hexcol("#000000"))
         c.drawImage(skia.Image.fromarray(np.ascontiguousarray(bgra), colorType=skia.kBGRA_8888_ColorType), 0, 0)
