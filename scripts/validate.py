@@ -110,7 +110,10 @@ def check(path, sheet=None):
         if nb and tot / nb > 3.6:
             warns.append(f"only {nb} shots for ~{tot:.0f}s: aim for a new shot every 1.5-3 s")
     if d.get("comic"):
-        return check_comic(d, errs, warns)
+        check_comic(d, errs, warns)
+        if not d["scenes"][0].get("bg"):
+            return errs, warns
+        # free comics also keep the cinematic layout as a fallback: check it too
     if sum(1 for s in d["scenes"] if s.get("hook")) < 3:
         warns.append("fewer than 3 re-hook banners")
     for i, s in enumerate(d["scenes"]):
