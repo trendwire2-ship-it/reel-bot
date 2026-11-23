@@ -204,10 +204,10 @@ def main():
     if not queue:
         print("Queue is empty; nothing to post.")
         return
-    # One painted motion-comic reel a day goes out in the COMIC_SLOT (default 1 PM New York);
-    # the other slots take cinematic stories. If the preferred kind isn't queued, post whatever is next.
+    # COMIC_SLOT picks which slots prefer painted motion comics ("*" = every slot);
+    # other slots prefer cinematic stories. If the preferred kind isn't queued, post whatever is next.
     comic_slot = os.environ.get("COMIC_SLOT", "@13")
-    want_comic = slot != "manual" and slot.endswith(comic_slot)
+    want_comic = slot != "manual" and (comic_slot == "*" or slot.endswith(comic_slot))
     kinds = [(p, bool(json.load(open(p)).get("comic"))) for p in queue]
     path = next((p for p, k in kinds if k == want_comic), queue[0]) if slot != "manual" else queue[0]
     story = json.load(open(path))

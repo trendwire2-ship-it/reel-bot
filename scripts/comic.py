@@ -37,7 +37,8 @@ def cover_resize(img):
     import cv2
     h, w = img.shape[:2]
     s = max(W / w, H / h)
-    img = cv2.resize(img, (int(math.ceil(w * s)), int(math.ceil(h * s))), interpolation=cv2.INTER_CUBIC)
+    # 2K panels are scaled down with area averaging (sharpest result); smaller sources use Lanczos
+    img = cv2.resize(img, (int(math.ceil(w * s)), int(math.ceil(h * s))), interpolation=cv2.INTER_AREA if s < 1 else cv2.INTER_LANCZOS4)
     y0 = (img.shape[0] - H) // 2; x0 = (img.shape[1] - W) // 2
     return img[y0:y0 + H, x0:x0 + W]
 
@@ -183,7 +184,7 @@ def worker(args):
     surf = skia.Surface.MakeRaster(info); c = surf.getCanvas()
     post = R.Post()
     ff = subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "bgra", "-s", f"{W}x{H}",
-                           "-r", str(FPS), "-i", "-", "-c:v", "libx264", "-preset", "veryfast", "-crf", "18",
+                           "-r", str(FPS), "-i", "-", "-c:v", "libx264", "-preset", "fast", "-crf", "16", "-profile:v", "high",
                            "-pix_fmt", "yuv420p", "-g", str(FPS * 2), outp], stdin=subprocess.PIPE)
     buf = np.empty((H, W, 4), np.uint8)
     plan_ = tl["plan"]; total = tl["total"]

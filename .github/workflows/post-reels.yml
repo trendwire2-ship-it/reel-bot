@@ -96,7 +96,7 @@ jobs:
           COMMENT_BACKFILL: ${{ inputs.comment_posted && '1' || '0' }}
           COVER_BACKFILL: ${{ inputs.covers_posted && '1' || '0' }}
           SLOTS: "America/New_York:9,America/New_York:18"
-          COMIC_SLOT: "@18"
+          COMIC_SLOT: "*"   # every reel is a painted motion comic; cinematic only as a fallback
           TZ_NAME: "America/New_York"
         run: python scripts/post.py
 

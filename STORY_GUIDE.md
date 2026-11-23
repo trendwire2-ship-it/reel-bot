@@ -4,8 +4,8 @@
 Two formats run side by side (a 2-week test the owner will judge in Insights):
 - **Cinematic** (free): 2.5D noir documentary rendered from the scene layout below. Do NOT set "style" or "beats"
   (pencil-sketch mode is switched off unless the owner asks for it again).
-- **Motion comic** (painted, paid Higgsfield credits): exactly ONE per day. It posts at 6 PM New York;
-  the cinematic story posts at 9 AM New York. Two reels a day in total. See "Motion comic stories" at the end.
+- **Motion comic** (painted, paid Higgsfield credits): the house style. BOTH daily reels (9 AM and 6 PM New York)
+  are motion comics. Cinematic stories are only a free fallback for when credits run low. See "Motion comic stories" at the end.
 Every reel is 55–65 seconds. The renderers burn in the "© FACTS ON FACTS" watermark automatically; never ask for
 text, logos or watermarks inside generated art.
 
@@ -111,23 +111,24 @@ sources, 8–11 scenes, 150–170 words) plus a `"comic"` block. The scene layou
 are ignored for comics, so you may keep them minimal (`"say"` and optional `"hook"` per scene are what matter).
 Name the file so it sorts with the others, e.g. `queue/2026-11-22-2-name.json`.
 
-Budget per reel: max **45 credits** (check `balance` first; if under 60 credits, write a cinematic story instead
-and say so in the run summary). Typical spend: 14–16 images × 2 + 3 key clips × 3.75 ≈ 40.
+Budget per reel: max **52 credits** (check `balance` first; if under 55 credits, write a cinematic story instead
+and say so in the run summary). Typical spend: 1–2 character sheets + 14–16 panels × 2 + 3 key clips × 4.5 ≈ 50.
+FULL HD: every image `resolution` "2k"; every clip `kling3_0` `mode` "pro" (1080p). The reel renders at 1080×1920.
 
 1. **Style reference**: the owner's logo, Higgsfield media id `455225e4-119b-4022-821e-771632558344`
    (if it ever stops working, re-import it with `media_import_url` from
    https://raw.githubusercontent.com/trendwire2-ship-it/reel-bot/main/assets/brand/logo.png).
-2. **Character sheet first** for each person who appears in 2+ panels: one `nano_banana_pro` 9:16 1k image,
+2. **Character sheet first** for each person who appears in 2+ panels: one `nano_banana_pro` 9:16 2k image,
    front/three-quarter/profile of the same person on a plain background, in the style reference, matching their
    real documented appearance (period photos). Pass its job id as a second `image_references` media in every
    panel that shows them, and describe them identically each time. This keeps faces consistent.
-3. **Panels**: 12–20 `nano_banana_pro` images, `aspect_ratio` 9:16, `resolution` 1k, logo (+ character sheet) as
+3. **Panels**: 12–20 `nano_banana_pro` images, `aspect_ratio` 9:16, `resolution` 2k, logo (+ character sheet) as
    `image_references`. Prompt start: "In EXACTLY the art style of the first reference image: bold semi-realistic
    digital comic painting, confident ink outlines, dramatic cinematic lighting, deep blacks, rich red, gold and
    moonlit blue palette, gritty grain texture, vertical 9:16 composition. No text, no letters, no captions, no logo,
    no watermark." Then one concrete, period-accurate moment. A new panel every 3–5 seconds of narration.
    Use `generate_image_batch`, then `jobs_wait`.
-4. **Key clips** (3: the FIRST shot (scene 0, word 0) must always be a key clip of the most dramatic moment, plus the 2 biggest turns): `kling3_0`, mode std, 3 s, sound off, image-to-video
+4. **Key clips** (3: the FIRST shot (scene 0, word 0) must always be a key clip of the most dramatic moment, plus the 2 biggest turns): `kling3_0`, mode pro (1080p), 3 s, sound off, image-to-video
    from that panel, a short motion prompt (what moves, how the camera moves). Never more than 4.
 5. Write the block:
    ```json
