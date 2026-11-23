@@ -46,13 +46,17 @@ jobs:
         run: openssl enc -d -aes-256-cbc -pbkdf2 -in assets/voice_ref.wav.enc -out assets/voice_ref.wav -pass env:VOICE_KEY
       - name: Voice auditions
         if: ${{ inputs.voices }}
+        env:
+          CALM_ONLY: "1"
         run: python scripts/voice_samples.py
       - name: Free painted comic
         env:
           CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
           CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
-          VOICE_MODE: kokoro
-          KOKORO_VOICE: bm_fable
+          VOICE_MODE: edge
+          REEL_VOICE: en-US-AndrewNeural
+          EDGE_RATE: "-4"
+          KOKORO_VOICE: am_michael
         run: |
           mkdir -p out
           COMIC_VARIANT=$(python -c "import json,sys;print(json.load(open(sys.argv[1]))['comic'].get('variant','comic'))" "${{ inputs.story }}") python scripts/comic.py "${{ inputs.story }}" out/free-comic.mp4

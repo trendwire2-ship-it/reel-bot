@@ -51,6 +51,19 @@ def edge(voice):
     return f
 
 
+CALM = os.environ.get("CALM_ONLY")
+if CALM:
+    TEXT[:] = ["Two police officers buzzed the door of a Boston museum. They weren't police.",
+               "Within minutes, both guards were handcuffed in the basement.",
+               "Thirteen works of art, worth about $500 million, vanished that night.",
+               "And to this day, the empty frames still hang on the wall."]
+    run("A-andrew-calm", {"VOICE_MODE": "edge", "EDGE_RATE": "-4", "EDGE_PITCH": "+0Hz"}, edge("en-US-AndrewNeural"))
+    run("B-brian-conversational", {"VOICE_MODE": "edge", "EDGE_RATE": "-4", "EDGE_PITCH": "+0Hz"}, edge("en-US-BrianNeural"))
+    run("C-andrew-warm", {"VOICE_MODE": "edge", "EDGE_RATE": "-6", "EDGE_PITCH": "+0Hz"}, edge("en-US-AndrewMultilingualNeural"))
+    run("D-michael-offline", {"KOKORO_VOICE": "am_michael", "KOKORO_SPEED": "0.97"}, lambda: R.kokoro_scenes(TEXT))
+    run("E-daniel-british-calm", {"KOKORO_VOICE": "bm_daniel", "KOKORO_SPEED": "0.97"}, lambda: R.kokoro_scenes(TEXT))
+    sys.exit(0)
+
 # 1-2. Offline Kokoro narrators
 run("1-deep-american-onyx", {"KOKORO_VOICE": "am_onyx"}, lambda: R.kokoro_scenes(TEXT))
 run("2-british-documentary-george", {"KOKORO_VOICE": "bm_george"}, lambda: R.kokoro_scenes(TEXT))
