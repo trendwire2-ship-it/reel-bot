@@ -33,5 +33,12 @@
   "sha256": "cba22734c939f3a71a36ce130916c8de7f13ea72891202fb4ad4fb9215ecd3bd",
   "rendered_utc": "2026-11-23T13:39:10.027332Z",
   "style": "comic"
+ },
+ {
+  "id": "2026-11-23-2-hindenburg-disaster",
+  "title": "The Hindenburg Disaster",
+  "sha256": "aa334895b36fedbf819d9d78d82285b1c195b3829d92926cb728603d2b326512",
+  "rendered_utc": "2026-11-23T23:10:31.466636Z",
+  "style": "comic"
  }
 ]
