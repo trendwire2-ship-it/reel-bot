@@ -8,7 +8,7 @@ on:
       voices:
         description: "Also render the narrator voice auditions"
         type: boolean
-        default: true
+        default: false
 permissions:
   contents: write
 jobs:
@@ -51,13 +51,15 @@ jobs:
         env:
           CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
           CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          VOICE_MODE: kokoro
+          KOKORO_VOICE: bm_fable
         run: |
           mkdir -p out
           COMIC_VARIANT=comic python scripts/comic.py "${{ inputs.story }}" out/free-comic.mp4
           python - <<'PY'
           import glob, subprocess
           from PIL import Image
-          fs = sorted(glob.glob("out/cache/paint-*.jpg"), key=lambda f: __import__("os").path.getmtime(f))[:16]
+          fs = sorted(glob.glob("out/cache/sheet-*.jpg") + glob.glob("out/cache/paint-*.jpg"), key=lambda f: __import__("os").path.getmtime(f))[:16]
           sheet = Image.new("RGB", (4 * 270, 4 * 480))
           for i, f in enumerate(fs):
               sheet.paste(Image.open(f).convert("RGB").resize((270, 480)), ((i % 4) * 270, (i // 4) * 480))

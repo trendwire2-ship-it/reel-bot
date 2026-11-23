@@ -24,7 +24,8 @@ def pick_scene(story):
 
 def draw_comic_bg(story, c):
     """Painted key art: cover.image, else the first key shot, else the first shot."""
-    import comic, cv2
+    import comic, cv2, paint
+    paint.paint_story(story)  # free comics: panels are cached from the render, so this costs nothing
     shots = story["comic"]["shots"]
     url = story.get("cover", {}).get("image") or next((x["image"] for x in shots if x.get("key")), shots[0]["image"])
     img = comic.cover_resize(cv2.imread(comic.fetch(url)))
