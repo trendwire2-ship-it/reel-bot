@@ -53,8 +53,11 @@ def run(jobs, cfg, out_dir, timeout_s=4 * 3600):
                 shutil.copy(os.path.join(root, f), os.path.join(out_dir, f))
                 if f.endswith(".mp4"):
                     got.append(f[:-4])
-    if os.path.exists(os.path.join(out_dir, "log.txt")):
-        print(open(os.path.join(out_dir, "log.txt")).read()[-3000:], flush=True)
+    for root, _, files in os.walk(tmp):
+        for f in files:
+            if f.endswith(".txt") or f.endswith(".log"):
+                txt = open(os.path.join(root, f), errors="replace").read()
+                print(f"===== {f} =====\n" + txt[-6000:], flush=True)
     return got
 
 
