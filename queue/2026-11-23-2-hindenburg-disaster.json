@@ -1,0 +1,231 @@
+{
+ "id": "2026-11-23-2-hindenburg-disaster",
+ "title": "The Hindenburg Disaster",
+ "caption": "97 people were seconds from landing. Then an 804-foot airship burst into flames. 🔥\n\nA radio reporter was recording the whole time, and his words became famous.\n\nTragic accident, or something more? Tell us below 👇",
+ "hook": "THE SKY CAUGHT FIRE",
+ "sources": [
+  "https://en.wikipedia.org/wiki/Hindenburg_disaster",
+  "https://www.history.com/this-day-in-history/may-6/the-hindenburg-disaster",
+  "https://en.wikipedia.org/wiki/Herbert_Morrison_(journalist)"
+ ],
+ "cast": {
+  "morrison": {
+   "skin": "#ecc8aa",
+   "hair": "dark_brown",
+   "hair_style": "side_part",
+   "eyes": "#4a3020",
+   "glasses": "none",
+   "facial_hair": "none",
+   "outfit": "suit",
+   "outfit_color": "#3a3c42",
+   "shirt_color": "#f0ece2",
+   "tie_color": "#2a2a40",
+   "hat": "none",
+   "build": "slim",
+   "height": 1.0,
+   "age": 31,
+   "gender": "m"
+  }
+ },
+ "scenes": [
+  {
+   "say": "7:25 PM, May 6, 1937. An airship 804 feet long is landing in New Jersey. Seconds later, it's on fire.",
+   "hook": "THE SKY CAUGHT FIRE"
+  },
+  {
+   "say": "The Hindenburg. 97 people aboard, three days out from Frankfurt, Germany."
+  },
+  {
+   "say": "Thunderstorms had delayed the landing for hours. The captain circled the Jersey shore, waiting for clear skies."
+  },
+  {
+   "say": "Its giant gas cells were filled with hydrogen. One spark, and it burns.",
+   "hook": "THE DEADLY SECRET"
+  },
+  {
+   "say": "On the ground, radio reporter Herbert Morrison was recording. Then he shouted, 'It burst into flames!'",
+   "hook": "THEN HE SAID THIS..."
+  },
+  {
+   "say": "Fire raced along the ship. In just over 30 seconds, it crashed to the ground."
+  },
+  {
+   "say": "Morrison kept recording, his voice breaking. 'Oh, the humanity, and all the passengers screaming around here!'"
+  },
+  {
+   "say": "Passengers jumped from the windows as it fell. Incredibly, 62 people survived. 36 died.",
+   "hook": "62 SURVIVED"
+  },
+  {
+   "say": "The likely cause? A static spark igniting leaking hydrogen. Sabotage was never proven."
+  },
+  {
+   "say": "The disaster ended the age of passenger airships almost overnight. And the whole thing was caught on film."
+  },
+  {
+   "say": "Was it an accident, or something more? Tell me in the comments."
+  }
+ ],
+ "hashtags": [
+  "#History",
+  "#Hindenburg",
+  "#Airship",
+  "#1930s",
+  "#HistoryFacts",
+  "#Disaster",
+  "#OhTheHumanity"
+ ],
+ "pinned_comment": "📌 What brought down the Hindenburg? 1️⃣ A static spark 2️⃣ Sabotage. Vote below 👇 and follow for a new true story every day.",
+ "cover": {
+  "title": "THE SKY CAUGHT FIRE",
+  "focus": "morrison",
+  "tag": "TRUE STORY"
+ },
+ "comic": {
+  "variant": "hybrid",
+  "shots": [
+   {
+    "scene": 0,
+    "word": 0,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261123_043248_5b605154-2878-4ee3-af8c-6c641eed5e05.png",
+    "move": "push_in",
+    "fx": [
+     "embers"
+    ],
+    "key": true,
+    "clip": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261123_043650_3edccff7-1e84-48f4-8a36-3a2b7c59caf4.mp4"
+   },
+   {
+    "scene": 1,
+    "word": 0,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261123_043248_c87bba9c-80f1-4bf3-baba-e30b3b2fc68b.png",
+    "move": "pan_right",
+    "fx": []
+   },
+   {
+    "scene": 1,
+    "word": 5,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261123_043248_0ba42f2b-13ee-417e-9f7b-6f57aa85b55a.png",
+    "move": "pan_left",
+    "fx": []
+   },
+   {
+    "scene": 2,
+    "word": 0,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261123_043248_1fe1b22c-ac53-44d8-8ea3-b2cdf1bb8e56.png",
+    "move": "tilt_down",
+    "fx": [
+     "rain",
+     "lightning"
+    ]
+   },
+   {
+    "scene": 3,
+    "word": 0,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261123_043248_bffc3b34-0c5d-4667-af00-d2590135c818.png",
+    "move": "push_in",
+    "fx": [
+     "flicker"
+    ]
+   },
+   {
+    "scene": 4,
+    "word": 0,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261123_043248_236fff4c-6820-42b6-9c33-8634d9474bdf.png",
+    "move": "pan_right",
+    "fx": [
+     "fog"
+    ]
+   },
+   {
+    "scene": 4,
+    "word": 9,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261123_043248_f6d7d42c-ba75-4db3-8e8d-f9a95e3cdd9a.png",
+    "move": "push_in",
+    "fx": [
+     "embers"
+    ],
+    "key": true,
+    "clip": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261123_043650_b759c178-920e-4ed9-9352-e26775b85863.mp4"
+   },
+   {
+    "scene": 5,
+    "word": 0,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261123_043248_679a584d-fb8d-4748-839f-7089d7d3ef3c.png",
+    "move": "pan_left",
+    "fx": [
+     "embers"
+    ]
+   },
+   {
+    "scene": 5,
+    "word": 10,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261123_043248_969b3cc0-eaeb-4cd6-a60d-19c93e238d16.png",
+    "move": "tilt_down",
+    "fx": [
+     "embers"
+    ],
+    "key": true,
+    "clip": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261123_043509_67df731b-1933-4b09-bd08-7b4c36387e06.mp4"
+   },
+   {
+    "scene": 6,
+    "word": 0,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261123_043248_47a2c26f-c54c-43fe-8b26-f467f14251e0.png",
+    "move": "push_in",
+    "fx": [
+     "flicker"
+    ]
+   },
+   {
+    "scene": 7,
+    "word": 0,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261123_043248_7117b084-83bc-411f-a086-18b9f611e864.png",
+    "move": "pull_out",
+    "fx": [
+     "embers"
+    ]
+   },
+   {
+    "scene": 7,
+    "word": 8,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261123_043248_04095da3-612d-4d71-9b37-7a26a6f90d40.png",
+    "move": "pan_right",
+    "fx": [
+     "dust"
+    ]
+   },
+   {
+    "scene": 8,
+    "word": 0,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261123_043250_5e587e8b-a7df-4d0e-ad2a-25a48bd4da7c.png",
+    "move": "tilt_up",
+    "fx": [
+     "fog"
+    ]
+   },
+   {
+    "scene": 9,
+    "word": 0,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261123_043251_07da964d-5a12-4b46-b56f-5803ce4de72b.png",
+    "move": "pan_left",
+    "fx": [
+     "rain"
+    ]
+   },
+   {
+    "scene": 10,
+    "word": 0,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261123_043250_cf3b159e-4052-44e9-b1b5-288668455c92.png",
+    "move": "pull_out",
+    "fx": [
+     "fog"
+    ]
+   }
+  ],
+  "cover": {
+   "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261123_043248_5b605154-2878-4ee3-af8c-6c641eed5e05.png",
+   "title": "THE SKY CAUGHT FIRE"
+  }
+ }
+}

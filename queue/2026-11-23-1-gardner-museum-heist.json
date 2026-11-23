@@ -1,0 +1,366 @@
+{
+ "id": "2026-11-23-1-gardner-museum-heist",
+ "title": "The Gardner Museum Heist",
+ "caption": "Two \"police officers\" walked into a Boston museum at 1:24 AM. 81 minutes later, $500 million in art was gone. 🖼️\n\nThe guards were handcuffed in the basement, and the thieves even took the security tape.\n\nWill the paintings ever come home? Tell us below 👇",
+ "hook": "THEY WEREN'T COPS",
+ "sources": [
+  "https://www.history.com/articles/historys-biggest-art-heist-remains-unsolved",
+  "https://www.pbs.org/newshour/arts/what-to-know-about-the-worlds-largest-art-heist-from-a-boston-museum"
+ ],
+ "cast": {
+  "thief1": {
+   "skin": "#e4bd9c",
+   "hair": "dark_brown",
+   "hair_style": "short",
+   "outfit": "uniform",
+   "outfit_color": "#1f2a44",
+   "shirt_color": "#9fb3cf",
+   "tie_color": "#111418",
+   "hat": "cap",
+   "hat_color": "#1f2a44",
+   "badge": true,
+   "build": "average",
+   "height": 1.0,
+   "age": 35,
+   "gender": "m"
+  },
+  "thief2": {
+   "skin": "#dfb592",
+   "hair": "black",
+   "hair_style": "short",
+   "outfit": "uniform",
+   "outfit_color": "#1f2a44",
+   "shirt_color": "#9fb3cf",
+   "tie_color": "#111418",
+   "hat": "cap",
+   "hat_color": "#1f2a44",
+   "badge": true,
+   "build": "heavy",
+   "height": 0.96,
+   "age": 40,
+   "gender": "m"
+  },
+  "guard": {
+   "skin": "#ecc8aa",
+   "hair": "brown",
+   "hair_style": "curly",
+   "outfit": "uniform",
+   "outfit_color": "#5a5e66",
+   "shirt_color": "#e8e4da",
+   "tie_color": "none",
+   "build": "slim",
+   "height": 0.98,
+   "age": 23,
+   "gender": "m"
+  },
+  "guard2": {
+   "skin": "#e8c2a2",
+   "hair": "brown",
+   "hair_style": "short",
+   "outfit": "uniform",
+   "outfit_color": "#5a5e66",
+   "shirt_color": "#e8e4da",
+   "tie_color": "none",
+   "build": "average",
+   "age": 25,
+   "gender": "m"
+  }
+ },
+ "scenes": [
+  {
+   "say": "1:24 AM, March 18, 1990. Two police officers buzz the door of a Boston museum. They aren't police.",
+   "hook": "THEY WEREN'T COPS",
+   "bg": "street",
+   "bg_opts": {
+    "rain": true
+   },
+   "camera": "push_in",
+   "text": {
+    "big": "MARCH 18, 1990",
+    "sub": "BOSTON, 1:24 AM",
+    "y": 0.24
+   },
+   "cast": [
+    {
+     "id": "thief1",
+     "x": [
+      0.3,
+      0.4
+     ],
+     "y": 0.9,
+     "action": "walk",
+     "face": 1,
+     "expr": "serious"
+    },
+    {
+     "id": "thief2",
+     "x": [
+      0.15,
+      0.25
+     ],
+     "y": 0.91,
+     "action": "walk",
+     "face": 1,
+     "expr": "serious"
+    }
+   ]
+  },
+  {
+   "say": "The night guard, just 23, breaks protocol and buzzes them in.",
+   "bg": "room",
+   "camera": "pan_right",
+   "transition": "fog",
+   "label": {
+    "name": "THE NIGHT GUARD",
+    "role": "AGE 23",
+    "y": 0.6,
+    "at": 1.0
+   },
+   "cast": [
+    {
+     "id": "guard",
+     "x": 0.5,
+     "y": 1.24,
+     "scale": 2.1,
+     "action": "lean",
+     "expr": "neutral"
+    }
+   ]
+  },
+  {
+   "say": "Then one says, 'You look familiar. I think we have a warrant out for your arrest.'",
+   "hook": "THEN HE SAID THIS...",
+   "bg": "room",
+   "camera": "drift",
+   "transition": "push",
+   "cast": [
+    {
+     "id": "thief1",
+     "x": 0.68,
+     "y": 0.9,
+     "action": "point",
+     "talk": true,
+     "face": -1,
+     "expr": "serious"
+    },
+    {
+     "id": "guard",
+     "x": 0.3,
+     "y": 0.9,
+     "action": "stand",
+     "face": 1,
+     "expr": "shock"
+    }
+   ]
+  },
+  {
+   "say": "Within minutes, both guards are handcuffed in the basement, wrapped in duct tape.",
+   "bg": "prison",
+   "camera": "crane_down",
+   "transition": "flash",
+   "shake": [
+    [
+     0.3,
+     0.4,
+     18
+    ]
+   ],
+   "cast": [
+    {
+     "id": "guard",
+     "x": 0.35,
+     "y": 0.9,
+     "action": "sit",
+     "expr": "shock",
+     "face": 1
+    },
+    {
+     "id": "guard2",
+     "x": 0.68,
+     "y": 0.9,
+     "action": "sit",
+     "expr": "sad",
+     "face": -1
+    }
+   ]
+  },
+  {
+   "say": "The thieves spend the next 81 minutes inside the Isabella Stewart Gardner Museum.",
+   "bg": "palace",
+   "camera": "track_left",
+   "transition": "whip_left",
+   "text": {
+    "big": "81 MINUTES",
+    "sub": "INSIDE THE GARDNER MUSEUM",
+    "y": 0.24
+   },
+   "cast": [
+    {
+     "id": "thief2",
+     "x": [
+      0.8,
+      0.5
+     ],
+     "y": 0.9,
+     "action": "walk",
+     "face": -1,
+     "expr": "serious"
+    }
+   ]
+  },
+  {
+   "say": "They smash gilded frames on marble floors. They slice canvases right off the stretchers.",
+   "bg": "palace",
+   "camera": "push_in",
+   "transition": "flash",
+   "shake": [
+    [
+     0.2,
+     0.3,
+     22
+    ]
+   ],
+   "cast": [
+    {
+     "id": "thief1",
+     "x": 0.45,
+     "y": 0.9,
+     "action": "kneel",
+     "face": 1,
+     "expr": "angry"
+    }
+   ],
+   "props": [
+    {
+     "kind": "poster",
+     "x": 0.72,
+     "y": 0.5,
+     "scale": 1.0,
+     "motion": "drop",
+     "appear": 0.4,
+     "opts": {
+      "title": "SMASHED"
+     }
+    }
+   ]
+  },
+  {
+   "say": "Rembrandt's Storm on the Sea of Galilee, his only known seascape. Vermeer's The Concert. Works by Manet and Degas.",
+   "bg": "evidence",
+   "bg_opts": {
+    "labels": [
+     "REMBRANDT",
+     "ONLY SEASCAPE",
+     "VERMEER",
+     "THE CONCERT",
+     "MANET",
+     "DEGAS"
+    ]
+   },
+   "camera": "pan_left",
+   "transition": "dissolve"
+  },
+  {
+   "say": "13 works in total, worth about $500 million. Then they drive off, and even take the security tape.",
+   "hook": "$500 MILLION GONE",
+   "bg": "street",
+   "camera": "pull_out",
+   "transition": "whip_right",
+   "text": {
+    "big": "$500,000,000",
+    "sub": "13 WORKS STOLEN",
+    "y": 0.24
+   },
+   "cast": [
+    {
+     "id": "thief2",
+     "x": [
+      0.5,
+      0.95
+     ],
+     "y": 0.9,
+     "action": "carry",
+     "face": 1,
+     "expr": "serious",
+     "hold": "briefcase"
+    }
+   ]
+  },
+  {
+   "say": "But here's the strangest part. The museum founder's will said nothing could ever be changed.",
+   "hook": "HERE'S THE TWIST",
+   "bg": "courtroom",
+   "camera": "push_in",
+   "transition": "fog",
+   "props": [
+    {
+     "kind": "file",
+     "x": 0.5,
+     "y": 0.5,
+     "scale": 1.2,
+     "motion": "pop",
+     "appear": 0.6,
+     "opts": {
+      "title": "THE WILL"
+     }
+    }
+   ]
+  },
+  {
+   "say": "So the empty frames still hang today. A $10 million reward sits unclaimed.",
+   "bg": "palace",
+   "camera": "rise",
+   "transition": "dissolve",
+   "text": {
+    "big": "$10,000,000",
+    "sub": "REWARD",
+    "y": 0.24
+   },
+   "props": [
+    {
+     "kind": "poster",
+     "x": 0.5,
+     "y": 0.5,
+     "scale": 1.1,
+     "motion": "float",
+     "appear": 0.2,
+     "opts": {
+      "title": "EMPTY"
+     }
+    }
+   ]
+  },
+  {
+   "say": "The art has never been found. Is it hidden somewhere, or lost forever? Tell me in the comments.",
+   "bg": "black",
+   "camera": "drift",
+   "transition": "fog",
+   "cast": [
+    {
+     "id": "guard",
+     "x": 0.5,
+     "y": 1.24,
+     "scale": 2.1,
+     "action": "stand",
+     "expr": "sad"
+    }
+   ]
+  }
+ ],
+ "hashtags": [
+  "#TrueCrime",
+  "#History",
+  "#ArtHeist",
+  "#GardnerMuseum",
+  "#Boston",
+  "#UnsolvedMysteries",
+  "#ColdCase"
+ ],
+ "pinned_comment": "📌 Where is the stolen art now? 1️⃣ Hidden somewhere 2️⃣ Destroyed long ago. Vote below 👇 and follow for a new true story every day.",
+ "cover": {
+  "title": "$500 MILLION GONE",
+  "scene": 0,
+  "focus": "thief1",
+  "tag": "TRUE STORY"
+ }
+}
