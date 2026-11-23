@@ -74,7 +74,10 @@ def load_clip(path):
         ok, f = cap.read()
         if not ok:
             break
-        frames.append(cover_resize(f))
+        f = cover_resize(f)
+        if f.shape[0] > 1.6 * cap.get(cv2.CAP_PROP_FRAME_HEIGHT):   # upscaled AI clip: restore some crispness
+            f = cv2.addWeighted(f, 1.45, cv2.GaussianBlur(f, (0, 0), 2.2), -0.45, 0)
+        frames.append(f)
     fps = cap.get(cv2.CAP_PROP_FPS) or 24
     return frames, fps
 

@@ -123,6 +123,11 @@ Add a `"comic"` block to every story (keep all the normal fields too):
 - People: define each recurring person once in `characters` with their real documented look (age, build, hair,
   facial hair, glasses, period clothes) and write `[id]` in the prompt. Never put a real person's name in a
   prompt; describe them. No gore, no blood, no corpses, no weapons pointed at the viewer.
-- `move`: push_in | pull_out | pan_left | pan_right | tilt_up | tilt_down (vary them).
+- `action` (REQUIRED, 10–30 words): what MOVES in this panel's clip, as one simple continuous action over about
+  3 seconds: "the two men walk slowly down the gallery, flashlight beams sweeping across the paintings", "the frame
+  crashes onto the marble floor and shatters". Every panel is animated into a real AI video clip from this text, so
+  describe visible motion (walking, turning, smashing, running, smoke, waves), not thoughts or backstory. One action
+  per panel; avoid complex multi-person fights or fast spinning, which animate badly.
+- `move`: push_in | pull_out | pan_left | pan_right | tilt_up | tilt_down (vary them; used if a clip fails).
 - `fx` (optional overlays): rain, heavy_rain, fog, dust, lightning, flicker, embers, snow.
 - Run `python3 scripts/validate.py <file>`; it checks the comic block.

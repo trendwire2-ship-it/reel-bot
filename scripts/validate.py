@@ -40,6 +40,8 @@ def check_comic(d, errs, warns):
                 errs.append(f"shot {i}: [{ref}] is not defined in comic.characters")
         if sh.get("clip") and not str(sh["clip"]).startswith("https://"):
             errs.append(f"shot {i}: 'clip' must be an https URL")
+        if not sh.get("clip") and not cm.get("prepared") and len(str(sh.get("action", "")).split()) < 6:
+            errs.append(f"shot {i}: needs an 'action' (what moves in the clip, 10-30 words)")
         if sh.get("move", "push_in") not in MOVES:
             errs.append(f"shot {i}: unknown move '{sh.get('move')}'")
         for f in sh.get("fx", []):

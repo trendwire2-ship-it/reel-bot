@@ -96,14 +96,16 @@
     "word": 0,
     "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261123_043248_c87bba9c-80f1-4bf3-baba-e30b3b2fc68b.png",
     "move": "pan_right",
-    "fx": []
+    "fx": [],
+    "action": "The giant silver airship glides slowly through the evening sky, its shadow sliding across the clouds below"
    },
    {
     "scene": 1,
     "word": 5,
     "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261123_043248_0ba42f2b-13ee-417e-9f7b-6f57aa85b55a.png",
     "move": "pan_left",
-    "fx": []
+    "fx": [],
+    "action": "Passengers at the airship's windows gaze down at the coastline as the airship drifts slowly forward"
    },
    {
     "scene": 2,
@@ -113,7 +115,8 @@
     "fx": [
      "rain",
      "lightning"
-    ]
+    ],
+    "action": "Storm clouds roll across the sky and lightning flashes while the airship circles slowly in the distance"
    },
    {
     "scene": 3,
@@ -122,7 +125,8 @@
     "move": "push_in",
     "fx": [
      "flicker"
-    ]
+    ],
+    "action": "The huge gas cells inside the airship sway gently, light flickers across the metal girders of the frame"
    },
    {
     "scene": 4,
@@ -131,7 +135,8 @@
     "move": "pan_right",
     "fx": [
      "fog"
-    ]
+    ],
+    "action": "The radio reporter speaks urgently into his microphone while the crowd behind him looks up at the sky"
    },
    {
     "scene": 4,
@@ -151,7 +156,8 @@
     "move": "pan_left",
     "fx": [
      "embers"
-    ]
+    ],
+    "action": "Flames race along the airship from tail to nose, thick black smoke billows into the night sky"
    },
    {
     "scene": 5,
@@ -171,7 +177,8 @@
     "move": "push_in",
     "fx": [
      "flicker"
-    ]
+    ],
+    "action": "The reporter grips the microphone and turns his face away in shock, the fire glowing behind him"
    },
    {
     "scene": 7,
@@ -180,7 +187,8 @@
     "move": "pull_out",
     "fx": [
      "embers"
-    ]
+    ],
+    "action": "The burning airship sinks slowly toward the field, ground crew run away across the grass"
    },
    {
     "scene": 7,
@@ -189,7 +197,8 @@
     "move": "pan_right",
     "fx": [
      "dust"
-    ]
+    ],
+    "action": "Ground crew run toward the wreck through drifting smoke, flames still flickering in the metal frame"
    },
    {
     "scene": 8,
@@ -198,7 +207,8 @@
     "move": "tilt_up",
     "fx": [
      "fog"
-    ]
+    ],
+    "action": "A tiny spark flickers near the airship's tail, then a small flame bursts into life and spreads"
    },
    {
     "scene": 9,
@@ -207,7 +217,8 @@
     "move": "pan_left",
     "fx": [
      "rain"
-    ]
+    ],
+    "action": "The charred metal skeleton of the airship smokes on the field as the camera slowly pulls back"
    },
    {
     "scene": 10,
@@ -216,7 +227,8 @@
     "move": "pull_out",
     "fx": [
      "fog"
-    ]
+    ],
+    "action": "Smoke drifts slowly across the burned wreckage under a dark, cloudy sky"
    }
   ],
   "cover": {
