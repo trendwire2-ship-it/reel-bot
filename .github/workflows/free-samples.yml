@@ -55,7 +55,7 @@ jobs:
           KOKORO_VOICE: bm_fable
         run: |
           mkdir -p out
-          COMIC_VARIANT=comic python scripts/comic.py "${{ inputs.story }}" out/free-comic.mp4
+          COMIC_VARIANT=$(python -c "import json,sys;print(json.load(open(sys.argv[1]))['comic'].get('variant','comic'))" "${{ inputs.story }}") python scripts/comic.py "${{ inputs.story }}" out/free-comic.mp4
           python - <<'PY'
           import glob, subprocess
           from PIL import Image
