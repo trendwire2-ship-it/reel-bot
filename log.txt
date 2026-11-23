@@ -1,0 +1,14 @@
+gpu: Tesla T4, 15360 MiB
+Tesla T4, 15360 MiB
+loaded Lightricks/LTX-Video-0.9.5 condition
+prompts encoded on GPU, t=268s
+model on GPU, 6.4 GB used, t=281s
+  t1 step 0 t=7s
+  t1 step 10 t=31s
+  t1 step 20 t=60s
+clip t1: 100s
+  t2 step 0 t=4s
+  t2 step 10 t=33s
+  t2 step 20 t=64s
+clip t2: 102s
+done in 482s
