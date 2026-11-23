@@ -90,6 +90,8 @@ jobs:
         env:
           FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
           FB_PAGE_TOKEN: ${{ secrets.FB_PAGE_TOKEN }}
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
           FORCE: ${{ inputs.force && '1' || '0' }}
           DRY_RUN: ${{ inputs.dry_run && '1' || '0' }}
           CHECK_FB: ${{ inputs.check_facebook && '1' || '0' }}

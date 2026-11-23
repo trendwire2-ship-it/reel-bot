@@ -227,6 +227,8 @@ def worker(args):
 
 def render(story_path, out_path, variant):
     story = json.load(open(story_path))
+    import paint
+    paint.paint_story(story)  # free painted panels for shots that only carry a text prompt
     tmp = tempfile.mkdtemp()
     import pickle, shutil
     os.makedirs(CACHE, exist_ok=True)

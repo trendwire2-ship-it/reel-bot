@@ -358,5 +358,145 @@
   "scene": 0,
   "focus": "thief1",
   "tag": "TRUE STORY"
+ },
+ "comic": {
+  "variant": "comic",
+  "characters": {
+   "thief_one": "white man in his early 30s, medium build, dark hair, dark mustache, 1990 Boston police patrolman uniform: navy jacket, light blue shirt, peaked police cap with badge",
+   "thief_two": "heavier white man in his late 30s, round face, dark mustache, square gold-rimmed glasses, 1990 Boston police patrolman uniform: navy jacket, peaked police cap with badge",
+   "guard": "young white man aged 23, curly brown hair, thin, grey museum security guard uniform with white shirt"
+  },
+  "shots": [
+   {
+    "scene": 0,
+    "word": 0,
+    "move": "push_in",
+    "fx": [
+     "fog"
+    ],
+    "prompt": "Night, low angle: [thief_one] and [thief_two] standing at the side door of a grand Venetian-palace-style brick museum in Boston, one pressing the intercom buzzer, cold sodium street light, long shadows, misty air, ominous mood"
+   },
+   {
+    "scene": 0,
+    "word": 10,
+    "move": "push_in",
+    "fx": [],
+    "prompt": "Extreme close-up of [thief_one] under the brim of a police cap, face half in shadow, cold calculating eyes, a fake police badge glinting, menacing"
+   },
+   {
+    "scene": 1,
+    "word": 0,
+    "move": "pan_right",
+    "fx": [
+     "flicker"
+    ],
+    "prompt": "[guard] sitting at a cramped 1990 museum security desk lit by green CCTV monitors at night, his finger hovering over the door release button, uneasy expression"
+   },
+   {
+    "scene": 2,
+    "word": 0,
+    "move": "push_in",
+    "fx": [],
+    "prompt": "Tense moment: [thief_two] leaning over the security desk pointing at [guard], the guard frozen in fear, harsh overhead fluorescent light, dramatic shadows"
+   },
+   {
+    "scene": 3,
+    "word": 0,
+    "move": "tilt_down",
+    "fx": [
+     "flicker"
+    ],
+    "prompt": "Dim museum basement with old pipes and a single bare bulb, two security guards sitting against the wall with hands cuffed behind them and silver duct tape over their eyes, viewed from the shadows, no injuries"
+   },
+   {
+    "scene": 4,
+    "word": 0,
+    "move": "push_in",
+    "fx": [
+     "dust"
+    ],
+    "prompt": "Wide shot of a dark grand museum gallery with red damask walls and ornate gilded frames, two silhouetted men in police caps sweeping flashlight beams across the paintings"
+   },
+   {
+    "scene": 5,
+    "word": 0,
+    "move": "pan_left",
+    "fx": [
+     "dust"
+    ],
+    "prompt": "An ornate gilded picture frame shattered on a polished marble floor, splinters of gold wood everywhere, a flashlight beam cutting through dust, dramatic low angle"
+   },
+   {
+    "scene": 5,
+    "word": 7,
+    "move": "push_in",
+    "fx": [],
+    "prompt": "Close-up of a gloved hand with a box cutter slicing an old oil painting canvas out of its wooden stretcher bars, flashlight glare, tense"
+   },
+   {
+    "scene": 6,
+    "word": 0,
+    "move": "pull_out",
+    "fx": [],
+    "prompt": "A 17th-century Dutch oil painting of a small sailing boat battered by huge storm waves and dark clouds, hanging in an ornate gold frame on a red damask museum wall, lit by a single flashlight beam"
+   },
+   {
+    "scene": 6,
+    "word": 11,
+    "move": "pan_right",
+    "fx": [],
+    "prompt": "A quiet 17th-century Dutch interior painting of three musicians at a harpsichord in soft window light, in a gold frame, a flashlight beam falling across it in a dark gallery"
+   },
+   {
+    "scene": 7,
+    "word": 0,
+    "move": "pull_out",
+    "fx": [
+     "fog"
+    ],
+    "prompt": "Two men in police caps carrying wrapped paintings out of a museum side door toward a dark hatchback car on an empty Boston street before dawn, mist, sodium lights"
+   },
+   {
+    "scene": 7,
+    "word": 12,
+    "move": "push_in",
+    "fx": [
+     "flicker"
+    ],
+    "prompt": "Close-up of a hand pulling a VHS videotape out of a 1990 security video recorder, red recording light, green monitor glow in a dark office"
+   },
+   {
+    "scene": 8,
+    "word": 0,
+    "move": "push_in",
+    "fx": [
+     "dust"
+    ],
+    "prompt": "An old handwritten Victorian last will and testament with a red wax seal lying on a dark wooden desk under a warm oil lamp, quill pen beside it, mysterious"
+   },
+   {
+    "scene": 9,
+    "word": 0,
+    "move": "push_in",
+    "fx": [],
+    "prompt": "An empty ornate gilded picture frame hanging on a red damask wall in a hushed museum gallery, soft spotlight on the empty space where a painting used to be, haunting"
+   },
+   {
+    "scene": 9,
+    "word": 7,
+    "move": "tilt_up",
+    "fx": [],
+    "prompt": "A faded wanted poster style reward notice pinned on a corkboard beside old police photos and red string, dim office light, film noir"
+   },
+   {
+    "scene": 10,
+    "word": 0,
+    "move": "pull_out",
+    "fx": [
+     "dust"
+    ],
+    "prompt": "A rolled-up old oil painting hidden in shadow in a dusty attic, a thin beam of light through a crack in the wooden boards, mystery"
+   }
+  ]
  }
 }

@@ -90,7 +90,7 @@ def normalize(text):
 # ------------------------------------------------------------------ voice
 async def _edge(text, rate):
     import edge_tts
-    com = edge_tts.Communicate(text, VOICE, rate=rate, boundary="WordBoundary")
+    com = edge_tts.Communicate(text, VOICE, rate=rate, pitch=os.environ.get("EDGE_PITCH", "+0Hz"), boundary="WordBoundary")
     audio, bounds = bytearray(), []
     async for ch in com.stream():
         if ch["type"] == "audio":
@@ -269,8 +269,10 @@ def tts_scenes(texts, tmp, speed=1.0):
             return clone_scenes(texts, speed), "clone"
         except Exception as e:
             print("Cloned voice failed, falling back to Andrew:", type(e).__name__, str(e)[:200])
+    if mode == "kokoro":
+        return kokoro_scenes(texts, speed), "kokoro"
     try:
-        rate = f"{int(round((speed - 1) * 100)):+d}%"
+        rate = f"{int(round((speed - 1) * 100 + float(os.environ.get('EDGE_RATE', '0')))):+d}%"
         out = []
         for tx in texts:
             mp3, b = asyncio.run(_edge(spoken(tx), rate))
@@ -280,13 +282,18 @@ def tts_scenes(texts, tmp, speed=1.0):
         return out, "edge"
     except Exception as e:  # network blocked etc.
         print("Edge voice unavailable, using offline Kokoro voice:", type(e).__name__, str(e)[:120])
+    return kokoro_scenes(texts, speed), "kokoro"
+
+def kokoro_scenes(texts, speed=1.0):
+    """Offline Kokoro (Apache-2.0). KOKORO_VOICE e.g. am_onyx (deep US), bm_george (British documentary)."""
     from kokoro_onnx import Kokoro
     k = Kokoro(MODEL, VOICES)
+    v = os.environ.get("KOKORO_VOICE", "am_onyx")
+    lang = "en-gb" if v.startswith("b") else "en-us"
     def synth(text):
-        a, sr = k.create(text, voice=os.environ.get("KOKORO_VOICE", "am_michael"), speed=speed, lang="en-us")
+        a, sr = k.create(text, voice=v, speed=speed * float(os.environ.get("KOKORO_SPEED", "0.94")), lang=lang)
         return a.astype(np.float32)
-    out = [sentence_timed(tx, synth, 1.0) for tx in texts]
-    return out, "kokoro"
+    return [sentence_timed(tx, synth, 1.0) for tx in texts]
 
 def build_audio(story, tmp):
     texts = [s["say"] for s in story["scenes"]]

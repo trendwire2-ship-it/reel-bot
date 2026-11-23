@@ -33,8 +33,11 @@ def check_comic(d, errs, warns):
         if w >= len(d["scenes"][sc]["say"].split()):
             errs.append(f"shot {i}: word index {w} past the end of scene {sc}")
         last = (sc, w); seen.add(sc)
-        if not str(sh.get("image", "")).startswith("https://"):
-            errs.append(f"shot {i}: needs an https 'image' (Higgsfield URL)")
+        if not str(sh.get("image", "")).startswith("https://") and len(str(sh.get("prompt", ""))) < 40:
+            errs.append(f"shot {i}: needs a detailed 'prompt' (40+ characters) describing the panel")
+        for ref in re.findall(r"\[(\w+)\]", str(sh.get("prompt", ""))):
+            if ref not in cm.get("characters", {}):
+                errs.append(f"shot {i}: [{ref}] is not defined in comic.characters")
         if sh.get("clip") and not str(sh["clip"]).startswith("https://"):
             errs.append(f"shot {i}: 'clip' must be an https URL")
         if sh.get("move", "push_in") not in MOVES:
