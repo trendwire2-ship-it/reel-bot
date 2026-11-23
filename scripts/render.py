@@ -16,7 +16,7 @@ from worlds import WORLDS
 FPS = int(os.environ.get("REEL_FPS", "60"))
 SR = 24000
 MAX_LEN = float(os.environ.get("MAX_LEN", "64.5"))  # house cap: reels stay under 65s
-VOICE = os.environ.get("REEL_VOICE", "en-US-AndrewNeural")
+VOICE = os.environ.get("REEL_VOICE", "en-US-AndrewMultilingualNeural")
 MODEL = os.environ.get("KOKORO_MODEL", os.path.join(ROOT, "models/kokoro.onnx"))
 VOICES = os.environ.get("KOKORO_VOICES", os.path.join(ROOT, "models/voices.bin"))
 

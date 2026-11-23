@@ -54,7 +54,7 @@ jobs:
           CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
           CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
           VOICE_MODE: edge
-          REEL_VOICE: en-US-AndrewNeural
+          REEL_VOICE: en-US-AndrewMultilingualNeural
           EDGE_RATE: "-4"
           KOKORO_VOICE: am_michael
         run: |
