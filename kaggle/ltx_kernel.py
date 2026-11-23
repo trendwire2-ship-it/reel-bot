@@ -54,14 +54,16 @@ NEG = "worst quality, inconsistent motion, blurry, jittery, distorted, deformed 
 # CPU first, then drop the text encoder and put only the video model + VAE on the GPU.
 cfg_on = CFG["guidance"] > 1.0
 EMB = {}
+pipe.text_encoder.to("cuda")      # T5 alone fits on the T4 (~9.5 GB in half precision); CPU half precision is unusably slow
 for j in JOBS:
     with torch.no_grad():
         pe, pm, ne, nm = pipe.encode_prompt(prompt=j["motion"], negative_prompt=NEG,
-                                            do_classifier_free_guidance=cfg_on, device="cpu")
-    EMB[j["name"]] = (pe, pm, ne, nm)
-log(f"prompts encoded on CPU in {time.time() - t0:.0f}s")
+                                            do_classifier_free_guidance=cfg_on, device="cuda")
+    EMB[j["name"]] = tuple(x.cpu() if x is not None else None for x in (pe, pm, ne, nm))
+log(f"prompts encoded on GPU, t={time.time() - t0:.0f}s")
+pipe.text_encoder.to("cpu")
 pipe.text_encoder = None
-gc.collect()
+gc.collect(); torch.cuda.empty_cache()
 pipe.to("cuda")
 log(f"model on GPU, {torch.cuda.memory_allocated() / 1e9:.1f} GB used, t={time.time() - t0:.0f}s")
 
@@ -89,12 +91,19 @@ for j in JOBS:
             kw["image"] = img
         if CFG.get("timesteps"):
             kw["timesteps"] = CFG["timesteps"]; kw.pop("num_inference_steps")
+        def cb(p, i, ts, kw_):
+            if i % 10 == 0:
+                log(f"  {j['name']} step {i} t={time.time() - t:.0f}s")
+            return {}
+        kw["callback_on_step_end"] = cb
         frames = pipe(**kw).frames[0]
         export_to_video(frames, out, fps=24)
         log(f"clip {j['name']}: {time.time() - t:.0f}s")
+        if time.time() - t > CFG.get("max_clip_s", 900):
+            log("clips too slow on this GPU, stopping to save quota"); break
     except Exception as e:
         log(f"clip {j['name']} FAILED: {e}")
         traceback.print_exc(file=LOG)
-    if time.time() - t0 > CFG.get("budget_s", 3 * 3600):
+    if time.time() - t0 > CFG.get("budget_s", 2 * 3600):
         log("time budget reached"); break
 log(f"done in {time.time() - t0:.0f}s")
