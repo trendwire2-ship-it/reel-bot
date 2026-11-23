@@ -1,0 +1,46 @@
+name: Kaggle clip test
+on:
+  workflow_dispatch:
+    inputs:
+      cfg:
+        description: "JSON config overrides for the Kaggle kernel"
+        default: "{}"
+permissions:
+  contents: write
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -q kaggle
+      - name: Run two test clips on Kaggle
+        env:
+          KAGGLE_USERNAME: ${{ secrets.KAGGLE_USERNAME }}
+          KAGGLE_KEY: ${{ secrets.KAGGLE_KEY }}
+          KAGGLE_API_TOKEN: ${{ secrets.KAGGLE_KEY }}
+        run: |
+          kaggle kernels list --mine --page-size 5 || true
+          python - <<'PY'
+          import json
+          img = "https://raw.githubusercontent.com/${{ github.repository }}/main/comic/test-panel.jpg"
+          cfg = json.loads('''${{ inputs.cfg }}''')
+          json.dump({"cfg": cfg, "jobs": [
+            {"name": "t1", "image": img, "motion": "A storm-tossed wooden sailing boat pitches on huge crashing waves, sea spray flies, clouds race across the moonlit sky, the camera slowly pushes in, painted comic style"},
+            {"name": "t2", "image": img, "motion": "Huge waves crash and roll, the boat rocks violently, lightning flickers in the clouds, dramatic slow camera move, painted comic style", "seed": 11}]},
+            open("jobs.json", "w"))
+          PY
+          python scripts/kaggle_clips.py jobs.json out/clips
+      - name: Publish clips
+        if: always()
+        run: |
+          mkdir -p /tmp/pv && cp out/clips/* /tmp/pv/ 2>/dev/null || true
+          git config user.name reel-bot; git config user.email reel-bot@users.noreply.github.com
+          git checkout -q --orphan previews-kaggle
+          git rm -rfq . >/dev/null 2>&1 || true
+          rm -rf assets scripts queue posted out models comic kaggle
+          cp /tmp/pv/* . 2>/dev/null; echo test > README.md
+          git add -A && git commit -qm "kaggle test" && git push -qf origin HEAD:previews-kaggle
