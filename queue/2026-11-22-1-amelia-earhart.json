@@ -52,7 +52,7 @@
  },
  "scenes": [
   {
-   "say": "8:43 AM, July 2, 1937. Amelia Earhart's voice crackles over the radio. Then, silence. She was never seen again.",
+   "say": "Amelia Earhart made one last radio call. Then she vanished forever. 8:43 AM, July 2, 1937.",
    "hook": "SHE VANISHED",
    "bg": "sea_night",
    "bg_opts": {
@@ -339,12 +339,8 @@
  ],
  "hashtags": [
   "#History",
-  "#Mystery",
   "#AmeliaEarhart",
-  "#Aviation",
-  "#Unsolved",
-  "#UnsolvedMysteries",
-  "#1930s"
+  "#UnsolvedMysteries"
  ],
  "pinned_comment": "📌 What happened to Amelia Earhart? 1️⃣ Crashed and sank 2️⃣ Castaway on Nikumaroro 3️⃣ Something else. Vote below 👇 and follow for a new true story every day.",
  "cover": {

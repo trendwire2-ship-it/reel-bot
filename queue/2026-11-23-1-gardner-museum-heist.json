@@ -68,7 +68,7 @@
  },
  "scenes": [
   {
-   "say": "1:24 AM, March 18, 1990. Two police officers buzz the door of a Boston museum. They aren't police.",
+   "say": "Two police officers buzzed the door of a Boston museum. They weren't police. 1:24 AM, March 18, 1990.",
    "hook": "THEY WEREN'T COPS",
    "bg": "street",
    "bg_opts": {
@@ -349,12 +349,8 @@
  ],
  "hashtags": [
   "#TrueCrime",
-  "#History",
   "#ArtHeist",
-  "#GardnerMuseum",
-  "#Boston",
-  "#UnsolvedMysteries",
-  "#ColdCase"
+  "#UnsolvedMysteries"
  ],
  "pinned_comment": "📌 Where is the stolen art now? 1️⃣ Hidden somewhere 2️⃣ Destroyed long ago. Vote below 👇 and follow for a new true story every day.",
  "cover": {

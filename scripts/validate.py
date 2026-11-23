@@ -44,6 +44,8 @@ def check_comic(d, errs, warns):
                 errs.append(f"shot {i}: unknown fx '{f}'")
     if shots and (shots[0].get("scene") != 0 or shots[0].get("word", 0) != 0):
         errs.append("first shot must start at scene 0, word 0")
+    if shots and not shots[0].get("clip") and cm.get("variant", "hybrid") != "comic":
+        errs.append("first shot must be a key clip (motion in the first 2 seconds)")
     missing = [i for i in range(len(d["scenes"])) if i not in seen]
     if missing:
         warns.append(f"scenes without their own panel: {missing}")
@@ -70,8 +72,16 @@ def check(path, sheet=None):
     if len(d.get("sources", [])) < 2:
         errs.append("needs at least 2 source URLs")
     tags = d.get("hashtags", [])
-    if not 5 <= len(tags) <= 8 or not all(isinstance(x, str) and x.startswith("#") and " " not in x for x in tags):
-        errs.append("needs 'hashtags': 5-8 tags like \"#TrueCrime\" (mix broad + topic-specific)")
+    if not 2 <= len(tags) <= 4 or not all(isinstance(x, str) and x.startswith("#") and " " not in x for x in tags):
+        errs.append("needs 'hashtags': 3 tags like \"#TrueCrime\" (Facebook flags more than 5 in total)")
+    first = re.split(r"(?<=[.!?])\s", d["scenes"][0]["say"].strip())[0]
+    if len(first.split()) > 13:
+        errs.append(f"first sentence is {len(first.split())} words: open with the payoff in 12 words or fewer")
+    lead = " ".join(first.split()[:6])
+    if re.search(r"\b(1[0-9]|20)\d\d\b|\b\d{1,2}:\d\d\b|\b(January|February|March|April|May|June|July|August|September|October|November|December|Christmas Eve|New Year)\b", lead):
+        errs.append("story opens with a date: put the shocking payoff first, the date later (STORY_GUIDE rule 1)")
+    if not d.get("hook") or len(d["hook"].split()) > 6:
+        errs.append("top-level 'hook' banner needed (2-5 words)")
     if "?" not in d["caption"] or "#" in d["caption"]:
         errs.append("caption must end on a question and contain no hashtags (put them in 'hashtags')")
     if d.get("style", "cinematic") == "sketch":

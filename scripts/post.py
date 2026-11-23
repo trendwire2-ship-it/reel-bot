@@ -58,7 +58,7 @@ def publish_reel(video_path, description, title):
               "description": description, "title": title, "access_token": token}
     # Meta requires an "AI info" label on reels with a realistic AI voiceover (our cloned narration).
     try:
-        fin = api("POST", f"{GRAPH}/{page}/video_reels", dict(params, video_labels=json.dumps(["LABELED_AI_GENERATED"])))
+        fin = api("POST", f"{GRAPH}/{page}/video_reels", dict(params, is_ai_generated="true"))
     except SystemExit as e:
         print("AI label not accepted by the API, publishing with the caption disclosure only:", e)
         fin = api("POST", f"{GRAPH}/{page}/video_reels", params)
@@ -90,7 +90,7 @@ def check_facebook():
     print("Facebook connection looks good.")
 
 FOLLOW_LINE = os.environ.get("FOLLOW_LINE", "🔔 Follow Facts on Facts for a new true story every day.")
-CORE_TAGS = ["#FactsOnFacts", "#Reels"]
+CORE_TAGS = ["#FactsOnFacts"]
 
 AI_LINE = "🎙️ Narration voiced with AI. Story based on documented history."
 
@@ -106,7 +106,7 @@ def build_description(story):
         k = tg.lower()
         if k not in seen:
             seen.add(k); out.append(tg)
-    return f"{cap}\n\n{FOLLOW_LINE}\n{AI_LINE}\n\n{' '.join(out[:10])}"
+    return f"{cap}\n\n{FOLLOW_LINE}\n{AI_LINE}\n\n{' '.join(out[:3] + [t for t in out[3:] if t in CORE_TAGS])}"
 
 def pinned_text(story):
     if story.get("pinned_comment"):

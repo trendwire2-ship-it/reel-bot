@@ -53,7 +53,7 @@
  },
  "scenes": [
   {
-   "say": "Christmas Eve, 1914. In the middle of a world war, the shooting suddenly stopped.",
+   "say": "In the middle of a world war, the shooting suddenly stopped. It was Christmas Eve, 1914.",
    "hook": "THE GUNS WENT SILENT",
    "bg": "battlefield",
    "camera": "push_in",
@@ -333,11 +333,8 @@
  ],
  "hashtags": [
   "#History",
-  "#WW1",
   "#ChristmasTruce",
-  "#WorldWarOne",
-  "#MilitaryHistory",
-  "#Christmas"
+  "#MilitaryHistory"
  ],
  "pinned_comment": "📌 Would you have climbed out of the trench? 1️⃣ Yes, it's Christmas 2️⃣ No way, too risky. Vote below 👇 and follow for a new true story every day.",
  "cover": {

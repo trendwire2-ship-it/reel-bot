@@ -674,7 +674,7 @@ def draw_banner(c, text, t0, t, dur=2.4, y=330, color="#c0302a"):
     d = t - t0
     if not text or d < 0 or d > dur:
         return
-    a_in = ease_out(d / 0.4)
+    a_in = 1.0 if t0 == 0.0 else ease_out(d / 0.4)   # the opening hook is on screen from the first frame
     a_out = ease_io((d - (dur - 0.35)) / 0.35)
     f = fit(text, FONT_BIG, W - 220, 84)
     w = text_w(text, f) + 80

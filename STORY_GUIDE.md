@@ -26,8 +26,14 @@ it out or say "reportedly". Quotes must be the documented wording.
 - Write numbers naturally: "1971", "$200,000", "8:13 PM" — the voice reads them correctly.
 
 ## Retention structure (every story)
-1. **0–3 s cold open**: start at the most shocking moment, state the mystery or stakes in the first sentence.
-   Top-level `"hook"` = 2–5 word banner (e.g. "HE WAS NEVER FOUND").
+1. **0–2 s payoff-first opening (the #1 rule; Meta's own data shows our weak reels lose 88% of viewers here)**:
+   the FIRST sentence is the most shocking payoff/contradiction, max 12 words, said in the first 2 seconds.
+   NEVER open with a date, a place, a name intro or scene-setting ("May 23, 1934. A Louisiana back road..." is
+   banned). Dates and places come in scene 1 or later.
+   Good: "Bonnie and Clyde were stopped cold by a broken-down truck." / "He robbed a plane, then jumped out of it."
+   / "The FBI's perfect witness was the man they'd tried to kill."
+   Top-level `"hook"` = 2–5 word banner that is on screen from the very first frame and makes the same promise
+   (e.g. "130 BULLETS IN 16 SECONDS"). The first picture must show the most dramatic image of the story.
 2. **Open a loop** early that only closes at the end ("But that's not the strangest part").
 3. **Re-hook every ~10–15 s**: add `"hook"` banners to 3–4 scenes at turning points ("THEN HE SAID THIS...",
    "9 YEARS LATER...", "HERE'S THE TWIST"). Use a pattern interrupt: new location, time jump, a number, a quote.
@@ -83,14 +89,14 @@ Cast spec keys: `skin`(hex) `hair`(black|brown|dark_brown|blonde|red|auburn|grey
 
 ## Caption + hashtags (the Facebook post text)
 The poster builds the description as: caption, then "🔔 Follow Facts on Facts for a new true story every day.",
-then the hashtags (plus #FactsOnFacts #Reels, added automatically).
+then the hashtags (plus #FactsOnFacts, added automatically). Facebook flags more than 5 hashtags.
 - `caption`: three short lines separated by blank lines (\n\n), no hashtags:
   1. Scroll-stopping hook (under 15 words): the most shocking fact or a tense contradiction, one fitting emoji
      ("He hijacked a plane, took $200,000… then jumped out into a storm at night. 🪂").
   2. Tease (1 sentence) that adds stakes but doesn't give away the ending.
   3. A debatable question + "Tell us below 👇".
-- `hashtags`: 5–8 tags: 2–3 broad (#TrueCrime #History #WW2 #Mystery), 2–3 topic-specific (#DBCooper #Alcatraz),
-  1–2 community tags (#UnsolvedMysteries #ColdCase #MilitaryHistory). CamelCase, no spaces.
+- `hashtags`: exactly 3 tags: 1 broad (#TrueCrime or #History or #WW2), 1 topic-specific (#DBCooper), 1 community
+  tag (#UnsolvedMysteries #ColdCase #MilitaryHistory). CamelCase, no spaces. With #FactsOnFacts that makes 4.
 - `pinned_comment`: the Page's own first comment, posted automatically (the owner pins it). One debate question with
   numbered options + a follow nudge, e.g. "📌 Which do you believe? 1️⃣ He died in the jump 2️⃣ He got away 👇".
 - Optional `cover`: {"title": "2-5 word cover hook", "scene": index, "focus": cast id, "tag": "TRUE STORY"}.
@@ -121,7 +127,7 @@ and say so in the run summary). Typical spend: 14–16 images × 2 + 3 key clips
    moonlit blue palette, gritty grain texture, vertical 9:16 composition. No text, no letters, no captions, no logo,
    no watermark." Then one concrete, period-accurate moment. A new panel every 3–5 seconds of narration.
    Use `generate_image_batch`, then `jobs_wait`.
-4. **Key clips** (3, for the hook and the 2 biggest turns): `kling3_0`, mode std, 3 s, sound off, image-to-video
+4. **Key clips** (3: the FIRST shot (scene 0, word 0) must always be a key clip of the most dramatic moment, plus the 2 biggest turns): `kling3_0`, mode std, 3 s, sound off, image-to-video
    from that panel, a short motion prompt (what moves, how the camera moves). Never more than 4.
 5. Write the block:
    ```json
