@@ -59,7 +59,9 @@ jobs:
         run: |
           sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg libegl1 libgl1 fonts-dejavu-core
           pip install -q torch==2.6.0 torchaudio==2.6.0 --index-url https://download.pytorch.org/whl/cpu
-          pip install -q chatterbox-tts==0.1.7 kokoro-onnx==0.4.9 soundfile pillow numpy edge-tts skia-python opencv-python-headless transformers
+          pip install -q chatterbox-tts==0.1.7 soundfile pillow numpy edge-tts skia-python opencv-python-headless transformers
+          # kokoro-onnx 0.4.9 reads voices-v1.0.bin; install it without letting it move chatterbox's numpy pin
+          pip install -q --no-deps kokoro-onnx==0.4.9 && pip install -q onnxruntime espeakng-loader phonemizer-fork colorlog || echo 'kokoro optional'
 
       - name: Unlock your voice sample
         if: ${{ !inputs.check_facebook && !inputs.comment_posted }}
