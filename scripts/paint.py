@@ -3,7 +3,7 @@
 
 Order of providers (all free, no paid credits):
   0. Cloudflare Workers AI FLUX.2 [klein] 4B with REFERENCE IMAGES (consistent faces): a character sheet is painted
-     once per character, then fed into every panel that shows them, with the Page logo as the style reference.
+     once per character, then fed into every panel that shows them, 
      ~160 neurons per panel, so two 16-panel reels a day fit Cloudflare's free 10,000 neurons/day.
   1. Cloudflare Workers AI SDXL-Lightning (free beta, native 768x1344 portrait) if CF_ACCOUNT_ID + CF_API_TOKEN are set.
   2. Cloudflare Workers AI FLUX.1 schnell (free daily allowance, square, centre-cropped).
@@ -111,8 +111,7 @@ def character_sheets(story):
         path = os.path.join(CACHE, "sheet-" + hashlib.md5(prompt.encode()).hexdigest() + ".jpg")
         if not os.path.exists(path):
             try:
-                refs = [LOGO] if os.path.exists(LOGO) else []
-                open(path, "wb").write(_cf_klein(prompt, 1234, refs, 1024, 768))
+                open(path, "wb").write(_cf_klein(prompt, 1234, [], 1024, 768))
                 print("character sheet:", cid, flush=True)
             except Exception as e:
                 print("character sheet failed", cid, e, flush=True)
@@ -154,10 +153,10 @@ def paint_story(story):
             continue
         prompt, seed = full_prompt(story, sh), sh.get("seed", _seed(story, i))
         ids = [c for c in re.findall(r"\[(\w+)\]", sh["prompt"]) if c in sheets]
-        refs = ([LOGO] if os.path.exists(LOGO) else []) + [sheets[c] for c in dict.fromkeys(ids)][:3]
+        # only character sheets as references (passing the logo made panels copy the logo and its text)
+        refs = [sheets[c] for c in dict.fromkeys(ids)][:4]
         if ids:
-            prompt = "Keep each person's face, hair and clothes exactly as in the character reference images; " \
-                     "match the art style of the first reference image. " + prompt
+            prompt = "Keep each person's face, hair and clothes exactly as in the reference images. " + prompt
         path = os.path.join(CACHE, "paint-" + hashlib.md5(f"{prompt}|{seed}|{refs}".encode()).hexdigest() + ".jpg")
         if not os.path.exists(path):
             data, err = None, None

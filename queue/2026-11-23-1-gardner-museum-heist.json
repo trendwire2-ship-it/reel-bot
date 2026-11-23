@@ -445,7 +445,7 @@
     "word": 11,
     "move": "pan_right",
     "fx": [],
-    "prompt": "A quiet 17th-century Dutch interior painting of three musicians at a harpsichord in soft window light, in a gold frame, a flashlight beam falling across it in a dark gallery"
+    "prompt": "A quiet 17th-century Dutch oil painting of two women and a man making music at a harpsichord, hanging on the wall in soft window light, in a gold frame, a flashlight beam falling across it in a dark gallery"
    },
    {
     "scene": 7,
@@ -454,7 +454,7 @@
     "fx": [
      "fog"
     ],
-    "prompt": "Two men in police caps carrying wrapped paintings out of a museum side door toward a dark hatchback car on an empty Boston street before dawn, mist, sodium lights"
+    "prompt": "Two men in police caps carrying wrapped paintings out of a museum side door toward a boxy 1980s hatchback car on an empty Boston street before dawn, mist, sodium lights"
    },
    {
     "scene": 7,
