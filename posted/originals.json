@@ -26,5 +26,12 @@
   "sha256": "cc62222d5e4541398689cdbf6db04433ea9a8c88cb74f64319b3f8869cf1cac5",
   "rendered_utc": "2026-11-22T23:03:27.962285Z",
   "style": "comic"
+ },
+ {
+  "id": "2026-11-23-1-gardner-museum-heist",
+  "title": "The Gardner Museum Heist",
+  "sha256": "cba22734c939f3a71a36ce130916c8de7f13ea72891202fb4ad4fb9215ecd3bd",
+  "rendered_utc": "2026-11-23T13:39:10.027332Z",
+  "style": "comic"
  }
 ]
