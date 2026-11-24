@@ -15,9 +15,9 @@ import render as R  # noqa
 from engine import W, H, hexcol, fill, stroke, rect, clamp, ease_io, ease_out, h01  # noqa
 import skia
 
-FPS = 30
+FPS = 60   # smooth motion; Facebook Reels supports 60 fps
 CACHE = os.path.join(R.ROOT, "out", "cache")
-XF = 0.38  # crossfade seconds between shots
+XF = 0.6  # crossfade seconds between shots
 
 def fetch(url):
     if os.path.exists(url):
@@ -68,17 +68,24 @@ def depth_map(path, rgb):
     return d
 
 def load_clip(path):
-    import cv2
-    cap = cv2.VideoCapture(path); frames = []
+    """Decode an AI clip after motion-interpolating it to 60 fps (ffmpeg minterpolate), so slowed or
+    re-timed clips play smoothly instead of repeating frames. Frames stay at native resolution;
+    they are upscaled per output frame."""
+    import cv2, hashlib, subprocess
+    smooth = os.path.join(CACHE, "mi60-" + hashlib.md5(path.encode()).hexdigest() + ".mp4")
+    if not os.path.exists(smooth):
+        r = subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", path, "-an", "-vf",
+                            "minterpolate=fps=60:mi_mode=mci:mc_mode=aobmc:me_mode=bidir:vsbmc=1",
+                            "-c:v", "libx264", "-crf", "14", "-preset", "fast", smooth])
+        if r.returncode != 0:
+            smooth = path
+    cap = cv2.VideoCapture(smooth); frames = []
     while True:
         ok, f = cap.read()
         if not ok:
             break
-        f = cover_resize(f)
-        if f.shape[0] > 1.6 * cap.get(cv2.CAP_PROP_FRAME_HEIGHT):   # upscaled AI clip: restore some crispness
-            f = cv2.addWeighted(f, 1.45, cv2.GaussianBlur(f, (0, 0), 2.2), -0.45, 0)
         frames.append(f)
-    fps = cap.get(cv2.CAP_PROP_FPS) or 24
+    fps = cap.get(cv2.CAP_PROP_FPS) or 60
     return frames, fps
 
 MOVES = {"push_in": (1.04, 1.20, 0, 0, 0, 0), "pull_out": (1.21, 1.04, 0, 0, 0, 0),
@@ -127,16 +134,21 @@ class Shot:
 
     def frame(self, lt, dur):
         import cv2
-        p = ease_io(clamp(lt / max(dur, 0.1)))
+        lin = clamp(lt / max(dur, 0.1))
+        p = 0.8 * lin + 0.2 * ease_io(lin)   # mostly constant speed: the camera keeps gliding, never stops dead
         if self.clip is not None:
             n = len(self.clip)
             span = n / self.clip_fps
-            rate = min(1.0, span / max(dur, 0.1)) if dur > span else 1.0  # slow-mo to fill longer shots
-            i = int(clamp(lt * rate * self.clip_fps, 0, n - 1))
-            base = self.clip[i]
-            z = 1.0 + 0.04 * p
+            rate = min(1.0, span / max(dur, 0.1))            # gentle slow-mo to fill longer shots
+            fi = clamp(lt * rate * self.clip_fps, 0, n - 1)
+            i0 = int(fi); a = fi - i0
+            f = self.clip[i0] if a < 0.02 or i0 + 1 >= n else cv2.addWeighted(self.clip[i0], 1 - a, self.clip[i0 + 1], a, 0)
+            f = cover_resize(f)
+            if f.shape[0] > 1.6 * self.clip[0].shape[0]:
+                f = cv2.addWeighted(f, 1.35, cv2.GaussianBlur(f, (0, 0), 2.0), -0.35, 0)
+            z = 1.0 + 0.05 * (lt / max(dur, 0.1))             # constant slow push, no start/stop
             M = cv2.getRotationMatrix2D((W / 2, H / 2), 0, z)
-            return cv2.warpAffine(base, M, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
+            return cv2.warpAffine(f, M, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
         z0, z1, x0, x1, y0, y1 = MOVES.get(self.spec.get("move", "push_in"), MOVES["push_in"])
         z = z0 + (z1 - z0) * p
         tx = x0 + (x1 - x0) * p; ty = y0 + (y1 - y0) * p
@@ -146,8 +158,10 @@ class Shot:
         sx = (self.xx - W / 2) / (z * (1 + dz * d)) + W / 2 - tx - par * d * (1 if (x1 - x0) >= 0 else -1)
         sy = (self.yy - H / 2) / (z * (1 + dz * d)) + H / 2 - ty - par * 0.35 * d
         # living painting: drifting/shimmering background
-        off = int(lt * 22) % 280
-        f1 = self.n1[:H, off:off + W]; f2 = self.n2[:H, off:off + W]
+        o = (lt * 22) % 278
+        oi = int(o); fa = o - oi
+        f1 = self.n1[:H, oi:oi + W] * (1 - fa) + self.n1[:H, oi + 1:oi + 1 + W] * fa
+        f2 = self.n2[:H, oi:oi + W] * (1 - fa) + self.n2[:H, oi + 1:oi + 1 + W] * fa
         amp = 7.0
         sx = sx + amp * self.w_far * f1
         sy = sy + amp * 0.6 * self.w_far * f2
@@ -209,23 +223,8 @@ def plan(story, scenes, words):
     return out
 
 def transition(a, b, q, n):
-    """Comic-style transitions between panels: whip pan, zoom-through, or a soft dissolve."""
+    """Smooth dissolve; both panels keep moving underneath, so the cut flows."""
     import cv2
-    kind = ("whip", "zoom", "whip", "dissolve")[n % 4]
-    if kind == "whip":
-        off = int(W * q)
-        out = np.empty_like(a)
-        if n % 8 < 4:   # new panel slides in from the right
-            out[:, :W - off] = a[:, off:]; out[:, W - off:] = b[:, :off]
-        else:           # from the left
-            out[:, off:] = a[:, :W - off]; out[:, :off] = b[:, W - off:]
-        blur = int(90 * math.sin(math.pi * q)) | 1
-        return cv2.blur(out, (blur, 1)) if blur > 2 else out
-    if kind == "zoom":
-        za = 1 + 0.35 * q; zb = 0.8 + 0.2 * q
-        A = cv2.warpAffine(a, cv2.getRotationMatrix2D((W / 2, H / 2), 0, za), (W, H), borderMode=cv2.BORDER_REFLECT)
-        B = cv2.warpAffine(b, cv2.getRotationMatrix2D((W / 2, H / 2), 0, zb), (W, H), borderMode=cv2.BORDER_REFLECT)
-        return cv2.addWeighted(A, 1 - q, B, q, 0)
     return cv2.addWeighted(a, 1 - q, b, q, 0)
 
 def worker(args):
@@ -261,13 +260,6 @@ def worker(args):
             q = ease_io((t - (o2["s"] - XF)) / XF)
             img2 = shot(nxt).frame(t - o2["s"], o2["e"] - o2["s"])
             img = transition(img, img2, q, nxt)
-        # impact shake when a re-hook scene's first panel lands
-        sc = shots_spec[k]["scene"]
-        if story["scenes"][sc].get("hook") and shots_spec[k].get("word", 0) == 0 and 0 <= t - o["s"] < 0.45:
-            import cv2
-            amp = 14 * (1 - (t - o["s"]) / 0.45)
-            M = np.float32([[1.02, 0, amp * math.sin(t * 90) - W * 0.01], [0, 1.02, amp * math.cos(t * 77) - H * 0.01]])
-            img = cv2.warpAffine(img, M, (W, H), borderMode=cv2.BORDER_REFLECT)
         bgra = np.dstack([img, np.full((H, W), 255, np.uint8)])
         c.clear(hexcol("#000000"))
         c.drawImage(skia.Image.fromarray(np.ascontiguousarray(bgra), colorType=skia.kBGRA_8888_ColorType), 0, 0)
