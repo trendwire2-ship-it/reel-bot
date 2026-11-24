@@ -365,7 +365,7 @@
   "tag": "TRUE STORY"
  },
  "comic": {
-  "variant": "comic",
+  "variant": "full",
   "characters": {
    "dillinger": "white man aged 30, average build, dark brown hair slicked back with a side part, clean-shaven, sly half smile, 1934 vest over a white shirt with rolled sleeves, dark trousers",
    "estill": "heavyset white man in his 50s, receding grey hair, round glasses, dark 1930s double-breasted suit and tie",
@@ -382,7 +382,9 @@
      "flicker"
     ],
     "prompt": "Dramatic close-up of [dillinger] inside a 1934 jail corridor, holding a small blackened wooden pistol at his chest, iron cell bars behind him, harsh single bulb light, defiant smirk",
-    "action": "[dillinger] slowly raises the small black wooden pistol, the bare bulb above swinging gently and shadows sliding across the bars"
+    "action": "[dillinger] slowly raises the small black wooden pistol, the bare bulb above swinging gently and shadows sliding across the bars",
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-1-dillinger-wooden-gun-p00.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-1-dillinger-wooden-gun-c00.mp4"
    },
    {
     "scene": 0,
@@ -392,7 +394,9 @@
      "fog"
     ],
     "prompt": "Wide shot of a grim red-brick 1930s county jail and courthouse in a small Indiana town on a cold March morning, bare trees, a black Ford parked outside",
-    "action": "Cold mist drifts past the brick jail walls as the camera glides slowly along the building"
+    "action": "Cold mist drifts past the brick jail walls as the camera glides slowly along the building",
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-1-dillinger-wooden-gun-p01.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-1-dillinger-wooden-gun-c01.mp4"
    },
    {
     "scene": 1,
@@ -402,7 +406,9 @@
      "dust"
     ],
     "prompt": "Medium shot of [dillinger] in a crowded 1934 courtroom, reporters with flash cameras behind him, wooden benches, sunlight through tall windows, he looks relaxed and confident",
-    "action": "Reporters lean forward and flash bulbs pop as [dillinger] turns his head slowly and smiles"
+    "action": "Reporters lean forward and flash bulbs pop as [dillinger] turns his head slowly and smiles",
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-1-dillinger-wooden-gun-p02.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-1-dillinger-wooden-gun-c02.mp4"
    },
    {
     "scene": 2,
@@ -412,7 +418,9 @@
      "flicker"
     ],
     "prompt": "[estill] standing beside [dillinger] for a press photo in a 1934 jail office, the heavyset man's arm draped over the robber's shoulder, both smiling, photographers with big flash cameras in the foreground",
-    "action": "A press camera flash bursts and both men hold their smiles as smoke from the flash bulb drifts upward"
+    "action": "A press camera flash bursts and both men hold their smiles as smoke from the flash bulb drifts upward",
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-1-dillinger-wooden-gun-p03.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-1-dillinger-wooden-gun-c03.mp4"
    },
    {
     "scene": 2,
@@ -420,7 +428,9 @@
     "move": "tilt_down",
     "fx": [],
     "prompt": "Close-up of a 1934 newspaper front page lying on a desk showing a photo of two smiling men arm in arm, a coffee cup and a gavel beside it, morning light",
-    "action": "The newspaper slides slowly across the desk and comes to rest beside the gavel"
+    "action": "The newspaper slides slowly across the desk and comes to rest beside the gavel",
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-1-dillinger-wooden-gun-p04.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-1-dillinger-wooden-gun-c04.mp4"
    },
    {
     "scene": 3,
@@ -430,7 +440,9 @@
      "flicker"
     ],
     "prompt": "Long empty jail corridor in 1934 with thick steel bars and heavy locks, [deputy] patrolling with a ring of keys, cold blue light, an air of total security",
-    "action": "[deputy] walks slowly down the corridor, his keys swinging, as light flickers over the steel bars"
+    "action": "[deputy] walks slowly down the corridor, his keys swinging, as light flickers over the steel bars",
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-1-dillinger-wooden-gun-p05.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-1-dillinger-wooden-gun-c05.mp4"
    },
    {
     "scene": 4,
@@ -438,7 +450,9 @@
     "move": "push_in",
     "fx": [],
     "prompt": "Over-the-shoulder shot inside a 1934 jail: [dillinger] pressing a small black wooden pistol into the back of [deputy], who freezes in shock, tense stillness, hard side light",
-    "action": "[deputy] slowly raises both hands as [dillinger] steps closer behind him, holding the small black pistol low"
+    "action": "[deputy] slowly raises both hands as [dillinger] steps closer behind him, holding the small black pistol low",
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-1-dillinger-wooden-gun-p06.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-1-dillinger-wooden-gun-c06.mp4"
    },
    {
     "scene": 4,
@@ -448,7 +462,9 @@
      "dust"
     ],
     "prompt": "Extreme close-up of a crude hand-carved wooden pistol stained black with shoe polish, a razor handle for a barrel, lying on a rough wooden table under a lamp",
-    "action": "The camera slowly circles the small wooden pistol as dust floats through the lamp light"
+    "action": "The camera slowly circles the small wooden pistol as dust floats through the lamp light",
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-1-dillinger-wooden-gun-p07.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-1-dillinger-wooden-gun-c07.mp4"
    },
    {
     "scene": 5,
@@ -458,7 +474,9 @@
      "flicker"
     ],
     "prompt": "Wide shot of a 1934 jail cell block: guards and prisoners in striped shirts being herded into a large barred cell, [dillinger] holding the door, dim overhead lamps",
-    "action": "The barred cell door swings shut with a slam as the guards inside step back from it"
+    "action": "The barred cell door swings shut with a slam as the guards inside step back from it",
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-1-dillinger-wooden-gun-p08.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-1-dillinger-wooden-gun-c08.mp4"
    },
    {
     "scene": 6,
@@ -468,7 +486,9 @@
      "dust"
     ],
     "prompt": "[dillinger] striding out of a jail garage toward a black 1933 Ford V8 sedan, hat pulled low, early morning sun, small-town street behind",
-    "action": "[dillinger] walks quickly to the black Ford, pulls open the door and slides behind the wheel"
+    "action": "[dillinger] walks quickly to the black Ford, pulls open the door and slides behind the wheel",
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-1-dillinger-wooden-gun-p09.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-1-dillinger-wooden-gun-c09.mp4"
    },
    {
     "scene": 7,
@@ -478,7 +498,9 @@
      "dust"
     ],
     "prompt": "A black 1933 Ford V8 speeding along an empty two-lane country road through flat Midwest farmland in late winter, dust trailing behind, wide shot",
-    "action": "The black Ford races down the country road, kicking up a long trail of dust behind it"
+    "action": "The black Ford races down the country road, kicking up a long trail of dust behind it",
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-1-dillinger-wooden-gun-p10.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-1-dillinger-wooden-gun-c10.mp4"
    },
    {
     "scene": 8,
@@ -486,7 +508,9 @@
     "move": "push_in",
     "fx": [],
     "prompt": "Low angle on a weathered 1930s road sign at the Indiana-Illinois state line, a black Ford speeding past it, grey sky, ominous mood",
-    "action": "The black Ford roars past the state line sign and disappears down the road"
+    "action": "The black Ford roars past the state line sign and disappears down the road",
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-1-dillinger-wooden-gun-p11.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-1-dillinger-wooden-gun-c11.mp4"
    },
    {
     "scene": 8,
@@ -496,7 +520,9 @@
      "flicker"
     ],
     "prompt": "1934 federal agents in fedoras gathered around a desk under a hanging lamp, studying a wanted poster and a map of the Midwest pinned to the wall, cigarette smoke",
-    "action": "An agent slides the wanted poster across the desk while cigarette smoke curls under the lamp"
+    "action": "An agent slides the wanted poster across the desk while cigarette smoke curls under the lamp",
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-1-dillinger-wooden-gun-p12.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-1-dillinger-wooden-gun-c12.mp4"
    },
    {
     "scene": 9,
@@ -506,7 +532,9 @@
      "fog"
     ],
     "prompt": "Night street in 1934 Chicago outside a glowing movie theater marquee with bright bulbs, [agent] waiting in the shadows of a doorway, crowds leaving the theater",
-    "action": "Theater lights twinkle as the crowd spills onto the sidewalk and [agent] steps slowly out of the shadows"
+    "action": "Theater lights twinkle as the crowd spills onto the sidewalk and [agent] steps slowly out of the shadows",
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-1-dillinger-wooden-gun-p13.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-1-dillinger-wooden-gun-c13.mp4"
    },
    {
     "scene": 10,
@@ -516,8 +544,11 @@
      "fog"
     ],
     "prompt": "Museum-style close-up of a small black carved wooden pistol displayed on velvet under a spotlight, a 1934 mugshot of [dillinger] blurred behind it, mysterious mood",
-    "action": "The spotlight slowly brightens over the wooden pistol as the camera pulls back from the display"
+    "action": "The spotlight slowly brightens over the wooden pistol as the camera pulls back from the display",
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-1-dillinger-wooden-gun-p14.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-1-dillinger-wooden-gun-c14.mp4"
    }
-  ]
+  ],
+  "prepared": true
  }
 }

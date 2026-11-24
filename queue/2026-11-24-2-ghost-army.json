@@ -274,7 +274,7 @@
   "tag": "TRUE STORY"
  },
  "comic": {
-  "variant": "comic",
+  "variant": "full",
   "characters": {
    "gi": "young white American soldier in his early 20s, slim, 1944 olive drab US Army field uniform and M1 steel helmet",
    "artist": "thin young white American soldier aged 22, dark side-parted hair, olive drab 1944 US Army uniform with garrison cap, sketchbook and pencil",
@@ -289,7 +289,9 @@
      "dust"
     ],
     "prompt": "Low angle across a misty 1944 French field: four young American soldiers effortlessly lifting a full-size Sherman tank over their heads, the tank clearly an inflatable rubber dummy, astonishing sight",
-    "action": "Four soldiers hoist the huge rubber tank above their heads and turn it slowly as mist drifts across the field"
+    "action": "Four soldiers hoist the huge rubber tank above their heads and turn it slowly as mist drifts across the field",
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-2-ghost-army-p00.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-2-ghost-army-c00.mp4"
    },
    {
     "scene": 0,
@@ -299,7 +301,9 @@
      "fog"
     ],
     "prompt": "Wide shot of a long row of Sherman tanks under camouflage nets at the edge of a forest at dawn in 1944 France, seen from far away, convincing and menacing",
-    "action": "Morning fog rolls slowly past the row of tanks while the camouflage nets ripple in the breeze"
+    "action": "Morning fog rolls slowly past the row of tanks while the camouflage nets ripple in the breeze",
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-2-ghost-army-p01.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-2-ghost-army-c01.mp4"
    },
    {
     "scene": 1,
@@ -307,7 +311,9 @@
     "move": "tilt_down",
     "fx": [],
     "prompt": "Aerial view of a 1944 US Army camp at Camp Forrest, Tennessee: rows of canvas tents and hundreds of soldiers assembling in formation, winter light",
-    "action": "Columns of soldiers march across the parade ground between rows of canvas tents"
+    "action": "Columns of soldiers march across the parade ground between rows of canvas tents",
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-2-ghost-army-p02.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-2-ghost-army-c02.mp4"
    },
    {
     "scene": 2,
@@ -317,7 +323,9 @@
      "dust"
     ],
     "prompt": "[artist] sitting on an army crate sketching a French farmhouse in a sketchbook, other soldiers painting a canvas dummy truck behind him, warm afternoon light, 1944",
-    "action": "[artist] sketches quickly with his pencil while the soldiers behind him brush paint onto the dummy truck"
+    "action": "[artist] sketches quickly with his pencil while the soldiers behind him brush paint onto the dummy truck",
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-2-ghost-army-p03.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-2-ghost-army-c03.mp4"
    },
    {
     "scene": 3,
@@ -327,7 +335,9 @@
      "dust"
     ],
     "prompt": "A deflated olive drab rubber tank lying flat on the grass, soldiers hooking up a gas-powered air compressor to it, hoses snaking across the ground, 1944 France",
-    "action": "The flat rubber tank swells and rises off the grass as the compressor pumps air into it"
+    "action": "The flat rubber tank swells and rises off the grass as the compressor pumps air into it",
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-2-ghost-army-p04.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-2-ghost-army-c04.mp4"
    },
    {
     "scene": 4,
@@ -337,7 +347,9 @@
      "fog"
     ],
     "prompt": "Two French civilians on old bicycles, one of them [frenchman], pedaling down a hedgerow lane in Normandy in summer 1944, peering through a gap in the hedge",
-    "action": "The two men pedal slowly along the lane, then brake and stare through the gap in the hedge"
+    "action": "The two men pedal slowly along the lane, then brake and stare through the gap in the hedge",
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-2-ghost-army-p05.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-2-ghost-army-c05.mp4"
    },
    {
     "scene": 4,
@@ -345,7 +357,9 @@
     "move": "push_in",
     "fx": [],
     "prompt": "Over-the-shoulder shot from behind [frenchman]: four American soldiers in a field lifting and turning a 40-ton-looking Sherman tank by hand, his jaw dropping",
-    "action": "The soldiers rotate the tank in place as [frenchman] slowly lowers his bicycle in disbelief"
+    "action": "The soldiers rotate the tank in place as [frenchman] slowly lowers his bicycle in disbelief",
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-2-ghost-army-p06.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-2-ghost-army-c06.mp4"
    },
    {
     "scene": 5,
@@ -355,7 +369,9 @@
      "fog"
     ],
     "prompt": "Night in a dark 1944 forest: a huge loudspeaker mounted on a US Army half-track, aimed into the trees, soldiers adjusting dials, moonlight through branches",
-    "action": "The giant speaker vibrates as sound booms out and leaves tremble on the branches in the moonlight"
+    "action": "The giant speaker vibrates as sound booms out and leaves tremble on the branches in the moonlight",
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-2-ghost-army-p07.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-2-ghost-army-c07.mp4"
    },
    {
     "scene": 6,
@@ -365,7 +381,9 @@
      "flicker"
     ],
     "prompt": "Inside a 1944 army radio tent at night, a soldier wearing headphones tapping a Morse code key, glowing radio sets and a lamp, focused face",
-    "action": "The soldier taps the Morse key rapidly as the radio dials glow and the lamp light flickers"
+    "action": "The soldier taps the Morse key rapidly as the radio dials glow and the lamp light flickers",
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-2-ghost-army-p08.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-2-ghost-army-c08.mp4"
    },
    {
     "scene": 6,
@@ -373,7 +391,9 @@
     "move": "pan_left",
     "fx": [],
     "prompt": "A small 1944 French village cafe: [artist] in uniform with a fake division patch on his shoulder, chatting with locals over wine, a curious man listening at the next table",
-    "action": "[artist] leans in and talks quietly while the man at the next table turns his head to listen"
+    "action": "[artist] leans in and talks quietly while the man at the next table turns his head to listen",
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-2-ghost-army-p09.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-2-ghost-army-c09.mp4"
    },
    {
     "scene": 7,
@@ -383,7 +403,9 @@
      "fog"
     ],
     "prompt": "Night along the Rhine River in March 1945: hundreds of dummy tanks and trucks lined up on the riverbank, distant searchlights in the sky, wide epic shot",
-    "action": "Searchlights sweep slowly across the night sky above the long rows of dummy tanks on the riverbank"
+    "action": "Searchlights sweep slowly across the night sky above the long rows of dummy tanks on the riverbank",
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-2-ghost-army-p10.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-2-ghost-army-c10.mp4"
    },
    {
     "scene": 7,
@@ -393,7 +415,9 @@
      "embers"
     ],
     "prompt": "German officers in long grey coats studying the far riverbank through binoculars from a ruined building at dusk, 1945, smoke on the horizon",
-    "action": "The officer lowers his binoculars slowly while smoke drifts across the horizon behind him"
+    "action": "The officer lowers his binoculars slowly while smoke drifts across the horizon behind him",
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-2-ghost-army-p11.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-2-ghost-army-c11.mp4"
    },
    {
     "scene": 8,
@@ -403,7 +427,9 @@
      "dust"
     ],
     "prompt": "Map table in a 1945 US Army headquarters tent with pins and arrows across Europe, a hand moving a small wooden tank marker, lamp light",
-    "action": "A hand slides the wooden tank marker across the map as the lamp swings gently overhead"
+    "action": "A hand slides the wooden tank marker across the map as the lamp swings gently overhead",
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-2-ghost-army-p12.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-2-ghost-army-c12.mp4"
    },
    {
     "scene": 9,
@@ -413,7 +439,9 @@
      "dust"
     ],
     "prompt": "A thick army file folder with a red classified stamp being locked inside a steel filing cabinet in a dim 1945 office, dust in the air",
-    "action": "The steel drawer slides shut and a key turns in the lock as dust floats through the light"
+    "action": "The steel drawer slides shut and a key turns in the lock as dust floats through the light",
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-2-ghost-army-p13.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-2-ghost-army-c13.mp4"
    },
    {
     "scene": 10,
@@ -421,8 +449,11 @@
     "move": "pull_out",
     "fx": [],
     "prompt": "Elderly American veterans in suits and army caps standing proudly in a grand marble hall of the US Capitol, a gold medal on display, warm light",
-    "action": "The veterans stand tall and smile as the camera pulls back through the grand marble hall"
+    "action": "The veterans stand tall and smile as the camera pulls back through the grand marble hall",
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-2-ghost-army-p14.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-24-2-ghost-army-c14.mp4"
    }
-  ]
+  ],
+  "prepared": true
  }
 }
