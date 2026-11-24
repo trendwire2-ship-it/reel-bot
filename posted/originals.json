@@ -40,5 +40,12 @@
   "sha256": "aa334895b36fedbf819d9d78d82285b1c195b3829d92926cb728603d2b326512",
   "rendered_utc": "2026-11-23T23:10:31.466636Z",
   "style": "comic"
+ },
+ {
+  "id": "2026-11-24-1-dillinger-wooden-gun",
+  "title": "Dillinger's Wooden Gun Escape",
+  "sha256": "aaf4be77769aebaff2412dc93da74bf6c7c8758b014d5d005076353448efd786",
+  "rendered_utc": "2026-11-24T13:37:40.392373Z",
+  "style": "comic"
  }
 ]
