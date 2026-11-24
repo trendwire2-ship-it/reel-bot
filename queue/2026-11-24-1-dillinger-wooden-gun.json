@@ -1,0 +1,523 @@
+{
+ "id": "2026-11-24-1-dillinger-wooden-gun",
+ "title": "Dillinger's Wooden Gun Escape",
+ "caption": "He broke out of an \"escape-proof\" jail with a gun made of wood. 🔫\n\nThen he took the sheriff's own car, and made one mistake that changed everything.\n\nCriminal genius, or an inside job? Tell us below 👇",
+ "hook": "A GUN MADE OF WOOD",
+ "sources": [
+  "https://themobmuseum.org/blog/john-dillingers-wooden-gun-and-death-mask-preserve-notorious-moments-in-his-life",
+  "https://www.history.com/news/10-things-you-may-not-know-about-john-dillinger",
+  "https://chicago.suntimes.com/2020/3/4/21161878/john-dillinger-crown-point-escape-jail-chicago-daily-news-jon-seidel",
+  "https://www.pbs.org/wgbh/americanexperience/features/dillinger-john-dillinger-timeline"
+ ],
+ "cast": {
+  "dillinger": {
+   "skin": "#e8c4a4",
+   "hair": "dark_brown",
+   "hair_style": "side_part",
+   "eyes": "#5a4a3a",
+   "glasses": "none",
+   "facial_hair": "none",
+   "outfit": "suit",
+   "outfit_color": "#4a4640",
+   "shirt_color": "#f0ece2",
+   "tie_color": "none",
+   "pants_color": "#3a3630",
+   "hat": "none",
+   "build": "average",
+   "height": 0.95,
+   "age": 30,
+   "gender": "m"
+  },
+  "estill": {
+   "skin": "#ecc8aa",
+   "hair": "grey",
+   "hair_style": "receding",
+   "glasses": "glasses",
+   "facial_hair": "none",
+   "outfit": "suit",
+   "outfit_color": "#2e3038",
+   "shirt_color": "#f0ece2",
+   "tie_color": "#5a2020",
+   "hat": "none",
+   "build": "heavy",
+   "age": 50,
+   "gender": "m"
+  },
+  "deputy": {
+   "skin": "#e6c0a0",
+   "hair": "brown",
+   "hair_style": "short",
+   "outfit": "uniform",
+   "outfit_color": "#4a4a52",
+   "hat": "cap",
+   "hat_color": "#3a3a42",
+   "badge": true,
+   "build": "average",
+   "age": 40,
+   "gender": "m"
+  },
+  "agent": {
+   "skin": "#e8c6a8",
+   "hair": "black",
+   "hair_style": "side_part",
+   "outfit": "coat",
+   "outfit_color": "#2a2a2e",
+   "hat": "fedora",
+   "hat_color": "#222226",
+   "build": "average",
+   "age": 32,
+   "gender": "m"
+  }
+ },
+ "scenes": [
+  {
+   "say": "He broke out of an escape-proof jail with a wooden gun. Crown Point, Indiana. March 3, 1934.",
+   "hook": "A GUN MADE OF WOOD",
+   "bg": "prison",
+   "bg_opts": {
+    "bars": true
+   },
+   "camera": "push_in",
+   "text": {
+    "big": "MARCH 3, 1934",
+    "sub": "CROWN POINT, INDIANA",
+    "y": 0.24
+   },
+   "cast": [
+    {
+     "id": "dillinger",
+     "x": 0.5,
+     "y": 1.24,
+     "scale": 2.1,
+     "action": "hold",
+     "expr": "serious",
+     "face": 1
+    }
+   ],
+   "props": [
+    {
+     "kind": "gun",
+     "x": 0.62,
+     "y": 0.55,
+     "scale": 0.8,
+     "motion": "pop",
+     "appear": 0.6
+    }
+   ]
+  },
+  {
+   "say": "John Dillinger, America's most famous bank robber, was awaiting trial for killing an East Chicago police officer.",
+   "bg": "courtroom",
+   "camera": "pan_right",
+   "transition": "whip_left",
+   "label": {
+    "name": "JOHN DILLINGER",
+    "role": "BANK ROBBER",
+    "y": 0.6,
+    "at": 0.8
+   },
+   "cast": [
+    {
+     "id": "dillinger",
+     "x": 0.45,
+     "y": 0.9,
+     "action": "stand",
+     "expr": "smile",
+     "face": 1
+    }
+   ]
+  },
+  {
+   "say": "Weeks earlier, he'd posed with the prosecutor's arm draped over his shoulder. The photo wrecked the prosecutor's image.",
+   "bg": "room",
+   "camera": "drift",
+   "transition": "flash",
+   "cast": [
+    {
+     "id": "estill",
+     "x": 0.38,
+     "y": 0.9,
+     "action": "stand",
+     "expr": "smile",
+     "face": 1
+    },
+    {
+     "id": "dillinger",
+     "x": 0.6,
+     "y": 0.9,
+     "action": "stand",
+     "expr": "smile",
+     "face": -1
+    }
+   ],
+   "props": [
+    {
+     "kind": "newspaper",
+     "x": 0.5,
+     "y": 0.3,
+     "scale": 0.8,
+     "motion": "drop",
+     "appear": 2.5,
+     "opts": {
+      "headline": "PROSECUTOR|POSES WITH DILLINGER"
+     }
+    }
+   ]
+  },
+  {
+   "say": "Officials boasted the jail was escape-proof. Dillinger stayed just over a month.",
+   "hook": "ESCAPE-PROOF?",
+   "bg": "prison",
+   "bg_opts": {
+    "guard": true
+   },
+   "camera": "track_left",
+   "transition": "push",
+   "cast": [
+    {
+     "id": "deputy",
+     "x": [
+      0.7,
+      0.5
+     ],
+     "y": 0.9,
+     "action": "walk",
+     "face": -1,
+     "expr": "neutral"
+    }
+   ]
+  },
+  {
+   "say": "That morning, he pulled a small black pistol. It was wood, reportedly darkened with shoe polish.",
+   "bg": "prison",
+   "bg_opts": {
+    "bars": true
+   },
+   "camera": "push_in",
+   "transition": "flash",
+   "shake": [
+    [
+     0.4,
+     0.4,
+     18
+    ]
+   ],
+   "cast": [
+    {
+     "id": "dillinger",
+     "x": 0.4,
+     "y": 1.24,
+     "scale": 2.1,
+     "action": "point",
+     "expr": "angry",
+     "face": 1
+    }
+   ],
+   "props": [
+    {
+     "kind": "gun",
+     "x": 0.66,
+     "y": 0.5,
+     "scale": 0.9,
+     "motion": "slam",
+     "appear": 0.5
+    }
+   ]
+  },
+  {
+   "say": "The deputies raised their hands. Guards and prisoners were locked inside the cell block.",
+   "bg": "prison",
+   "camera": "pan_left",
+   "transition": "whip_right",
+   "cast": [
+    {
+     "id": "deputy",
+     "x": 0.65,
+     "y": 0.9,
+     "action": "shock",
+     "expr": "shock",
+     "face": -1
+    },
+    {
+     "id": "dillinger",
+     "x": 0.3,
+     "y": 0.9,
+     "action": "point",
+     "expr": "serious",
+     "face": 1
+    }
+   ]
+  },
+  {
+   "say": "Then he demanded the fastest car around: the sheriff's own Ford.",
+   "hook": "THE SHERIFF'S OWN CAR",
+   "bg": "street",
+   "camera": "track_right",
+   "transition": "whip_left",
+   "cast": [
+    {
+     "id": "dillinger",
+     "x": [
+      0.2,
+      0.6
+     ],
+     "y": 0.9,
+     "action": "run",
+     "face": 1,
+     "expr": "smile"
+    }
+   ]
+  },
+  {
+   "say": "He sped to Chicago with two hostages, then let them go unharmed.",
+   "bg": "forest_night",
+   "camera": "pan_right",
+   "transition": "fog",
+   "text": {
+    "big": "2 HOSTAGES",
+    "sub": "RELEASED UNHARMED",
+    "y": 0.24
+   }
+  },
+  {
+   "say": "But crossing into Illinois in a stolen car was a federal crime. Now federal agents could hunt him.",
+   "hook": "HIS BIG MISTAKE",
+   "bg": "map",
+   "camera": "push_in",
+   "transition": "push",
+   "props": [
+    {
+     "kind": "poster",
+     "x": 0.5,
+     "y": 0.45,
+     "scale": 1.0,
+     "motion": "slam",
+     "appear": 1.5,
+     "opts": {
+      "title": "WANTED",
+      "char": "dillinger",
+      "sub": "JOHN DILLINGER"
+     }
+    }
+   ]
+  },
+  {
+   "say": "Less than five months later, agents shot him dead outside a Chicago theater.",
+   "bg": "street",
+   "bg_opts": {
+    "rain": true
+   },
+   "camera": "crane_down",
+   "transition": "flash",
+   "text": {
+    "big": "JULY 22, 1934",
+    "sub": "CHICAGO",
+    "y": 0.24
+   },
+   "cast": [
+    {
+     "id": "agent",
+     "x": [
+      0.75,
+      0.6
+     ],
+     "y": 0.9,
+     "action": "walk",
+     "face": -1,
+     "expr": "serious"
+    }
+   ]
+  },
+  {
+   "say": "He claimed he carved it himself. Some say it was smuggled in. Genius, or inside job? Tell me in the comments.",
+   "bg": "evidence",
+   "bg_opts": {
+    "labels": [
+     "WOODEN GUN",
+     "SHERIFF'S FORD",
+     "ESCAPE-PROOF?"
+    ]
+   },
+   "camera": "pull_out",
+   "transition": "dissolve",
+   "cast": [
+    {
+     "id": "dillinger",
+     "x": 0.5,
+     "y": 1.24,
+     "scale": 2.1,
+     "action": "stand",
+     "expr": "smile",
+     "face": 1
+    }
+   ]
+  }
+ ],
+ "hashtags": [
+  "#TrueCrime",
+  "#JohnDillinger",
+  "#CrimeHistory"
+ ],
+ "pinned_comment": "📌 How did Dillinger get that wooden gun? 1️⃣ He carved it himself 2️⃣ It was smuggled in. Vote below 👇 and follow for a new true story every day.",
+ "cover": {
+  "title": "ESCAPED WITH A WOODEN GUN",
+  "focus": "dillinger",
+  "tag": "TRUE STORY"
+ },
+ "comic": {
+  "variant": "comic",
+  "characters": {
+   "dillinger": "white man aged 30, average build, dark brown hair slicked back with a side part, clean-shaven, sly half smile, 1934 vest over a white shirt with rolled sleeves, dark trousers",
+   "estill": "heavyset white man in his 50s, receding grey hair, round glasses, dark 1930s double-breasted suit and tie",
+   "sheriff": "white woman in her 40s, dark hair pinned up, 1930s dark dress with a sheriff's star badge",
+   "deputy": "white man around 40, 1930s grey county jail deputy uniform and peaked cap, ring of keys on his belt",
+   "agent": "lean white man in his 30s, dark fedora, long dark overcoat, 1930s federal agent"
+  },
+  "shots": [
+   {
+    "scene": 0,
+    "word": 0,
+    "move": "push_in",
+    "fx": [
+     "flicker"
+    ],
+    "prompt": "Dramatic close-up of [dillinger] inside a 1934 jail corridor, holding a small blackened wooden pistol at his chest, iron cell bars behind him, harsh single bulb light, defiant smirk",
+    "action": "[dillinger] slowly raises the small black wooden pistol, the bare bulb above swinging gently and shadows sliding across the bars"
+   },
+   {
+    "scene": 0,
+    "word": 11,
+    "move": "pan_right",
+    "fx": [
+     "fog"
+    ],
+    "prompt": "Wide shot of a grim red-brick 1930s county jail and courthouse in a small Indiana town on a cold March morning, bare trees, a black Ford parked outside",
+    "action": "Cold mist drifts past the brick jail walls as the camera glides slowly along the building"
+   },
+   {
+    "scene": 1,
+    "word": 0,
+    "move": "pan_left",
+    "fx": [
+     "dust"
+    ],
+    "prompt": "Medium shot of [dillinger] in a crowded 1934 courtroom, reporters with flash cameras behind him, wooden benches, sunlight through tall windows, he looks relaxed and confident",
+    "action": "Reporters lean forward and flash bulbs pop as [dillinger] turns his head slowly and smiles"
+   },
+   {
+    "scene": 2,
+    "word": 0,
+    "move": "push_in",
+    "fx": [
+     "flicker"
+    ],
+    "prompt": "[estill] standing beside [dillinger] for a press photo in a 1934 jail office, the heavyset man's arm draped over the robber's shoulder, both smiling, photographers with big flash cameras in the foreground",
+    "action": "A press camera flash bursts and both men hold their smiles as smoke from the flash bulb drifts upward"
+   },
+   {
+    "scene": 2,
+    "word": 13,
+    "move": "tilt_down",
+    "fx": [],
+    "prompt": "Close-up of a 1934 newspaper front page lying on a desk showing a photo of two smiling men arm in arm, a coffee cup and a gavel beside it, morning light",
+    "action": "The newspaper slides slowly across the desk and comes to rest beside the gavel"
+   },
+   {
+    "scene": 3,
+    "word": 0,
+    "move": "pan_right",
+    "fx": [
+     "flicker"
+    ],
+    "prompt": "Long empty jail corridor in 1934 with thick steel bars and heavy locks, [deputy] patrolling with a ring of keys, cold blue light, an air of total security",
+    "action": "[deputy] walks slowly down the corridor, his keys swinging, as light flickers over the steel bars"
+   },
+   {
+    "scene": 4,
+    "word": 0,
+    "move": "push_in",
+    "fx": [],
+    "prompt": "Over-the-shoulder shot inside a 1934 jail: [dillinger] pressing a small black wooden pistol into the back of [deputy], who freezes in shock, tense stillness, hard side light",
+    "action": "[deputy] slowly raises both hands as [dillinger] steps closer behind him, holding the small black pistol low"
+   },
+   {
+    "scene": 4,
+    "word": 9,
+    "move": "tilt_up",
+    "fx": [
+     "dust"
+    ],
+    "prompt": "Extreme close-up of a crude hand-carved wooden pistol stained black with shoe polish, a razor handle for a barrel, lying on a rough wooden table under a lamp",
+    "action": "The camera slowly circles the small wooden pistol as dust floats through the lamp light"
+   },
+   {
+    "scene": 5,
+    "word": 0,
+    "move": "pan_left",
+    "fx": [
+     "flicker"
+    ],
+    "prompt": "Wide shot of a 1934 jail cell block: guards and prisoners in striped shirts being herded into a large barred cell, [dillinger] holding the door, dim overhead lamps",
+    "action": "The barred cell door swings shut with a slam as the guards inside step back from it"
+   },
+   {
+    "scene": 6,
+    "word": 0,
+    "move": "pan_right",
+    "fx": [
+     "dust"
+    ],
+    "prompt": "[dillinger] striding out of a jail garage toward a black 1933 Ford V8 sedan, hat pulled low, early morning sun, small-town street behind",
+    "action": "[dillinger] walks quickly to the black Ford, pulls open the door and slides behind the wheel"
+   },
+   {
+    "scene": 7,
+    "word": 0,
+    "move": "pan_left",
+    "fx": [
+     "dust"
+    ],
+    "prompt": "A black 1933 Ford V8 speeding along an empty two-lane country road through flat Midwest farmland in late winter, dust trailing behind, wide shot",
+    "action": "The black Ford races down the country road, kicking up a long trail of dust behind it"
+   },
+   {
+    "scene": 8,
+    "word": 0,
+    "move": "push_in",
+    "fx": [],
+    "prompt": "Low angle on a weathered 1930s road sign at the Indiana-Illinois state line, a black Ford speeding past it, grey sky, ominous mood",
+    "action": "The black Ford roars past the state line sign and disappears down the road"
+   },
+   {
+    "scene": 8,
+    "word": 13,
+    "move": "tilt_down",
+    "fx": [
+     "flicker"
+    ],
+    "prompt": "1934 federal agents in fedoras gathered around a desk under a hanging lamp, studying a wanted poster and a map of the Midwest pinned to the wall, cigarette smoke",
+    "action": "An agent slides the wanted poster across the desk while cigarette smoke curls under the lamp"
+   },
+   {
+    "scene": 9,
+    "word": 0,
+    "move": "push_in",
+    "fx": [
+     "fog"
+    ],
+    "prompt": "Night street in 1934 Chicago outside a glowing movie theater marquee with bright bulbs, [agent] waiting in the shadows of a doorway, crowds leaving the theater",
+    "action": "Theater lights twinkle as the crowd spills onto the sidewalk and [agent] steps slowly out of the shadows"
+   },
+   {
+    "scene": 10,
+    "word": 0,
+    "move": "pull_out",
+    "fx": [
+     "fog"
+    ],
+    "prompt": "Museum-style close-up of a small black carved wooden pistol displayed on velvet under a spotlight, a 1934 mugshot of [dillinger] blurred behind it, mysterious mood",
+    "action": "The spotlight slowly brightens over the wooden pistol as the camera pulls back from the display"
+   }
+  ]
+ }
+}

@@ -1,0 +1,428 @@
+{
+ "id": "2026-11-24-2-ghost-army",
+ "title": "The Ghost Army of World War II",
+ "caption": "The US Army fooled Hitler with inflatable tanks. 🎈\n\nThe men behind it were artists, and their secret stayed buried for decades.\n\nShould trickery count as heroism? Tell us below 👇",
+ "hook": "FAKE TANKS FOOLED HITLER",
+ "sources": [
+  "https://www.smithsonianmag.com/history/when-an-army-of-artists-fooled-hitler-71563360/",
+  "https://www.nationalww2museum.org/war/articles/ghost-army-canvas-and-camouflage",
+  "https://www.army.mil/article/247350/fort_leonard_wood_examines_wwii_ghost_army_deception_tactics"
+ ],
+ "cast": {
+  "gi": {
+   "skin": "#e6c0a0",
+   "hair": "brown",
+   "hair_style": "short",
+   "outfit": "uniform",
+   "outfit_color": "#5c5a3e",
+   "hat": "helmet",
+   "hat_color": "#4c4e38",
+   "build": "slim",
+   "age": 23,
+   "gender": "m"
+  },
+  "artist": {
+   "skin": "#ecc8aa",
+   "hair": "dark_brown",
+   "hair_style": "side_part",
+   "outfit": "uniform",
+   "outfit_color": "#5c5a3e",
+   "hat": "cap",
+   "hat_color": "#5c5a3e",
+   "build": "slim",
+   "age": 22,
+   "gender": "m"
+  },
+  "frenchman": {
+   "skin": "#e2b896",
+   "hair": "black",
+   "hair_style": "short",
+   "facial_hair": "mustache",
+   "outfit": "coat",
+   "outfit_color": "#4a4036",
+   "hat": "beret",
+   "hat_color": "#222222",
+   "build": "average",
+   "age": 40,
+   "gender": "m"
+  },
+  "officer": {
+   "skin": "#e2b896",
+   "hair": "grey",
+   "hair_style": "receding",
+   "outfit": "uniform",
+   "outfit_color": "#5c5a3e",
+   "hat": "military",
+   "hat_color": "#5c5a3e",
+   "medals": true,
+   "build": "average",
+   "age": 48,
+   "gender": "m"
+  }
+ },
+ "scenes": [
+  {
+   "say": "The US Army fooled Hitler with inflatable tanks. And that wasn't even their best trick.",
+   "hook": "FAKE TANKS FOOLED HITLER",
+   "bg": "battlefield",
+   "camera": "push_in",
+   "cast": [
+    {
+     "id": "gi",
+     "x": 0.5,
+     "y": 1.24,
+     "scale": 2.1,
+     "action": "stand",
+     "expr": "smile",
+     "face": 1
+    }
+   ]
+  },
+  {
+   "say": "They were called the Ghost Army. About 1,100 American soldiers, activated in January 1944.",
+   "bg": "map",
+   "camera": "pan_right",
+   "transition": "whip_left",
+   "text": {
+    "big": "1,100",
+    "sub": "SOLDIERS, JANUARY 1944",
+    "y": 0.24,
+    "color": "#ffd60a"
+   }
+  },
+  {
+   "say": "Many were artists from art schools, including future fashion designer Bill Blass and painter Ellsworth Kelly.",
+   "hook": "AN ARMY OF ARTISTS",
+   "bg": "room",
+   "camera": "drift",
+   "transition": "dissolve",
+   "cast": [
+    {
+     "id": "artist",
+     "x": 0.45,
+     "y": 0.9,
+     "action": "hold",
+     "expr": "smile",
+     "face": 1
+    }
+   ]
+  },
+  {
+   "say": "Their job: impersonate entire divisions, using inflatable tanks pumped up by air compressors.",
+   "bg": "battlefield",
+   "camera": "track_right",
+   "transition": "push",
+   "cast": [
+    {
+     "id": "gi",
+     "x": [
+      0.2,
+      0.4
+     ],
+     "y": 0.9,
+     "action": "carry",
+     "face": 1,
+     "expr": "serious"
+    }
+   ]
+  },
+  {
+   "say": "After D-Day, two Frenchmen on bicycles slipped past the guards. They saw four soldiers lift a 40-ton Sherman tank.",
+   "hook": "THEN THEY SAW THIS...",
+   "bg": "river",
+   "camera": "pan_left",
+   "transition": "whip_right",
+   "cast": [
+    {
+     "id": "frenchman",
+     "x": 0.7,
+     "y": 0.9,
+     "action": "shock",
+     "expr": "shock",
+     "face": -1
+    },
+    {
+     "id": "gi",
+     "x": 0.3,
+     "y": 0.9,
+     "action": "carry",
+     "expr": "neutral",
+     "face": 1
+    }
+   ],
+   "text": {
+    "big": "40 TONS",
+    "sub": "LIFTED BY 4 MEN",
+    "y": 0.24
+   }
+  },
+  {
+   "say": "They faked sound too: 500-pound speakers, heard up to 15 miles away.",
+   "bg": "forest_night",
+   "camera": "rise",
+   "transition": "fog",
+   "text": {
+    "big": "15 MILES",
+    "sub": "500-POUND SPEAKERS",
+    "y": 0.24
+   }
+  },
+  {
+   "say": "Radio operators sent phony messages. Soldiers wore fake patches and leaked false rumors.",
+   "bg": "street",
+   "camera": "pan_right",
+   "transition": "whip_left",
+   "cast": [
+    {
+     "id": "artist",
+     "x": 0.4,
+     "y": 0.9,
+     "action": "talk",
+     "talk": true,
+     "expr": "smile",
+     "face": 1
+    },
+    {
+     "id": "frenchman",
+     "x": 0.65,
+     "y": 0.9,
+     "action": "lean",
+     "expr": "neutral",
+     "face": -1
+    }
+   ]
+  },
+  {
+   "say": "In March 1945, at the Rhine, 1,100 men pretended to be over 30,000, drawing Germans away from the real crossing.",
+   "hook": "1,100 PLAYED 30,000",
+   "bg": "sea_night",
+   "camera": "push_in",
+   "transition": "push",
+   "text": {
+    "big": "30,000",
+    "sub": "PRETEND SOLDIERS",
+    "y": 0.24,
+    "color": "#ffd60a"
+   }
+  },
+  {
+   "say": "They ran more than 20 operations, saving an estimated 15,000 to 30,000 American lives.",
+   "bg": "evidence",
+   "bg_opts": {
+    "labels": [
+     "20+ OPERATIONS",
+     "INFLATABLE TANKS",
+     "15,000 TO 30,000 LIVES"
+    ]
+   },
+   "camera": "drift",
+   "transition": "dissolve"
+  },
+  {
+   "say": "But their work stayed secret for decades.",
+   "hook": "SECRET FOR DECADES",
+   "bg": "office",
+   "bg_opts": {
+    "labels": [
+     "SECRET",
+     "GHOST ARMY"
+    ]
+   },
+   "camera": "crane_down",
+   "transition": "fog",
+   "props": [
+    {
+     "kind": "stamp",
+     "x": 0.5,
+     "y": 0.42,
+     "scale": 1.0,
+     "motion": "slam",
+     "appear": 0.8,
+     "opts": {
+      "text": "SECRET"
+     }
+    }
+   ]
+  },
+  {
+   "say": "In 2024, they finally received the Congressional Gold Medal. Should trickery count as heroism? Tell me in the comments.",
+   "bg": "palace",
+   "camera": "pull_out",
+   "transition": "dissolve",
+   "cast": [
+    {
+     "id": "officer",
+     "x": 0.5,
+     "y": 1.24,
+     "scale": 2.1,
+     "action": "salute",
+     "expr": "smile",
+     "face": 1
+    }
+   ]
+  }
+ ],
+ "hashtags": [
+  "#WW2",
+  "#GhostArmy",
+  "#MilitaryHistory"
+ ],
+ "pinned_comment": "📌 What was the Ghost Army's best trick? 1️⃣ Inflatable tanks 2️⃣ Fake sound 3️⃣ Phony radio. Vote below 👇 and follow for a new true story every day.",
+ "cover": {
+  "title": "FAKE TANKS FOOLED HITLER",
+  "focus": "gi",
+  "tag": "TRUE STORY"
+ },
+ "comic": {
+  "variant": "comic",
+  "characters": {
+   "gi": "young white American soldier in his early 20s, slim, 1944 olive drab US Army field uniform and M1 steel helmet",
+   "artist": "thin young white American soldier aged 22, dark side-parted hair, olive drab 1944 US Army uniform with garrison cap, sketchbook and pencil",
+   "frenchman": "French farmer around 40, dark mustache, black beret, worn brown wool jacket, 1944"
+  },
+  "shots": [
+   {
+    "scene": 0,
+    "word": 0,
+    "move": "push_in",
+    "fx": [
+     "dust"
+    ],
+    "prompt": "Low angle across a misty 1944 French field: four young American soldiers effortlessly lifting a full-size Sherman tank over their heads, the tank clearly an inflatable rubber dummy, astonishing sight",
+    "action": "Four soldiers hoist the huge rubber tank above their heads and turn it slowly as mist drifts across the field"
+   },
+   {
+    "scene": 0,
+    "word": 8,
+    "move": "pan_right",
+    "fx": [
+     "fog"
+    ],
+    "prompt": "Wide shot of a long row of Sherman tanks under camouflage nets at the edge of a forest at dawn in 1944 France, seen from far away, convincing and menacing",
+    "action": "Morning fog rolls slowly past the row of tanks while the camouflage nets ripple in the breeze"
+   },
+   {
+    "scene": 1,
+    "word": 0,
+    "move": "tilt_down",
+    "fx": [],
+    "prompt": "Aerial view of a 1944 US Army camp at Camp Forrest, Tennessee: rows of canvas tents and hundreds of soldiers assembling in formation, winter light",
+    "action": "Columns of soldiers march across the parade ground between rows of canvas tents"
+   },
+   {
+    "scene": 2,
+    "word": 0,
+    "move": "push_in",
+    "fx": [
+     "dust"
+    ],
+    "prompt": "[artist] sitting on an army crate sketching a French farmhouse in a sketchbook, other soldiers painting a canvas dummy truck behind him, warm afternoon light, 1944",
+    "action": "[artist] sketches quickly with his pencil while the soldiers behind him brush paint onto the dummy truck"
+   },
+   {
+    "scene": 3,
+    "word": 0,
+    "move": "pan_left",
+    "fx": [
+     "dust"
+    ],
+    "prompt": "A deflated olive drab rubber tank lying flat on the grass, soldiers hooking up a gas-powered air compressor to it, hoses snaking across the ground, 1944 France",
+    "action": "The flat rubber tank swells and rises off the grass as the compressor pumps air into it"
+   },
+   {
+    "scene": 4,
+    "word": 0,
+    "move": "pan_right",
+    "fx": [
+     "fog"
+    ],
+    "prompt": "Two French civilians on old bicycles, one of them [frenchman], pedaling down a hedgerow lane in Normandy in summer 1944, peering through a gap in the hedge",
+    "action": "The two men pedal slowly along the lane, then brake and stare through the gap in the hedge"
+   },
+   {
+    "scene": 4,
+    "word": 12,
+    "move": "push_in",
+    "fx": [],
+    "prompt": "Over-the-shoulder shot from behind [frenchman]: four American soldiers in a field lifting and turning a 40-ton-looking Sherman tank by hand, his jaw dropping",
+    "action": "The soldiers rotate the tank in place as [frenchman] slowly lowers his bicycle in disbelief"
+   },
+   {
+    "scene": 5,
+    "word": 0,
+    "move": "tilt_up",
+    "fx": [
+     "fog"
+    ],
+    "prompt": "Night in a dark 1944 forest: a huge loudspeaker mounted on a US Army half-track, aimed into the trees, soldiers adjusting dials, moonlight through branches",
+    "action": "The giant speaker vibrates as sound booms out and leaves tremble on the branches in the moonlight"
+   },
+   {
+    "scene": 6,
+    "word": 0,
+    "move": "push_in",
+    "fx": [
+     "flicker"
+    ],
+    "prompt": "Inside a 1944 army radio tent at night, a soldier wearing headphones tapping a Morse code key, glowing radio sets and a lamp, focused face",
+    "action": "The soldier taps the Morse key rapidly as the radio dials glow and the lamp light flickers"
+   },
+   {
+    "scene": 6,
+    "word": 6,
+    "move": "pan_left",
+    "fx": [],
+    "prompt": "A small 1944 French village cafe: [artist] in uniform with a fake division patch on his shoulder, chatting with locals over wine, a curious man listening at the next table",
+    "action": "[artist] leans in and talks quietly while the man at the next table turns his head to listen"
+   },
+   {
+    "scene": 7,
+    "word": 0,
+    "move": "pull_out",
+    "fx": [
+     "fog"
+    ],
+    "prompt": "Night along the Rhine River in March 1945: hundreds of dummy tanks and trucks lined up on the riverbank, distant searchlights in the sky, wide epic shot",
+    "action": "Searchlights sweep slowly across the night sky above the long rows of dummy tanks on the riverbank"
+   },
+   {
+    "scene": 7,
+    "word": 13,
+    "move": "pan_right",
+    "fx": [
+     "embers"
+    ],
+    "prompt": "German officers in long grey coats studying the far riverbank through binoculars from a ruined building at dusk, 1945, smoke on the horizon",
+    "action": "The officer lowers his binoculars slowly while smoke drifts across the horizon behind him"
+   },
+   {
+    "scene": 8,
+    "word": 0,
+    "move": "tilt_down",
+    "fx": [
+     "dust"
+    ],
+    "prompt": "Map table in a 1945 US Army headquarters tent with pins and arrows across Europe, a hand moving a small wooden tank marker, lamp light",
+    "action": "A hand slides the wooden tank marker across the map as the lamp swings gently overhead"
+   },
+   {
+    "scene": 9,
+    "word": 0,
+    "move": "push_in",
+    "fx": [
+     "dust"
+    ],
+    "prompt": "A thick army file folder with a red classified stamp being locked inside a steel filing cabinet in a dim 1945 office, dust in the air",
+    "action": "The steel drawer slides shut and a key turns in the lock as dust floats through the light"
+   },
+   {
+    "scene": 10,
+    "word": 0,
+    "move": "pull_out",
+    "fx": [],
+    "prompt": "Elderly American veterans in suits and army caps standing proudly in a grand marble hall of the US Capitol, a gold medal on display, warm light",
+    "action": "The veterans stand tall and smile as the camera pulls back through the grand marble hall"
+   }
+  ]
+ }
+}
