@@ -180,5 +180,12 @@
  "cover": {
   "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261124_143408_d42d33cf-ca06-4ff9-826e-863644d19f66.png",
   "title": "HIS ONE MISTAKE"
- }
+ },
+ "cast": [
+  {
+   "id": "dillinger",
+   "name": "John Dillinger",
+   "look": "white man aged 30, lean face, dark brown hair combed back, thin dark mustache, cocky half-smile, 1930s dark suit and fedora; straw boater and white shirt on the night of July 22, 1934"
+  }
+ ]
 }
