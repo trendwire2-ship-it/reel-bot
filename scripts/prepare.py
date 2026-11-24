@@ -49,7 +49,7 @@ def main(only=None):
         if only and only not in p:
             continue
         d = json.load(open(p))
-        if d.get("comic") and not d["comic"].get("prepared"):
+        if d.get("comic") and not d["comic"].get("prepared") and d["comic"].get("engine") != "higgsfield":
             stories.append((p, d))
     if not stories:
         print("nothing to prepare"); return

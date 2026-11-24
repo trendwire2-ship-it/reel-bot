@@ -1,11 +1,11 @@
 # Story guide (for the daily writer)
 
 ## House style
-Every story is a FREE painted **motion comic** (no paid tools, no Higgsfield, zero credits): you write a text
-`prompt` for each panel and the repo paints it for free at render time. Every story ALSO keeps the full cinematic
-scene layout (bg, cast, actions...) so it can fall back to the free 2.5D cinematic style if painting fails.
-Every reel is 55–65 seconds. The renderers burn in the "© FACTS ON FACTS" watermark automatically; never ask for
-text, logos or watermarks inside generated art. See "Motion comic stories" at the end.
+Every story is a painted **motion comic made with Higgsfield** (the owner's choice; like the Bonnie and Clyde reel).
+If Higgsfield credits run low, write the FREE version instead (same story, panels described by text prompts, painted
+and animated for free by the repo). Every story ALSO keeps the full cinematic scene layout (bg, cast, actions...) as
+a last-resort fallback. Every reel is 55–65 seconds. The renderers burn in the "© FACTS ON FACTS" watermark
+automatically; never ask for text, logos or watermarks inside generated art. See "Motion comic stories" at the end.
 
 ## Topics
 Rotate history, war and true crime. Prefer famous, well-documented, decades-old cases and events (US/UK audiences).
@@ -103,31 +103,44 @@ then the hashtags (plus #FactsOnFacts, added automatically). Facebook flags more
 - Optional `cta`: the end-of-video follow card text (default "MORE TRUE STORIES DAILY"; keep under 26 characters).
 
 
-## Motion comic stories (every story, free)
-Add a `"comic"` block to every story (keep all the normal fields too):
-```json
-"comic": {"variant": "comic",
-  "characters": {"clyde": "slim white man in his 20s, slicked-back dark hair, 1930s three-piece suit, fedora",
-                 "bonnie": "petite white woman in her 20s, wavy strawberry-blonde bob, 1930s beret and dress"},
-  "shots": [
-    {"scene": 0, "word": 0, "move": "push_in", "fx": ["dust"],
-     "prompt": "Low angle on a dusty Louisiana back road at dawn: [clyde] and [bonnie] in a tan 1934 Ford V8 slowing beside a broken-down truck, lawmen hidden in the bushes, tense, ambush about to happen"},
-    {"scene": 0, "word": 9, "move": "pan_left", "fx": [], "prompt": "..."}]}
-```
-- 12–16 shots, a new panel every 3–5 seconds of narration. Every scene gets at least one panel.
+## Motion comic stories
+### A) Higgsfield (default) — budget max 45 credits per story
+Check the Higgsfield `balance` first. Only make a Higgsfield comic if the balance is at least 50 credits; otherwise
+write version B and say so in the run summary.
+1. Style reference: the owner's logo, Higgsfield media id `455225e4-119b-4022-821e-771632558344`, passed as
+   `image_references` on every image (re-import from
+   https://raw.githubusercontent.com/trendwire2-ship-it/reel-bot/main/assets/brand/logo.png if it stops working).
+2. Character sheets first, for each person who appears in 2+ panels: `nano_banana_pro`, aspect_ratio 16:9,
+   resolution 2k, the same person shown front / three-quarter / profile on plain grey, matching their real
+   documented look. Pass the sheet's job id as a second `image_references` item in every panel showing them, and
+   say "the person from the second reference image (same face, hair, clothes)".
+3. Panels: 12–15 `nano_banana_pro` images, aspect_ratio 9:16, resolution 2k. Prompt start: "In EXACTLY the art style
+   of the reference image: bold semi-realistic digital comic painting, confident ink outlines, dramatic cinematic
+   lighting, deep blacks, rich red, gold and moonlit blue palette, gritty grain texture, vertical 9:16 composition.
+   No text, no letters, no logo, no watermark." then one concrete, period-accurate moment. Use
+   `generate_image_batch` + `jobs_wait`.
+4. Key clips: exactly 3 (`kling3_0`, mode std, duration 3, sound off, aspect_ratio 9:16, the panel's job id as
+   `start_image`): the FIRST shot (scene 0, word 0) plus the 2 biggest moments. Short motion prompt: what moves and
+   how the camera moves.
+5. Write the block (image/clip = the Higgsfield result URLs):
+   ```json
+   "comic": {"engine": "higgsfield", "variant": "hybrid", "prepared": true, "shots": [
+     {"scene": 0, "word": 0, "image": "https://...png", "clip": "https://...mp4", "key": true, "move": "push_in", "fx": ["dust"]},
+     {"scene": 0, "word": 9, "image": "https://...png", "move": "pan_left", "fx": []}]}
+   ```
+   Typical spend: 2 sheets x2 + 15 panels x2 + 3 clips x3.75 = about 45 credits.
+
+### B) Free fallback (only when credits are below 50)
+Same block shape, but instead of `image`/`clip` each shot has a `prompt` (40+ characters, one concrete moment,
+no style words) and an `action` (10–30 words: what visibly moves in ~3 seconds), plus `"engine": "free"`,
+`"variant": "comic"` and a `characters` map ({"id": "real documented look"}, referenced as `[id]` in prompts).
+The repo paints and animates these for free.
+
+### Rules for both
+- 12–16 shots, a new panel every 3–5 seconds of narration; every scene gets at least one panel.
 - `scene` / `word`: the panel appears on that word (0-based index into that scene's `say`). Shots in order; the
-  first is scene 0, word 0 and must be the single most dramatic image of the story (it is the first frame).
-- `prompt` (40+ characters): ONE concrete moment: who, doing what, where, the era (year, clothes, cars, weapons),
-  camera angle (low angle, close-up, wide shot, over-the-shoulder), lighting and mood. Do not write style words or
-  "no text": the house painting style is added automatically.
-- People: define each recurring person once in `characters` with their real documented look (age, build, hair,
-  facial hair, glasses, period clothes) and write `[id]` in the prompt. Never put a real person's name in a
-  prompt; describe them. No gore, no blood, no corpses, no weapons pointed at the viewer.
-- `action` (REQUIRED, 10–30 words): what MOVES in this panel's clip, as one simple continuous action over about
-  3 seconds: "the two men walk slowly down the gallery, flashlight beams sweeping across the paintings", "the frame
-  crashes onto the marble floor and shatters". Every panel is animated into a real AI video clip from this text, so
-  describe visible motion (walking, turning, smashing, running, smoke, waves), not thoughts or backstory. One action
-  per panel; avoid complex multi-person fights or fast spinning, which animate badly.
-- `move`: push_in | pull_out | pan_left | pan_right | tilt_up | tilt_down (vary them; used if a clip fails).
+  first is scene 0, word 0 and must be the most dramatic image of the story.
+- Never put a real person's name in an image prompt; describe them. No gore, no blood, no corpses.
+- `move`: push_in | pull_out | pan_left | pan_right | tilt_up | tilt_down (vary them).
 - `fx` (optional overlays): rain, heavy_rain, fog, dust, lightning, flicker, embers, snow.
 - Run `python3 scripts/validate.py <file>`; it checks the comic block.
