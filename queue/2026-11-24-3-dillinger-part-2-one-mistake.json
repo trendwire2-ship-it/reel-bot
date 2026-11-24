@@ -1,0 +1,184 @@
+{
+ "id": "2026-11-24-3-dillinger-part-2-one-mistake",
+ "title": "Dillinger Part 2: The One Mistake That Brought the FBI",
+ "hook": "ONE DRIVE DOOMED HIM",
+ "caption": "Part 2 🔫 He beat an \"escape-proof\" jail with a wooden gun... then one short drive put the whole federal government on his trail.\n\nGenius escape, dumb getaway, or was he set up? Tell us below 👇\n\nMissed Part 1? It's on our page.",
+ "hashtags": [
+  "#TrueCrime",
+  "#JohnDillinger",
+  "#CrimeHistory"
+ ],
+ "pinned_comment": "📌 Part 2 of the Dillinger story. Which part of his downfall surprised you most: 1️⃣ the stolen car 2️⃣ the $10,000 reward 3️⃣ the tip-off? Vote below 👇 and follow for Part 3 ideas!",
+ "sources": [
+  "https://prologue.blogs.archives.gov/2012/03/14/a-public-enemys-life-in-the-fast-lane/",
+  "https://www.britannica.com/biography/John-Dillinger",
+  "https://www.fbi.gov/news/stories/2008/july/dillinger_072208",
+  "https://www.pbs.org/wgbh/americanexperience/features/dillinger-john-dillinger-timeline",
+  "https://www.americanheritage.com/outlaw",
+  "https://historynet.com/public-enemies-keystone-cops/"
+ ],
+ "scenes": [
+  {
+   "say": "He escaped jail with a wooden gun. Then one short drive doomed him.",
+   "hook": "ONE DRIVE DOOMED HIM"
+  },
+  {
+   "say": "This is part two. He fled Crown Point in the sheriff's own Ford, heading for Chicago."
+  },
+  {
+   "say": "Somewhere on that road, he crossed from Indiana into Illinois.",
+   "hook": "THE STATE LINE"
+  },
+  {
+   "say": "Bank robbery wasn't a federal crime yet. But driving a stolen car across state lines was."
+  },
+  {
+   "say": "A federal charge was filed over the sheriff's car. Now federal agents could hunt him anywhere."
+  },
+  {
+   "say": "J. Edgar Hoover made him top priority. By June, he was called America's first Public Enemy Number One.",
+   "hook": "PUBLIC ENEMY NO. 1"
+  },
+  {
+   "say": "A $10,000 reward was offered. A Chicago brothel owner, Anna Sage, facing deportation, tipped off the agents."
+  },
+  {
+   "say": "July 22, 1934. Dillinger walked out of the Biograph Theater after a Clark Gable gangster film.",
+   "hook": "THE BIOGRAPH"
+  },
+  {
+   "say": "Agents were waiting. He reached for his gun. They opened fire, and he died that night."
+  },
+  {
+   "say": "His bank robberies made him famous. A stolen car across a state line is what brought him down."
+  },
+  {
+   "say": "Genius escape, dumb getaway, or was he set up? Tell me in the comments.",
+   "hook": "YOUR VERDICT"
+  }
+ ],
+ "comic": {
+  "engine": "higgsfield",
+  "variant": "hybrid",
+  "prepared": true,
+  "shots": [
+   {
+    "scene": 0,
+    "word": 0,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261124_143405_fcfeedb2-940f-451d-be10-cb9eaea366d5.png",
+    "move": "push_in",
+    "fx": [
+     "rain"
+    ],
+    "clip": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261124_143623_230ab82a-25c4-4577-8bab-d531b9d23b4d.mp4",
+    "key": true
+   },
+   {
+    "scene": 0,
+    "word": 7,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261124_143405_0f39d92e-0b26-43b2-9c4c-5a657f3408a9.png",
+    "move": "pull_out",
+    "fx": []
+   },
+   {
+    "scene": 1,
+    "word": 0,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261124_143710_416bf146-64ad-4e4c-a0ec-3a5d8e133aec.png",
+    "move": "pan_right",
+    "fx": []
+   },
+   {
+    "scene": 2,
+    "word": 0,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261124_143318_b655f4bf-942d-414e-b8e8-7eaef1726027.png",
+    "move": "pan_left",
+    "fx": [
+     "dust"
+    ]
+   },
+   {
+    "scene": 3,
+    "word": 0,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261124_143316_ccf1b82d-010b-4ebb-9503-e2279ae7dc98.png",
+    "move": "push_in",
+    "fx": [
+     "flicker"
+    ]
+   },
+   {
+    "scene": 4,
+    "word": 9,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261124_143319_769bcbe2-fe34-4574-a16a-0b66247c0637.png",
+    "move": "tilt_up",
+    "fx": []
+   },
+   {
+    "scene": 5,
+    "word": 0,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261124_143317_7b545994-270e-4bfa-98cd-657a6656de75.png",
+    "move": "push_in",
+    "fx": []
+   },
+   {
+    "scene": 5,
+    "word": 7,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261124_143405_c6af5c00-1cbf-4f3a-a509-a552b27c5de6.png",
+    "move": "pan_right",
+    "fx": [
+     "dust"
+    ]
+   },
+   {
+    "scene": 6,
+    "word": 5,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261124_143320_7331c290-b432-4832-bfa5-77d8f6c6c580.png",
+    "move": "push_in",
+    "fx": [
+     "rain"
+    ]
+   },
+   {
+    "scene": 7,
+    "word": 0,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261124_143318_1c8ea79f-a3a6-4a56-a93f-028f06ba858a.png",
+    "move": "pull_out",
+    "fx": [],
+    "clip": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261124_143534_9d74cb96-370b-4571-9952-f6298bfc0e54.mp4",
+    "key": true
+   },
+   {
+    "scene": 8,
+    "word": 0,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261124_143406_4c32ce53-f732-4420-9ed2-18d052bf0e1d.png",
+    "move": "push_in",
+    "fx": [
+     "flicker"
+    ],
+    "clip": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261124_143756_81ac7eec-df8a-4f5f-b091-d83391c8c3a3.mp4",
+    "key": true
+   },
+   {
+    "scene": 9,
+    "word": 0,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261124_143318_88ad5163-2a12-42f6-9070-780e50b8cc4b.png",
+    "move": "pan_left",
+    "fx": [
+     "fog"
+    ]
+   },
+   {
+    "scene": 10,
+    "word": 0,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261124_143408_d42d33cf-ca06-4ff9-826e-863644d19f66.png",
+    "move": "push_in",
+    "fx": [
+     "embers"
+    ]
+   }
+  ]
+ },
+ "cover": {
+  "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261124_143408_d42d33cf-ca06-4ff9-826e-863644d19f66.png",
+  "title": "HIS ONE MISTAKE"
+ }
+}
