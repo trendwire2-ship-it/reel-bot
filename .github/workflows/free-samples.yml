@@ -75,7 +75,8 @@ jobs:
       - name: Publish to previews-free branch
         if: always()
         run: |
-          mkdir -p /tmp/pv && cp out/free-comic.mp4 out/panels.jpg /tmp/pv/ 2>/dev/null || true
+          mkdir -p /tmp/pv && cp out/panels.jpg /tmp/pv/ 2>/dev/null || true
+          [ -f out/free-comic.mp4 ] && ffmpeg -loglevel error -y -i out/free-comic.mp4 -c:v libx264 -crf 23 -preset fast -c:a copy /tmp/pv/free-comic.mp4 || true
           cp out/voices/*.mp3 /tmp/pv/ 2>/dev/null || true
           git config user.name reel-bot; git config user.email reel-bot@users.noreply.github.com
           git checkout -q --orphan previews-free
