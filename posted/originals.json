@@ -47,5 +47,12 @@
   "sha256": "aaf4be77769aebaff2412dc93da74bf6c7c8758b014d5d005076353448efd786",
   "rendered_utc": "2026-11-24T13:37:40.392373Z",
   "style": "comic"
+ },
+ {
+  "id": "2026-11-24-2-ghost-army",
+  "title": "The Ghost Army of World War II",
+  "sha256": "c6ef53fc20f967f29b0a22228367334267cf6ec6dcaa5dfb1280cecf0d4015bc",
+  "rendered_utc": "2026-11-24T23:19:11.639805Z",
+  "style": "comic"
  }
 ]
