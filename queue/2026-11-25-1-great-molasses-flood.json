@@ -1,0 +1,198 @@
+{
+ "id": "2026-11-25-1-great-molasses-flood",
+ "title": "The Great Molasses Flood of 1919",
+ "hook": "KILLED BY MOLASSES",
+ "caption": "A 15-foot wave of molasses tore through Boston at 35 miles per hour. 🌊\n\nThe tank had been leaking for years... and the owners knew it.\n\nFreak accident or corporate greed? Tell us below 👇",
+ "hashtags": [
+  "#History",
+  "#MolassesFlood",
+  "#StrangeHistory"
+ ],
+ "pinned_comment": "📌 What caused the Great Molasses Flood? 1️⃣ A freak accident 2️⃣ Corporate greed 3️⃣ Both 👇 Follow for a new true story every day!",
+ "sources": [
+  "https://www.britannica.com/topic/Great-Molasses-Flood",
+  "https://www.boston.gov/news/100-years-ago-today-molasses-crashes-through-bostons-north-end",
+  "https://www.history.com/news/the-great-molasses-flood-of-1919"
+ ],
+ "scenes": [
+  {
+   "say": "A wave of molasses killed 21 people in Boston.",
+   "hook": "KILLED BY MOLASSES"
+  },
+  {
+   "say": "January 15, 1919. An unusually warm winter day in Boston's North End. Around lunchtime, people heard a deep rumble."
+  },
+  {
+   "say": "A steel tank, 50 feet tall and holding over 2 million gallons of molasses, burst apart.",
+   "hook": "2 MILLION GALLONS"
+  },
+  {
+   "say": "A brown wall of syrup, about 15 feet high, roared through the streets at 35 miles per hour."
+  },
+  {
+   "say": "It snapped the steel supports of an elevated railway. It knocked a firehouse right off its foundation."
+  },
+  {
+   "say": "21 people died. About 150 were injured. But the strangest part came before the wave.",
+   "hook": "THE WARNING SIGNS"
+  },
+  {
+   "say": "The tank had leaked for years. Local children collected the dripping molasses in pails."
+  },
+  {
+   "say": "The owners reportedly painted the tank brown to hide the leaks. After the disaster, they blamed anarchists and a bomb.",
+   "hook": "THEY BLAMED A BOMB"
+  },
+  {
+   "say": "In 1925, a court-appointed auditor ruled otherwise. The owners' negligence was to blame.",
+   "hook": "THE VERDICT"
+  },
+  {
+   "say": "States adopted stricter building codes. And Boston smelled of molasses for years afterward."
+  },
+  {
+   "say": "Freak accident, or corporate greed? Tell me in the comments."
+  }
+ ],
+ "comic": {
+  "engine": "higgsfield",
+  "variant": "hybrid",
+  "prepared": true,
+  "shots": [
+   {
+    "scene": 0,
+    "word": 0,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261125_043135_7cfdcd83-fd02-4bc0-894f-c46c7c62a829.png",
+    "move": "push_in",
+    "fx": [
+     "dust"
+    ],
+    "clip": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261125_043734_9768c4be-32ee-43c8-b695-aa4218ee0a43.mp4",
+    "key": true
+   },
+   {
+    "scene": 1,
+    "word": 0,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261125_043133_418aff19-0029-4d32-aaff-a9608000f6d5.png",
+    "move": "pan_right",
+    "fx": []
+   },
+   {
+    "scene": 1,
+    "word": 12,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261125_043133_69943f1b-9860-401f-8450-909c4699f1e2.png",
+    "move": "push_in",
+    "fx": [
+     "flicker"
+    ]
+   },
+   {
+    "scene": 2,
+    "word": 0,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261125_043133_84227fec-bb21-4c51-83f5-34ff66086b6c.png",
+    "move": "pull_out",
+    "fx": [
+     "dust"
+    ],
+    "clip": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261125_043735_526b9b20-6311-4429-b5fe-870e7c731554.mp4",
+    "key": true
+   },
+   {
+    "scene": 3,
+    "word": 0,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261125_043133_cdf931c8-4d76-4462-9f04-76bad541b34f.png",
+    "move": "pan_left",
+    "fx": []
+   },
+   {
+    "scene": 4,
+    "word": 0,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261125_043133_a39a79e3-1b03-4e9e-b929-40db9b867893.png",
+    "move": "tilt_up",
+    "fx": [
+     "dust"
+    ],
+    "clip": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261125_043734_9b9f899a-451c-4faf-9d4d-4916e34696e7.mp4",
+    "key": true
+   },
+   {
+    "scene": 4,
+    "word": 9,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261125_043133_5e77ba6c-b629-470c-b657-fa2edf27b9eb.png",
+    "move": "push_in",
+    "fx": []
+   },
+   {
+    "scene": 5,
+    "word": 0,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261125_043133_bdfe869b-86ce-4e7d-8c8c-63039d4e9ccb.png",
+    "move": "pan_right",
+    "fx": [
+     "fog"
+    ]
+   },
+   {
+    "scene": 5,
+    "word": 7,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261125_043134_1067d6f4-e276-4a15-88b3-9b64309bfa63.png",
+    "move": "tilt_up",
+    "fx": [
+     "flicker"
+    ]
+   },
+   {
+    "scene": 6,
+    "word": 0,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261125_043133_7c36ed3c-5d89-4c31-8e44-a48c3731f167.png",
+    "move": "push_in",
+    "fx": []
+   },
+   {
+    "scene": 7,
+    "word": 0,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261125_043134_6187779c-afb9-4f40-ab52-34ab86b21d09.png",
+    "move": "pan_left",
+    "fx": []
+   },
+   {
+    "scene": 7,
+    "word": 11,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261125_043134_3ccb3c81-d028-49e0-8c4e-fb5532da0f70.png",
+    "move": "push_in",
+    "fx": [
+     "flicker"
+    ]
+   },
+   {
+    "scene": 8,
+    "word": 0,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261125_043137_1bd88b95-3776-4012-b6ce-83641bd30c8d.png",
+    "move": "pull_out",
+    "fx": []
+   },
+   {
+    "scene": 9,
+    "word": 0,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261125_043137_5e66703a-c684-4302-add2-c860d7548746.png",
+    "move": "pan_right",
+    "fx": [
+     "fog"
+    ]
+   },
+   {
+    "scene": 10,
+    "word": 0,
+    "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261125_043138_5e34031f-9723-4990-8f01-113cdbc6f90c.png",
+    "move": "push_in",
+    "fx": [
+     "embers"
+    ]
+   }
+  ]
+ },
+ "cover": {
+  "image": "https://d8j0ntlcm91z4.cloudfront.net/user_2zUcUG3BHsKu3Ouo5myxm5AY8RC/hf_20261125_043135_7cfdcd83-fd02-4bc0-894f-c46c7c62a829.png",
+  "title": "KILLED BY MOLASSES"
+ },
+ "cast": []
+}
