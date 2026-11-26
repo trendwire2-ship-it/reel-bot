@@ -1,0 +1,495 @@
+{
+ "id": "2026-11-26-1-urschel-kidnapping",
+ "title": "The Hostage Who Caught Machine Gun Kelly",
+ "hook": "HE CAUGHT HIS KIDNAPPERS",
+ "caption": "A blindfolded hostage helped the FBI find his own kidnappers. ✈️\n\nHis captor was Machine Gun Kelly... and the clue that sank him came from the sky.\n\nWas Urschel the real detective, or just lucky? Tell us below 👇",
+ "hashtags": [
+  "#TrueCrime",
+  "#MachineGunKelly",
+  "#FBIHistory"
+ ],
+ "pinned_comment": "📌 Who really cracked the case? 1️⃣ Urschel himself 2️⃣ The FBI agents 3️⃣ Pure luck 👇 Follow for a new true story every day!",
+ "sources": [
+  "https://www.fbi.gov/news/stories/2008/september/kelly_092608",
+  "https://www.okhistory.org/publications/enc/entry.php?entry=UR009",
+  "https://en.wikipedia.org/wiki/Machine_Gun_Kelly_(gangster)",
+  "https://en.wikipedia.org/wiki/Charles_F._Urschel"
+ ],
+ "cover": {
+  "title": "HE TRAPPED HIS KIDNAPPER",
+  "scene": 5,
+  "focus": "urschel",
+  "tag": "TRUE STORY"
+ },
+ "cast": {
+  "urschel": {
+   "skin": "#e8c4a4",
+   "hair": "dark_brown",
+   "hair_style": "side_part",
+   "eyes": "#3b2414",
+   "glasses": "none",
+   "facial_hair": "none",
+   "outfit": "suit",
+   "outfit_color": "#d9d2c3",
+   "shirt_color": "#f1eee7",
+   "tie_color": "#2c3e50",
+   "build": "average",
+   "height": 1.0,
+   "age": 43
+  },
+  "kelly": {
+   "skin": "#e3bc9a",
+   "hair": "black",
+   "hair_style": "side_part",
+   "eyes": "#3b2414",
+   "glasses": "none",
+   "facial_hair": "none",
+   "outfit": "suit",
+   "outfit_color": "#2b2b33",
+   "shirt_color": "#f1eee7",
+   "tie_color": "#7a1f1f",
+   "hat": "fedora",
+   "hat_color": "#2a2622",
+   "build": "heavy",
+   "height": 1.02,
+   "age": 38
+  },
+  "kathryn": {
+   "gender": "f",
+   "skin": "#f1d2b8",
+   "hair": "dark_brown",
+   "hair_style": "bob",
+   "outfit": "coat",
+   "outfit_color": "#3a2a2a",
+   "age": 29
+  },
+  "agent": {
+   "skin": "#e8c4a4",
+   "hair": "brown",
+   "hair_style": "short",
+   "outfit": "suit",
+   "outfit_color": "#4a4a52",
+   "tie_color": "#1c2833",
+   "hat": "fedora",
+   "hat_color": "#3a3530",
+   "age": 40
+  }
+ },
+ "scenes": [
+  {
+   "say": "A blindfolded hostage helped the FBI find his own kidnappers.",
+   "bg": "cabin",
+   "camera": "push_in",
+   "transition": "flash",
+   "cast": [
+    {
+     "id": "urschel",
+     "x": 0.5,
+     "y": 1.25,
+     "scale": 2.1,
+     "action": "sit",
+     "expr": "serious"
+    }
+   ]
+  },
+  {
+   "say": "Oklahoma City, July 22, 1933. Oilman Charles Urschel was playing bridge when two armed men burst in.",
+   "bg": "room",
+   "camera": "pan_right",
+   "transition": "whip_left",
+   "text": {
+    "big": "JULY 22, 1933",
+    "sub": "OKLAHOMA CITY",
+    "y": 0.25
+   },
+   "label": {
+    "name": "CHARLES URSCHEL",
+    "role": "OILMAN",
+    "y": 0.6,
+    "at": 2.5
+   },
+   "cast": [
+    {
+     "id": "urschel",
+     "x": 0.35,
+     "y": 0.88,
+     "action": "sit",
+     "expr": "neutral"
+    },
+    {
+     "id": "kelly",
+     "x": [
+      1.1,
+      0.72
+     ],
+     "y": 0.88,
+     "action": "walk",
+     "face": -1,
+     "hold": "gun",
+     "expr": "angry",
+     "enter": "right"
+    }
+   ]
+  },
+  {
+   "say": "One was George Kelly, soon known as Machine Gun Kelly. They took Urschel and demanded $200,000.",
+   "hook": "$200,000 RANSOM",
+   "bg": "street",
+   "bg_opts": {
+    "rain": true
+   },
+   "camera": "track_left",
+   "transition": "push",
+   "text": {
+    "big": "$200,000",
+    "sub": "RANSOM",
+    "y": 0.25
+   },
+   "label": {
+    "name": "GEORGE KELLY",
+    "role": "MACHINE GUN KELLY",
+    "y": 0.6,
+    "at": 0.5
+   },
+   "cast": [
+    {
+     "id": "kelly",
+     "x": 0.5,
+     "y": 1.25,
+     "scale": 2.1,
+     "action": "stand",
+     "expr": "serious"
+    }
+   ]
+  },
+  {
+   "say": "Blindfolded, he was driven to a hidden farmhouse. But Urschel had a plan.",
+   "hook": "HE HAD A PLAN",
+   "bg": "forest_night",
+   "camera": "drift",
+   "transition": "fog",
+   "cast": [
+    {
+     "id": "urschel",
+     "x": [
+      0.3,
+      0.55
+     ],
+     "y": 0.88,
+     "action": "walk",
+     "expr": "serious"
+    },
+    {
+     "id": "kelly",
+     "x": [
+      0.15,
+      0.4
+     ],
+     "y": 0.88,
+     "action": "walk",
+     "hold": "gun"
+    }
+   ]
+  },
+  {
+   "say": "He counted his steps. He memorized every sound. He left fingerprints on everything he could reach.",
+   "bg": "cabin",
+   "camera": "pan_left",
+   "transition": "dissolve",
+   "cast": [
+    {
+     "id": "urschel",
+     "x": [
+      0.4,
+      0.6
+     ],
+     "y": 0.88,
+     "action": "walk",
+     "expr": "serious"
+    }
+   ]
+  },
+  {
+   "say": "Then he noticed something strange. An airplane passed overhead at the same times every day.",
+   "hook": "THE SKY GAVE IT AWAY",
+   "bg": "sky",
+   "camera": "rise",
+   "transition": "whip_right",
+   "cast": []
+  },
+  {
+   "say": "The ransom was paid, and after more than a week, he was released. Agents pieced together his clues.",
+   "bg": "evidence",
+   "bg_opts": {
+    "labels": [
+     "$200,000 PAID",
+     "PLANE OVERHEAD",
+     "SAME TIMES EVERY DAY",
+     "FINGERPRINTS"
+    ]
+   },
+   "camera": "push_in",
+   "transition": "push",
+   "cast": [
+    {
+     "id": "agent",
+     "x": 0.3,
+     "y": 0.88,
+     "action": "point",
+     "expr": "serious"
+    }
+   ]
+  },
+  {
+   "say": "They led to a farm in Paradise, Texas, owned by the mother of Kelly's wife, Kathryn.",
+   "bg": "map",
+   "camera": "push_in",
+   "transition": "whip_left",
+   "text": {
+    "big": "PARADISE, TEXAS",
+    "y": 0.25
+   },
+   "cast": [
+    {
+     "id": "kathryn",
+     "x": 0.5,
+     "y": 1.25,
+     "scale": 2.0,
+     "action": "stand",
+     "expr": "serious"
+    }
+   ]
+  },
+  {
+   "say": "Agents caught the Kellys in Memphis. Legend says Kelly shouted, \"Don't shoot, G-Men!\" The FBI says he probably never did.",
+   "hook": "DON'T SHOOT, G-MEN?",
+   "bg": "street",
+   "camera": "track_right",
+   "transition": "flash",
+   "shake": [
+    [
+     0.3,
+     0.4,
+     20
+    ]
+   ],
+   "cast": [
+    {
+     "id": "agent",
+     "x": [
+      0.1,
+      0.35
+     ],
+     "y": 0.88,
+     "action": "run",
+     "expr": "serious"
+    },
+    {
+     "id": "kelly",
+     "x": 0.7,
+     "y": 0.88,
+     "action": "shock",
+     "face": -1,
+     "expr": "shock"
+    }
+   ]
+  },
+  {
+   "say": "Both got life in prison. Kelly died behind bars in 1954.",
+   "bg": "prison",
+   "bg_opts": {
+    "bars": true
+   },
+   "camera": "pull_out",
+   "transition": "dissolve",
+   "cast": [
+    {
+     "id": "kelly",
+     "x": 0.5,
+     "y": 0.88,
+     "action": "sit",
+     "expr": "sad"
+    }
+   ]
+  },
+  {
+   "say": "Hero, or just lucky? Was Urschel the real detective here? Tell me in the comments.",
+   "bg": "black",
+   "camera": "push_in",
+   "transition": "fog",
+   "cast": [
+    {
+     "id": "urschel",
+     "x": 0.5,
+     "y": 1.25,
+     "scale": 2.1,
+     "action": "stand",
+     "expr": "smile"
+    }
+   ]
+  }
+ ],
+ "comic": {
+  "engine": "free",
+  "variant": "comic",
+  "characters": {
+   "urschel": "a 43-year-old American oilman in 1933, short dark brown hair neatly combed back, clean-shaven, white dress shirt with loosened dark tie, light linen trousers",
+   "kelly": "a stocky American gangster in his late thirties in 1933, dark slicked-back hair, round clean-shaven face, dark double-breasted suit, dark fedora",
+   "kathryn": "a glamorous American woman around 30 in 1933, dark finger-waved bob, red lipstick, fur-collared dark coat",
+   "agent": "a 1930s federal agent in a grey three-piece suit and grey fedora, serious face"
+  },
+  "shots": [
+   {
+    "scene": 0,
+    "word": 0,
+    "prompt": "[urschel] sits blindfolded on a cot in a dark rural farmhouse at night, head tilted up listening, a small airplane silhouette passing a moonlit window above him",
+    "action": "his head slowly turns toward the window as the airplane light glides across it, dust drifts in the moonbeam",
+    "move": "push_in",
+    "fx": [
+     "dust"
+    ]
+   },
+   {
+    "scene": 1,
+    "word": 0,
+    "prompt": "a 1933 Oklahoma City mansion screened porch at night, two couples playing bridge at a card table under a warm lamp, cards and drinks on the table",
+    "action": "cards are laid down on the table, lamp light flickers softly, moths circle the lamp",
+    "move": "pan_right",
+    "fx": [
+     "flicker"
+    ]
+   },
+   {
+    "scene": 1,
+    "word": 13,
+    "prompt": "[kelly] bursts through a screen door holding a machine gun, a second gunman behind him, card players at a table recoiling",
+    "action": "the screen door swings open, the gunman steps forward raising the gun, players flinch back in their chairs",
+    "move": "push_in",
+    "fx": []
+   },
+   {
+    "scene": 2,
+    "word": 7,
+    "prompt": "close-up of [kelly] under the brim of his fedora, cold stare, a Thompson submachine gun on his shoulder, dark street behind him",
+    "action": "he slowly lifts his eyes from under the hat brim, cigarette smoke curls past his face",
+    "move": "push_in",
+    "fx": [
+     "fog"
+    ]
+   },
+   {
+    "scene": 2,
+    "word": 14,
+    "prompt": "a handwritten ransom note on a desk beside stacks of 1930s banknotes under a lamp",
+    "action": "the lamp light flickers over the note and the money, paper edges flutter slightly",
+    "move": "tilt_down",
+    "fx": [
+     "flicker"
+    ]
+   },
+   {
+    "scene": 3,
+    "word": 0,
+    "prompt": "a 1933 Chevrolet sedan speeding down a dark dirt country road at night, headlights cutting through dust, a blindfolded man in the back seat",
+    "action": "the car races toward the camera, dust billows behind it, headlights sweep across the road",
+    "move": "pan_left",
+    "fx": [
+     "dust"
+    ]
+   },
+   {
+    "scene": 3,
+    "word": 12,
+    "prompt": "close-up of [urschel] blindfolded, jaw set in determination, faint lamplight on his face in a dark room",
+    "action": "his jaw tightens, he takes a slow breath, lamplight flickers across his cheek",
+    "move": "push_in",
+    "fx": [
+     "flicker"
+    ]
+   },
+   {
+    "scene": 4,
+    "word": 0,
+    "prompt": "[urschel] blindfolded, one hand on a rough wooden wall, feet carefully stepping on old floorboards of a farmhouse",
+    "action": "his foot steps forward slowly across the boards, his hand slides along the wall",
+    "move": "pan_right",
+    "fx": [
+     "dust"
+    ]
+   },
+   {
+    "scene": 4,
+    "word": 10,
+    "prompt": "extreme close-up of a man's hand pressing fingertips flat onto a tin cup and a wooden table edge in a dim farmhouse",
+    "action": "the fingers press down deliberately on the cup, then lift away",
+    "move": "push_in",
+    "fx": []
+   },
+   {
+    "scene": 5,
+    "word": 0,
+    "prompt": "a single-engine 1930s passenger airplane flying low over a dusty Texas farmhouse under a pale sky, windmill beside the house",
+    "action": "the airplane crosses the sky from left to right, the windmill turns slowly",
+    "move": "pan_left",
+    "fx": []
+   },
+   {
+    "scene": 6,
+    "word": 0,
+    "prompt": "[agent] studies a large map of Texas pinned to a wall covered with notes, photos and red string, desk lamp glowing",
+    "action": "the agent traces a line on the map with his finger, lamp light flickers",
+    "move": "push_in",
+    "fx": [
+     "flicker"
+    ]
+   },
+   {
+    "scene": 7,
+    "word": 0,
+    "prompt": "armed 1930s federal agents in suits and fedoras creeping toward a lonely Texas farmhouse at dawn, rifles raised",
+    "action": "the agents advance slowly through tall grass, dawn light grows behind the farmhouse",
+    "move": "pan_right",
+    "fx": [
+     "fog"
+    ]
+   },
+   {
+    "scene": 7,
+    "word": 15,
+    "prompt": "portrait of [kathryn] in a dim hotel room, looking over her shoulder at the door, suitcase on the bed",
+    "action": "she turns her head toward the door, her eyes widen slightly, curtain moves in the breeze",
+    "move": "push_in",
+    "fx": []
+   },
+   {
+    "scene": 8,
+    "word": 0,
+    "prompt": "1930s federal agents with guns drawn bursting into a small Memphis bedroom at dawn, [kelly] in a white undershirt raising his hands",
+    "action": "the agents surge through the doorway, the man raises his hands, door swings on its hinges",
+    "move": "push_in",
+    "fx": [
+     "flicker"
+    ]
+   },
+   {
+    "scene": 9,
+    "word": 0,
+    "prompt": "[kelly] in a grey prison uniform sitting alone on a bunk in a stone cell, bars in front, single shaft of light",
+    "action": "light slowly shifts across the cell, he lowers his head",
+    "move": "pull_out",
+    "fx": [
+     "fog"
+    ]
+   },
+   {
+    "scene": 10,
+    "word": 0,
+    "prompt": "[urschel] standing on a sunny porch in a light suit, calm half-smile, looking up at a small airplane in a clear sky",
+    "action": "he looks up as the airplane passes overhead, warm wind moves the trees",
+    "move": "tilt_up",
+    "fx": []
+   }
+  ],
+  "prepared": false
+ }
+}
