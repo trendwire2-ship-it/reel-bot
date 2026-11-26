@@ -311,7 +311,7 @@
  ],
  "comic": {
   "engine": "free",
-  "variant": "comic",
+  "variant": "full",
   "characters": {
    "onoda": "a lean Japanese soldier with short black hair, sharp cheekbones and a stern clean-shaven face, wearing a faded, patched khaki Imperial Japanese Army uniform and field cap",
    "taniguchi": "a Japanese man in his late fifties in 1974, short grey hair, glasses, plain dark civilian suit",
@@ -327,7 +327,9 @@
     "move": "push_in",
     "fx": [
      "rain"
-    ]
+    ],
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-26-2-hiroo-onoda-p00.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-26-2-hiroo-onoda-c00.mp4"
    },
    {
     "scene": 1,
@@ -337,7 +339,9 @@
     "move": "pan_right",
     "fx": [
      "fog"
-    ]
+    ],
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-26-2-hiroo-onoda-p01.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-26-2-hiroo-onoda-c01.mp4"
    },
    {
     "scene": 1,
@@ -345,7 +349,9 @@
     "prompt": "[onoda], 22 years old, standing on a tropical beach looking up at jungle-covered hills, rifle slung on his back",
     "action": "he turns his head toward the hills, palm fronds sway in the sea wind",
     "move": "push_in",
-    "fx": []
+    "fx": [],
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-26-2-hiroo-onoda-p02.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-26-2-hiroo-onoda-c02.mp4"
    },
    {
     "scene": 2,
@@ -355,7 +361,9 @@
     "move": "push_in",
     "fx": [
      "flicker"
-    ]
+    ],
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-26-2-hiroo-onoda-p03.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-26-2-hiroo-onoda-c03.mp4"
    },
    {
     "scene": 3,
@@ -363,7 +371,9 @@
     "prompt": "hundreds of paper leaflets fluttering down from a propeller plane over a tropical jungle canopy, bright sky",
     "action": "leaflets tumble and spin down from the sky toward the treetops",
     "move": "tilt_down",
-    "fx": []
+    "fx": [],
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-26-2-hiroo-onoda-p04.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-26-2-hiroo-onoda-c04.mp4"
    },
    {
     "scene": 3,
@@ -371,7 +381,9 @@
     "prompt": "[onoda] in the jungle crumpling a paper leaflet in his fist, scornful expression",
     "action": "his fist squeezes the leaflet, he tosses it to the ground",
     "move": "push_in",
-    "fx": []
+    "fx": [],
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-26-2-hiroo-onoda-p05.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-26-2-hiroo-onoda-c05.mp4"
    },
    {
     "scene": 4,
@@ -381,7 +393,9 @@
     "move": "push_in",
     "fx": [
      "embers"
-    ]
+    ],
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-26-2-hiroo-onoda-p06.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-26-2-hiroo-onoda-c06.mp4"
    },
    {
     "scene": 5,
@@ -391,7 +405,9 @@
     "move": "pan_left",
     "fx": [
      "fog"
-    ]
+    ],
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-26-2-hiroo-onoda-p07.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-26-2-hiroo-onoda-c07.mp4"
    },
    {
     "scene": 5,
@@ -401,7 +417,9 @@
     "move": "pull_out",
     "fx": [
      "heavy_rain"
-    ]
+    ],
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-26-2-hiroo-onoda-p08.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-26-2-hiroo-onoda-c08.mp4"
    },
    {
     "scene": 6,
@@ -411,7 +429,9 @@
     "move": "pan_right",
     "fx": [
      "embers"
-    ]
+    ],
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-26-2-hiroo-onoda-p09.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-26-2-hiroo-onoda-c09.mp4"
    },
    {
     "scene": 7,
@@ -419,7 +439,9 @@
     "prompt": "[suzuki] with a rucksack, sitting by a small tent at a jungle clearing, holding up a camera, cheerful",
     "action": "he raises the camera to his eye, a breeze moves the tent flap",
     "move": "pan_left",
-    "fx": []
+    "fx": [],
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-26-2-hiroo-onoda-p10.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-26-2-hiroo-onoda-c10.mp4"
    },
    {
     "scene": 7,
@@ -429,7 +451,9 @@
     "move": "push_in",
     "fx": [
      "flicker"
-    ]
+    ],
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-26-2-hiroo-onoda-p11.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-26-2-hiroo-onoda-c11.mp4"
    },
    {
     "scene": 8,
@@ -437,7 +461,9 @@
     "prompt": "[taniguchi] standing in a jungle clearing reading an order aloud from a sheet of paper, [onoda] standing at attention before him",
     "action": "the older man reads from the paper, the soldier stands rigid, leaves drift down",
     "move": "push_in",
-    "fx": []
+    "fx": [],
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-26-2-hiroo-onoda-p12.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-26-2-hiroo-onoda-c12.mp4"
    },
    {
     "scene": 8,
@@ -447,7 +473,9 @@
     "move": "tilt_down",
     "fx": [
      "dust"
-    ]
+    ],
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-26-2-hiroo-onoda-p13.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-26-2-hiroo-onoda-c13.mp4"
    },
    {
     "scene": 9,
@@ -457,7 +485,9 @@
     "move": "push_in",
     "fx": [
      "flicker"
-    ]
+    ],
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-26-2-hiroo-onoda-p14.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-26-2-hiroo-onoda-c14.mp4"
    },
    {
     "scene": 10,
@@ -467,9 +497,11 @@
     "move": "pull_out",
     "fx": [
      "fog"
-    ]
+    ],
+    "image": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-26-2-hiroo-onoda-p15.jpg",
+    "clip": "https://github.com/trendwire2-ship-it/reel-bot/releases/download/media/2026-11-26-2-hiroo-onoda-c15.mp4"
    }
   ],
-  "prepared": false
+  "prepared": true
  }
 }
